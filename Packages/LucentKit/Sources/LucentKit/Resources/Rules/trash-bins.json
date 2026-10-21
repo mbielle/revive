@@ -1,0 +1,26 @@
+[
+  {
+    "id": "user-trash",
+    "category": "trashBins",
+    "symbol": "trash",
+    "removal": "permanent",
+    "title": { "en": "Trash on your Mac", "fr": "Corbeille de votre Mac" },
+    "detail": {
+      "en": "Files you already moved to the Trash. Emptying it deletes them for good.",
+      "fr": "Fichiers que vous avez déjà mis à la Corbeille. La vider les supprime définitivement."
+    },
+    "paths": ["~/.Trash/*"]
+  },
+  {
+    "id": "volume-trash",
+    "category": "trashBins",
+    "symbol": "externaldrive",
+    "removal": "permanent",
+    "title": { "en": "Trash on External Drives", "fr": "Corbeille des disques externes" },
+    "detail": {
+      "en": "Files deleted from connected drives. Each drive keeps its own Trash until it is emptied.",
+      "fr": "Fichiers supprimés sur les disques connectés. Chaque disque garde sa propre Corbeille jusqu'à ce qu'elle soit vidée."
+    },
+    "paths": ["/Volumes/*/.Trashes/{uid}/*"]
+  }
+]

@@ -1,0 +1,1526 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "%@": {
+      "shouldTranslate": false
+    },
+    "%@ is open": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ est ouvert"
+          }
+        }
+      }
+    },
+    "%@ items": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ éléments"
+          }
+        }
+      }
+    },
+    "%@ of junk found": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ de fichiers inutiles trouvés"
+          }
+        }
+      }
+    },
+    "%@ selected in %@": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ sélectionnés dans %2$@"
+          }
+        }
+      }
+    },
+    "%@ used of %@": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ utilisés sur %2$@"
+          }
+        }
+      }
+    },
+    "%@ will be moved to the Trash. You can restore them until you empty it.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ seront placés dans la Corbeille. Vous pourrez les restaurer tant qu’elle n’est pas vidée."
+          }
+        }
+      }
+    },
+    "%@ — %@": {
+      "shouldTranslate": false
+    },
+    "%lld": {
+      "shouldTranslate": false
+    },
+    "%lld items": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld éléments"
+          }
+        }
+      }
+    },
+    "%lld items could not be removed": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld éléments n’ont pas pu être supprimés"
+          }
+        }
+      }
+    },
+    "%lld selected · %@": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld sélectionnés · %@"
+          }
+        }
+      }
+    },
+    "%lld/%lld": {
+      "shouldTranslate": false
+    },
+    "AI Clutter": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Encombrement IA"
+          }
+        }
+      }
+    },
+    "Add Folder…": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ajouter un dossier…"
+          }
+        }
+      }
+    },
+    "All done!": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Terminé !"
+          }
+        }
+      }
+    },
+    "Analyzing storage": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Analyse du stockage"
+          }
+        }
+      }
+    },
+    "Apple XProtect definitions %@": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Définitions XProtect d’Apple %@"
+          }
+        }
+      }
+    },
+    "Application Permissions": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Autorisations des apps"
+          }
+        }
+      }
+    },
+    "Applications": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Applications"
+          }
+        }
+      }
+    },
+    "Attachments Mail saved on this Mac.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pièces jointes enregistrées par Mail sur ce Mac."
+          }
+        }
+      }
+    },
+    "Background Items": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Éléments en arrière-plan"
+          }
+        }
+      }
+    },
+    "Blocks unwanted incoming network connections.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bloque les connexions réseau entrantes indésirables."
+          }
+        }
+      }
+    },
+    "Caches and downloads of AI apps and tools.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Caches et téléchargements des apps et outils d’IA."
+          }
+        }
+      }
+    },
+    "Caches, logs and leftovers apps don't need.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Caches, journaux et restes dont les apps n’ont pas besoin."
+          }
+        }
+      }
+    },
+    "Check Again": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vérifier à nouveau"
+          }
+        }
+      }
+    },
+    "Check your Mac for all kinds of threats and vulnerabilities.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vérifiez votre Mac contre toutes sortes de menaces et de vulnérabilités."
+          }
+        }
+      }
+    },
+    "Checking protections": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vérification des protections"
+          }
+        }
+      }
+    },
+    "Choose": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choisir"
+          }
+        }
+      }
+    },
+    "Choose…": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choisir…"
+          }
+        }
+      }
+    },
+    "Clean": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nettoyer"
+          }
+        }
+      }
+    },
+    "Clean your system to achieve maximum performance and reclaim more free space.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nettoyez votre système pour des performances maximales et plus d’espace libre."
+          }
+        }
+      }
+    },
+    "Cleaning…": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nettoyage…"
+          }
+        }
+      }
+    },
+    "Cleanup": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nettoyage"
+          }
+        }
+      }
+    },
+    "Cleanups": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nettoyages"
+          }
+        }
+      }
+    },
+    "Clear History": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Effacer l’historique"
+          }
+        }
+      }
+    },
+    "Click Open System Settings below.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cliquez sur Ouvrir Réglages Système ci-dessous."
+          }
+        }
+      }
+    },
+    "Cloud Cleanup": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nettoyage cloud"
+          }
+        }
+      }
+    },
+    "Come back here: Lucent detects the change automatically.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revenez ici : Lucent détecte le changement automatiquement."
+          }
+        }
+      }
+    },
+    "Coming in version %@": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prévu dans la version %@"
+          }
+        }
+      }
+    },
+    "Deselect": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Désélectionner"
+          }
+        }
+      }
+    },
+    "Done": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OK"
+          }
+        }
+      }
+    },
+    "Duplicates": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Doublons"
+          }
+        }
+      }
+    },
+    "Encrypts your disk so nobody can read it if your Mac is lost.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chiffre votre disque pour que personne ne puisse le lire si votre Mac est perdu."
+          }
+        }
+      }
+    },
+    "Everything your Mac got rid of, in one place.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tout ce dont votre Mac s’est débarrassé, au même endroit."
+          }
+        }
+      }
+    },
+    "FileVault disk encryption": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chiffrement FileVault"
+          }
+        }
+      }
+    },
+    "Files waiting in your Trash bins.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fichiers en attente dans vos corbeilles."
+          }
+        }
+      }
+    },
+    "Find Space Hogs": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trouver ce qui prend de la place"
+          }
+        }
+      }
+    },
+    "Find duplicates, similar photos and large forgotten files.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trouvez les doublons, les photos similaires et les gros fichiers oubliés."
+          }
+        }
+      }
+    },
+    "Firewall": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pare-feu"
+          }
+        }
+      }
+    },
+    "Fix": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Corriger"
+          }
+        }
+      }
+    },
+    "Full Disk Access": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accès complet au disque"
+          }
+        }
+      }
+    },
+    "Full Disk Access is on": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L’accès complet au disque est activé"
+          }
+        }
+      }
+    },
+    "Gatekeeper": {
+      "shouldTranslate": false
+    },
+    "Get a visual map of your storage and decide what deserves the space.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Obtenez une carte visuelle de votre stockage et décidez de ce qui mérite la place."
+          }
+        }
+      }
+    },
+    "Give Lucent access to your files": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Donnez à Lucent l’accès à vos fichiers"
+          }
+        }
+      }
+    },
+    "Go": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aller"
+          }
+        }
+      }
+    },
+    "Google Drive & OneDrive": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Google Drive et OneDrive"
+          }
+        }
+      }
+    },
+    "Grant Full Disk Access": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Autoriser l’accès complet"
+          }
+        }
+      }
+    },
+    "Granted": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Autorisé"
+          }
+        }
+      }
+    },
+    "Health": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Santé"
+          }
+        }
+      }
+    },
+    "Here is what Smart Care found. Review any card, then click Run.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Voici ce que Smart Care a trouvé. Vérifiez une carte, puis cliquez sur Lancer."
+          }
+        }
+      }
+    },
+    "Home Folder": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dossier personnel"
+          }
+        }
+      }
+    },
+    "Items removed": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Éléments supprimés"
+          }
+        }
+      }
+    },
+    "Items that could not be removed": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Éléments qui n’ont pas pu être supprimés"
+          }
+        }
+      }
+    },
+    "Junk Cleanup": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nettoyage des fichiers inutiles"
+          }
+        }
+      }
+    },
+    "Keep your Mac in top shape with recommended maintenance.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gardez votre Mac en pleine forme grâce à l’entretien recommandé."
+          }
+        }
+      }
+    },
+    "Large & Old Files": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gros fichiers anciens"
+          }
+        }
+      }
+    },
+    "Leftovers": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restes d’apps"
+          }
+        }
+      }
+    },
+    "Local Copies": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copies locales"
+          }
+        }
+      }
+    },
+    "Login Items": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouverture à la connexion"
+          }
+        }
+      }
+    },
+    "Looking for junk": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recherche des fichiers inutiles"
+          }
+        }
+      }
+    },
+    "Looking for junk…": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recherche des fichiers inutiles…"
+          }
+        }
+      }
+    },
+    "Lucent": {
+      "shouldTranslate": false
+    },
+    "Lucent never scans or removes anything inside these folders.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lucent n’analyse ni ne supprime jamais rien dans ces dossiers."
+          }
+        }
+      }
+    },
+    "Macintosh HD": {
+      "shouldTranslate": false
+    },
+    "Mail Attachments": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pièces jointes Mail"
+          }
+        }
+      }
+    },
+    "Maintenance Tasks": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tâches de maintenance"
+          }
+        }
+      }
+    },
+    "Malware Removal": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suppression des malwares"
+          }
+        }
+      }
+    },
+    "Mapping your storage…": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cartographie du stockage…"
+          }
+        }
+      }
+    },
+    "Move %lld items to the Trash?": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Placer %lld éléments dans la Corbeille ?"
+          }
+        }
+      }
+    },
+    "Move to Trash": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Placer dans la Corbeille"
+          }
+        }
+      }
+    },
+    "Moved %@ to the Trash": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ placés dans la Corbeille"
+          }
+        }
+      }
+    },
+    "My Activity": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mon activité"
+          }
+        }
+      }
+    },
+    "My Clutter": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Encombrement"
+          }
+        }
+      }
+    },
+    "My Tools": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mes outils"
+          }
+        }
+      }
+    },
+    "Never touch": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ne jamais toucher"
+          }
+        }
+      }
+    },
+    "New Scan": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nouvelle analyse"
+          }
+        }
+      }
+    },
+    "No excluded folders": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun dossier exclu"
+          }
+        }
+      }
+    },
+    "Not Now": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plus tard"
+          }
+        }
+      }
+    },
+    "Not granted": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non autorisé"
+          }
+        }
+      }
+    },
+    "Nothing is deleted while simulation mode is on. Change it in Settings.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rien n’est supprimé tant que le mode simulation est actif. Modifiable dans les Réglages."
+          }
+        }
+      }
+    },
+    "Nothing worth removing was found.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rien ne mérite d’être supprimé."
+          }
+        }
+      }
+    },
+    "Nothing yet. Run Smart Care or a cleanup and it will show up here.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rien pour l’instant. Lancez Smart Care ou un nettoyage pour le voir apparaître ici."
+          }
+        }
+      }
+    },
+    "Only allows apps from identified developers to open.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "N’autorise que les apps de développeurs identifiés."
+          }
+        }
+      }
+    },
+    "Open Space Lens": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvrir Space Lens"
+          }
+        }
+      }
+    },
+    "Open System Settings": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvrir Réglages Système"
+          }
+        }
+      }
+    },
+    "Performance": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Performances"
+          }
+        }
+      }
+    },
+    "Pin the tools you use the most and launch them in one click.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Épinglez vos outils favoris et lancez-les en un clic."
+          }
+        }
+      }
+    },
+    "Plus %@ you may want to review, like downloaded AI models. Nothing is removed without your OK.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plus %@ à vérifier, comme des modèles d’IA téléchargés. Rien n’est supprimé sans votre accord."
+          }
+        }
+      }
+    },
+    "Privacy Check": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Confidentialité"
+          }
+        }
+      }
+    },
+    "Protected by Lucent": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Protégé par Lucent"
+          }
+        }
+      }
+    },
+    "Protection": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Protection"
+          }
+        }
+      }
+    },
+    "Protects system files from being modified, even by administrators.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Empêche la modification des fichiers système, même par un administrateur."
+          }
+        }
+      }
+    },
+    "Quick Scan": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Analyse rapide"
+          }
+        }
+      }
+    },
+    "Quick maintenance that takes care of the essentials.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un entretien rapide qui s’occupe de l’essentiel."
+          }
+        }
+      }
+    },
+    "Quit the app before cleaning these files.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quittez l’app avant de nettoyer ces fichiers."
+          }
+        }
+      }
+    },
+    "Remove": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Supprimer"
+          }
+        }
+      }
+    },
+    "Remove Safely": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Supprimer en toute sécurité"
+          }
+        }
+      }
+    },
+    "Remove apps completely, keep them up to date and get rid of their leftovers.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Supprimez complètement les apps, gardez-les à jour et débarrassez-vous de leurs restes."
+          }
+        }
+      }
+    },
+    "Review": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vérifier"
+          }
+        }
+      }
+    },
+    "Review %@": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vérifier %@"
+          }
+        }
+      }
+    },
+    "Review what will be removed or click Clean. Items go to the Trash first.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vérifiez ce qui sera supprimé ou cliquez sur Nettoyer. Les éléments passent d’abord par la Corbeille."
+          }
+        }
+      }
+    },
+    "Run": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lancer"
+          }
+        }
+      }
+    },
+    "Scan": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Analyser"
+          }
+        }
+      }
+    },
+    "Scanning your Mac…": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Analyse de votre Mac…"
+          }
+        }
+      }
+    },
+    "Scans and cleanups run normally, but nothing is deleted. Useful to see what Lucent would do.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les analyses et nettoyages fonctionnent normalement, mais rien n’est supprimé. Pratique pour voir ce que ferait Lucent."
+          }
+        }
+      }
+    },
+    "Security Check": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contrôle de sécurité"
+          }
+        }
+      }
+    },
+    "See what fills your cloud storage and free up local copies.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Voyez ce qui remplit votre stockage cloud et libérez les copies locales."
+          }
+        }
+      }
+    },
+    "Select": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sélectionner"
+          }
+        }
+      }
+    },
+    "Settings": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Réglages"
+          }
+        }
+      }
+    },
+    "Show in Finder": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Afficher dans le Finder"
+          }
+        }
+      }
+    },
+    "Similar Photos": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Photos similaires"
+          }
+        }
+      }
+    },
+    "Simulated: %@": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Simulation : %@"
+          }
+        }
+      }
+    },
+    "Simulation": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Simulation"
+          }
+        }
+      }
+    },
+    "Simulation complete": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Simulation terminée"
+          }
+        }
+      }
+    },
+    "Simulation mode": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mode simulation"
+          }
+        }
+      }
+    },
+    "Smaller items": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Éléments plus petits"
+          }
+        }
+      }
+    },
+    "Smart Care": {
+      "shouldTranslate": false
+    },
+    "Some folders are protected by macOS. Grant Full Disk Access to scan everything.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Certains dossiers sont protégés par macOS. Autorisez l’accès complet au disque pour tout analyser."
+          }
+        }
+      }
+    },
+    "Space Lens": {
+      "shouldTranslate": false
+    },
+    "Space freed": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Espace libéré"
+          }
+        }
+      }
+    },
+    "Start Over": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recommencer"
+          }
+        }
+      }
+    },
+    "Stop": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arrêter"
+          }
+        }
+      }
+    },
+    "Storage": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stockage"
+          }
+        }
+      }
+    },
+    "Storage Map": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carte du stockage"
+          }
+        }
+      }
+    },
+    "System Integrity Protection": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Protection SIP"
+          }
+        }
+      }
+    },
+    "System Junk": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fichiers système inutiles"
+          }
+        }
+      }
+    },
+    "System Tune-up": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Optimisation du système"
+          }
+        }
+      }
+    },
+    "Taking care of your Mac…": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entretien de votre Mac…"
+          }
+        }
+      }
+    },
+    "These files are deleted for good.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ces fichiers sont supprimés définitivement."
+          }
+        }
+      }
+    },
+    "This module is being built in the open. Follow the progress on GitHub.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce module est développé en open source. Suivez son avancement sur GitHub."
+          }
+        }
+      }
+    },
+    "Trash Bins": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Corbeilles"
+          }
+        }
+      }
+    },
+    "Turn on Lucent in the Full Disk Access list. If it is missing, click + and pick Lucent in Applications.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activez Lucent dans la liste Accès complet au disque. S’il n’y est pas, cliquez sur + et choisissez Lucent dans Applications."
+          }
+        }
+      }
+    },
+    "Uninstaller": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Désinstallation"
+          }
+        }
+      }
+    },
+    "Updater": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mises à jour"
+          }
+        }
+      }
+    },
+    "Your Mac could use some care": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Votre Mac a besoin d’un peu d’entretien"
+          }
+        }
+      }
+    },
+    "Your Mac is already clean": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Votre Mac est déjà propre"
+          }
+        }
+      }
+    },
+    "Your Mac is in great shape": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Votre Mac est en pleine forme"
+          }
+        }
+      }
+    },
+    "Your Mac needs attention": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Votre Mac a besoin d’attention"
+          }
+        }
+      }
+    },
+    "available on %@": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "disponibles sur %@"
+          }
+        }
+      }
+    },
+    "built-in protections on": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "protections intégrées actives"
+          }
+        }
+      }
+    },
+    "freed. Items you moved to the Trash can still be restored until you empty it.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "libérés. Les éléments placés dans la Corbeille peuvent être restaurés tant qu’elle n’est pas vidée."
+          }
+        }
+      }
+    },
+    "iCloud Drive": {
+      "shouldTranslate": false
+    },
+    "macOS hides Mail, Safari, the Trash and other app data from apps by default. With Full Disk Access, Lucent can find junk there too. It never sends anything off your Mac.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Par défaut, macOS cache aux apps les données de Mail, de Safari, de la Corbeille et d’autres apps. Avec l’accès complet au disque, Lucent peut aussi y trouver des fichiers inutiles. Rien ne quitte jamais votre Mac."
+          }
+        }
+      }
+    },
+    "of %@": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "sur %@"
+          }
+        }
+      }
+    },
+    "of junk will be removed": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "de fichiers inutiles seront supprimés"
+          }
+        }
+      }
+    },
+    "selected": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "sélectionnés"
+          }
+        }
+      }
+    },
+    "would have been freed. Nothing was deleted because simulation mode is on.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "auraient été libérés. Rien n’a été supprimé car le mode simulation est actif."
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

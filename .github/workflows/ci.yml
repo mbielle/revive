@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build-and-test:
+    # Liquid Glass APIs need the macOS 26 SDK (Xcode 26 or later).
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Engine tests
+        working-directory: Packages/LucentKit
+        run: swift test
+
+      - name: Generate project
+        run: brew install xcodegen && xcodegen generate
+
+      - name: Build app
+        run: |
+          xcodebuild -project Lucent.xcodeproj -scheme Lucent -configuration Release \
+            -derivedDataPath build CODE_SIGNING_ALLOWED=NO build

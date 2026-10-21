@@ -1,0 +1,17 @@
+[
+  {
+    "id": "mail-downloads",
+    "category": "mailAttachments",
+    "symbol": "paperclip",
+    "title": { "en": "Mail Downloads", "fr": "Téléchargements de Mail" },
+    "detail": {
+      "en": "Attachments Mail saved on your Mac when you opened them. The originals stay in your mailbox and can be downloaded again.",
+      "fr": "Pièces jointes enregistrées par Mail quand vous les avez ouvertes. Les originaux restent dans votre boîte et peuvent être retéléchargés."
+    },
+    "paths": [
+      "~/Library/Containers/com.apple.mail/Data/Library/Mail Downloads/*",
+      "~/Library/Mail Downloads/*"
+    ],
+    "appBundleIDs": ["com.apple.mail"]
+  }
+]

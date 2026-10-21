@@ -1,0 +1,148 @@
+[
+  {
+    "id": "user-caches",
+    "category": "systemJunk",
+    "symbol": "archivebox",
+    "title": { "en": "User Cache Files", "fr": "Fichiers de cache utilisateur" },
+    "detail": {
+      "en": "Temporary files apps keep to work faster. They are recreated when needed. Caches of running apps are left unchecked.",
+      "fr": "Fichiers temporaires que les apps gardent pour aller plus vite. Ils sont recréés au besoin. Les caches des apps ouvertes restent décochés."
+    },
+    "paths": ["~/Library/Caches/*"],
+    "exclude": [
+      "~/Library/Caches/ms-playwright*",
+      "~/Library/Caches/JetBrains*",
+      "~/Library/Caches/com.jetbrains.toolbox*",
+      "~/Library/Caches/pypoetry",
+      "~/Library/Caches/org.R-project.R",
+      "~/Library/Caches/com.nssurge.surge-mac",
+      "~/Library/Caches/tealdeer",
+      "~/Library/Caches/com.apple.containermanagerd",
+      "~/Library/Caches/com.apple.ap.adprivacyd",
+      "~/Library/Caches/io.github.mbielle.Lucent"
+    ]
+  },
+  {
+    "id": "browser-caches",
+    "category": "systemJunk",
+    "symbol": "globe",
+    "title": { "en": "Browser Caches", "fr": "Caches des navigateurs" },
+    "detail": {
+      "en": "Web page data saved by Chrome, Brave, Edge, Arc and Firefox. Your history, passwords and tabs are not touched.",
+      "fr": "Données de pages web enregistrées par Chrome, Brave, Edge, Arc et Firefox. Historique, mots de passe et onglets ne sont pas touchés."
+    },
+    "paths": [
+      "~/Library/Application Support/Google/Chrome/*/Cache",
+      "~/Library/Application Support/Google/Chrome/*/Code Cache",
+      "~/Library/Application Support/Google/Chrome/*/GPUCache",
+      "~/Library/Application Support/Google/Chrome/*/DawnGraphiteCache",
+      "~/Library/Application Support/Google/Chrome/*/DawnWebGPUCache",
+      "~/Library/Application Support/Google/Chrome/*/Service Worker/CacheStorage",
+      "~/Library/Application Support/Google/Chrome/GrShaderCache",
+      "~/Library/Application Support/Google/Chrome/ShaderCache",
+      "~/Library/Application Support/Google/Chrome/component_crx_cache",
+      "~/Library/Application Support/Google/Chrome/OptGuideOnDeviceModel",
+      "~/Library/Application Support/BraveSoftware/Brave-Browser/*/Cache",
+      "~/Library/Application Support/BraveSoftware/Brave-Browser/*/Code Cache",
+      "~/Library/Application Support/BraveSoftware/Brave-Browser/*/GPUCache",
+      "~/Library/Application Support/Microsoft Edge/*/Cache",
+      "~/Library/Application Support/Microsoft Edge/*/Code Cache",
+      "~/Library/Application Support/Microsoft Edge/*/GPUCache",
+      "~/Library/Application Support/Arc/User Data/*/Cache",
+      "~/Library/Application Support/Arc/User Data/*/Code Cache",
+      "~/Library/Application Support/Arc/User Data/*/GPUCache",
+      "~/Library/Application Support/Firefox/Profiles/*/cache2"
+    ],
+    "appBundleIDs": [
+      "com.google.Chrome", "com.brave.Browser", "com.microsoft.edgemac", "company.thebrowser.Browser", "org.mozilla.firefox"
+    ]
+  },
+  {
+    "id": "user-logs",
+    "category": "systemJunk",
+    "symbol": "doc.text",
+    "title": { "en": "User Log Files", "fr": "Fichiers journaux utilisateur" },
+    "detail": {
+      "en": "Activity logs and crash reports written by apps. Only useful when you are debugging a problem.",
+      "fr": "Journaux d'activité et rapports de plantage écrits par les apps. Utiles uniquement pour diagnostiquer un problème."
+    },
+    "paths": ["~/Library/Logs/*"],
+    "exclude": ["~/Library/Logs/io.github.mbielle.Lucent"]
+  },
+  {
+    "id": "saved-app-state",
+    "category": "systemJunk",
+    "symbol": "macwindow.on.rectangle",
+    "title": { "en": "Saved Window States", "fr": "États des fenêtres enregistrés" },
+    "detail": {
+      "en": "Snapshots apps use to reopen their windows where you left them. Old entries pile up over time.",
+      "fr": "Instantanés utilisés par les apps pour rouvrir leurs fenêtres là où vous les aviez laissées. Les anciens s'accumulent."
+    },
+    "paths": ["~/Library/Saved Application State/*"],
+    "minAgeDays": 7
+  },
+  {
+    "id": "xcode-derived-data",
+    "category": "systemJunk",
+    "symbol": "hammer",
+    "title": { "en": "Xcode Derived Data", "fr": "Données dérivées d'Xcode" },
+    "detail": {
+      "en": "Build products and indexes. Xcode rebuilds them the next time you build a project.",
+      "fr": "Produits de compilation et index. Xcode les recrée à la prochaine compilation."
+    },
+    "paths": [
+      "~/Library/Developer/Xcode/DerivedData/*",
+      "~/Library/Developer/Xcode/Products/*",
+      "~/Library/Developer/CoreSimulator/Caches/*"
+    ],
+    "appBundleIDs": ["com.apple.dt.Xcode"]
+  },
+  {
+    "id": "xcode-device-support",
+    "category": "systemJunk",
+    "symbol": "iphone",
+    "selectedByDefault": false,
+    "title": { "en": "Device Support Files", "fr": "Fichiers de prise en charge d'appareils" },
+    "detail": {
+      "en": "Debug symbols copied from every iPhone, iPad or Watch you connected to Xcode. Recopied when you plug the device in again.",
+      "fr": "Symboles de débogage copiés depuis chaque iPhone, iPad ou Watch connecté à Xcode. Recopiés quand vous rebranchez l'appareil."
+    },
+    "paths": [
+      "~/Library/Developer/Xcode/iOS DeviceSupport/*",
+      "~/Library/Developer/Xcode/watchOS DeviceSupport/*",
+      "~/Library/Developer/Xcode/tvOS DeviceSupport/*",
+      "~/Library/Developer/Xcode/visionOS DeviceSupport/*"
+    ]
+  },
+  {
+    "id": "xcode-archives",
+    "category": "systemJunk",
+    "symbol": "archivebox.fill",
+    "selectedByDefault": false,
+    "minAgeDays": 90,
+    "title": { "en": "Old Xcode Archives", "fr": "Anciennes archives Xcode" },
+    "detail": {
+      "en": "App builds you archived more than 3 months ago. Keep them if you need to symbolicate crash reports of old versions.",
+      "fr": "Versions d'apps archivées il y a plus de 3 mois. Gardez-les si vous devez analyser des plantages d'anciennes versions."
+    },
+    "paths": ["~/Library/Developer/Xcode/Archives/*/*"]
+  },
+  {
+    "id": "dev-package-caches",
+    "category": "systemJunk",
+    "symbol": "shippingbox.fill",
+    "title": { "en": "Developer Package Caches", "fr": "Caches des gestionnaires de paquets" },
+    "detail": {
+      "en": "Download caches of npm, Yarn, pnpm, Bun, Gradle and Homebrew. Packages are downloaded again when needed.",
+      "fr": "Caches de téléchargement de npm, Yarn, pnpm, Bun, Gradle et Homebrew. Les paquets sont retéléchargés si besoin."
+    },
+    "paths": [
+      "~/.npm/_cacache",
+      "~/.npm/_logs",
+      "~/.bun/install/cache",
+      "~/Library/pnpm/store",
+      "~/.gradle/caches/build-cache-*",
+      "~/.cache/node/corepack"
+    ]
+  }
+]

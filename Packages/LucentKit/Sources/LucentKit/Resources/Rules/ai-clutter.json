@@ -1,0 +1,97 @@
+[
+  {
+    "id": "ai-app-caches",
+    "category": "aiClutter",
+    "symbol": "bubble.left.and.text.bubble.right",
+    "title": { "en": "AI App Caches", "fr": "Caches des apps d'IA" },
+    "detail": {
+      "en": "Temporary data kept by ChatGPT, Claude, Perplexity, Cursor and other AI apps. Rebuilt automatically.",
+      "fr": "Données temporaires de ChatGPT, Claude, Perplexity, Cursor et d'autres apps d'IA. Recréées automatiquement."
+    },
+    "paths": [
+      "~/Library/Caches/com.openai.chat",
+      "~/Library/Caches/com.openai.atlas",
+      "~/Library/Caches/com.openai.codex",
+      "~/Library/Caches/com.anthropic.claudefordesktop",
+      "~/Library/Caches/com.anthropic.claudefordesktop.ShipIt",
+      "~/Library/Caches/ai.perplexity.mac",
+      "~/Library/Caches/com.todesktop.230313mzl4w4u92",
+      "~/Library/Caches/com.todesktop.230313mzl4w4u92.ShipIt",
+      "~/Library/Caches/com.exafunction.windsurf",
+      "~/Library/Application Support/Claude/Cache",
+      "~/Library/Application Support/Claude/Code Cache",
+      "~/Library/Application Support/Claude/GPUCache",
+      "~/Library/Application Support/Claude/DawnGraphiteCache",
+      "~/Library/Application Support/Claude/DawnWebGPUCache",
+      "~/Library/Application Support/Cursor/Cache",
+      "~/Library/Application Support/Cursor/CachedData",
+      "~/Library/Application Support/Cursor/Code Cache",
+      "~/Library/Application Support/Cursor/GPUCache",
+      "~/Library/Application Support/Windsurf/Cache",
+      "~/Library/Application Support/Windsurf/CachedData",
+      "~/Library/Application Support/LM Studio/Cache",
+      "~/Library/Application Support/LM Studio/GPUCache"
+    ],
+    "appBundleIDs": [
+      "com.openai.chat", "com.openai.atlas", "com.openai.codex", "com.anthropic.claudefordesktop",
+      "ai.perplexity.mac", "com.todesktop.230313mzl4w4u92", "com.exafunction.windsurf", "ai.elementlabs.lmstudio"
+    ]
+  },
+  {
+    "id": "ai-python-caches",
+    "category": "aiClutter",
+    "symbol": "shippingbox",
+    "title": { "en": "Machine Learning Package Caches", "fr": "Caches de paquets de machine learning" },
+    "detail": {
+      "en": "Downloaded archives kept by pip, uv and conda. Packages are downloaded again when needed.",
+      "fr": "Archives téléchargées par pip, uv et conda. Les paquets sont retéléchargés si besoin."
+    },
+    "paths": [
+      "~/Library/Caches/pip",
+      "~/.cache/pip",
+      "~/.cache/uv",
+      "~/.conda/pkgs/*.tar.bz2",
+      "~/.conda/pkgs/*.conda",
+      "~/miniconda3/pkgs/*.tar.bz2",
+      "~/miniconda3/pkgs/*.conda",
+      "~/anaconda3/pkgs/*.tar.bz2",
+      "~/anaconda3/pkgs/*.conda",
+      "~/miniforge3/pkgs/*.tar.bz2",
+      "~/miniforge3/pkgs/*.conda"
+    ]
+  },
+  {
+    "id": "ai-hf-models",
+    "category": "aiClutter",
+    "symbol": "cpu",
+    "selectedByDefault": false,
+    "title": { "en": "Downloaded AI Models (Hugging Face)", "fr": "Modèles d'IA téléchargés (Hugging Face)" },
+    "detail": {
+      "en": "Models and datasets cached by Python AI libraries. Check that you no longer use them: they can take hours to download again.",
+      "fr": "Modèles et jeux de données mis en cache par les bibliothèques Python d'IA. Vérifiez que vous ne les utilisez plus : leur retéléchargement peut prendre des heures."
+    },
+    "paths": [
+      "~/.cache/huggingface/hub/models--*",
+      "~/.cache/huggingface/hub/datasets--*",
+      "~/.cache/torch/hub/checkpoints/*",
+      "~/.cache/whisper/*"
+    ]
+  },
+  {
+    "id": "ai-local-model-apps",
+    "category": "aiClutter",
+    "symbol": "brain",
+    "selectedByDefault": false,
+    "title": { "en": "Local Model Libraries (Ollama, LM Studio)", "fr": "Bibliothèques de modèles locaux (Ollama, LM Studio)" },
+    "detail": {
+      "en": "Every model you downloaded in Ollama or LM Studio. Only remove them if you are done with local AI models.",
+      "fr": "Tous les modèles téléchargés dans Ollama ou LM Studio. Ne les supprimez que si vous n'utilisez plus de modèles d'IA en local."
+    },
+    "paths": [
+      "~/.ollama/models",
+      "~/.lmstudio/models/*",
+      "~/.cache/lm-studio/models/*"
+    ],
+    "appBundleIDs": ["com.electron.ollama", "ai.elementlabs.lmstudio"]
+  }
+]

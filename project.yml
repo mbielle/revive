@@ -1,0 +1,73 @@
+name: Lucent
+options:
+  bundleIdPrefix: io.github.mbielle
+  deploymentTarget:
+    macOS: "14.0"
+  developmentLanguage: en
+  knownRegions: [en, fr, Base]
+  createIntermediateGroups: true
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    ENABLE_HARDENED_RUNTIME: YES
+    SWIFT_EMIT_LOC_STRINGS: YES
+    LOCALIZATION_PREFERS_STRING_CATALOGS: YES
+    DEAD_CODE_STRIPPING: YES
+    # Ad-hoc signing for local builds. Release signing is configured when publishing.
+    CODE_SIGN_IDENTITY: "-"
+    CODE_SIGN_STYLE: Manual
+    DEVELOPMENT_TEAM: ""
+
+packages:
+  LucentKit:
+    path: Packages/LucentKit
+
+targets:
+  Lucent:
+    type: application
+    platform: macOS
+    sources:
+      - path: App
+    dependencies:
+      - package: LucentKit
+    info:
+      path: App/Info.plist
+      properties:
+        CFBundleDisplayName: Lucent
+        CFBundleName: Lucent
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        CFBundleDevelopmentRegion: en
+        CFBundleLocalizations: [en, fr]
+        LSApplicationCategoryType: public.app-category.utilities
+        LSMinimumSystemVersion: $(MACOSX_DEPLOYMENT_TARGET)
+        NSHumanReadableCopyright: "Free and open source software, licensed under the GPL-3.0."
+    entitlements:
+      path: App/Lucent.entitlements
+      properties:
+        # A cleaner must reach caches of every app: it cannot run in the App Sandbox.
+        com.apple.security.app-sandbox: false
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: io.github.mbielle.Lucent
+        PRODUCT_NAME: Lucent
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        COMBINE_HIDPI_IMAGES: YES
+
+schemes:
+  Lucent:
+    build:
+      targets:
+        Lucent: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - package: LucentKit/LucentKitTests
+    archive:
+      config: Release
