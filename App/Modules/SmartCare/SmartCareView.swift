@@ -95,7 +95,7 @@ private struct SmartCareScanningView: View {
 }
 
 private struct SmartCareResultsView: View {
-    let model: SmartCareModel
+    @Bindable var model: SmartCareModel
     @Environment(AppModel.self) private var app
     private let module = AppModule.smartCare
 
@@ -103,33 +103,39 @@ private struct SmartCareResultsView: View {
         VStack(spacing: 0) {
             HStack(spacing: 26) {
                 HealthGauge(score: model.healthScore, theme: module.theme)
-                    .frame(width: 128, height: 128)
+                    .frame(width: 118, height: 118)
                 VStack(alignment: .leading, spacing: 8) {
                     Text(headline).screenTitle()
-                    Text("Here is what Smart Care found. Review any card, then click Run.").screenSubtitle()
+                    if let disk = model.disk {
+                        Text("\(formatBytes(disk.available)) available on \(disk.name). Review any card, then click Run.").screenSubtitle()
+                    }
                 }
                 Spacer()
             }
-            .padding(.top, 64)
+            .padding(.top, 60)
             .padding(.horizontal, 44)
 
-            HStack(alignment: .top, spacing: 18) {
-                cleanupCard
-                protectionCard
-                storageCard
+            Grid(horizontalSpacing: 16, verticalSpacing: 16) {
+                GridRow {
+                    cleanupCard
+                    protectionCard
+                }
+                GridRow {
+                    performanceCard
+                    updatesCard
+                }
             }
             .padding(.horizontal, 44)
-            .padding(.top, 30)
+            .padding(.top, 24)
 
-            Spacer(minLength: 20)
+            Spacer(minLength: 16)
             HStack(spacing: 28) {
                 PillButton(title: "Start Over", symbol: "arrow.counterclockwise") { model.reset() }
                 ScanButton(title: "Run", theme: module.theme) { model.run() }
-                    .disabled(model.cleanup.selection.isEmpty)
-                    .opacity(model.cleanup.selection.isEmpty ? 0.5 : 1)
-                Color.clear.frame(width: 110, height: 1)
+                    .disabled(model.cleanup.selection.isEmpty && !model.includeTuneUp)
+                PillButton(title: "Space Lens", symbol: "circle.hexagongrid.fill") { app.selection = .spaceLens }
             }
-            .padding(.bottom, 34)
+            .padding(.bottom, 28)
         }
     }
 
@@ -143,25 +149,7 @@ private struct SmartCareResultsView: View {
 
     private var cleanupCard: some View {
         ResultCard(title: "Cleanup", symbol: "bubbles.and.sparkles.fill", theme: module.theme) {
-            Text(formatBytes(model.cleanup.selectedSize))
-                .font(.system(size: 34, weight: .semibold, design: .rounded))
-                .foregroundStyle(.white)
-                .contentTransition(.numericText())
-            Text("of junk will be removed")
-                .font(.system(size: 13)).foregroundStyle(.white.opacity(0.7))
-            VStack(alignment: .leading, spacing: 8) {
-                ForEach(CleanupCategory.allCases) { category in
-                    let size = model.cleanup.size(selectedIn: category)
-                    HStack {
-                        Text(category.title)
-                        Spacer()
-                        Text(size > 0 ? formatBytes(size) : "—")
-                    }
-                    .font(.system(size: 12, weight: .medium))
-                    .foregroundStyle(.white.opacity(0.8))
-                }
-            }
-            .padding(.top, 10)
+            BigValue(value: formatBytes(model.cleanup.selectedSize), caption: "of junk will be removed")
         } footer: {
             PillButton(title: "Review", symbol: "list.bullet") { model.cleanup.reviewing = .systemJunk }
                 .disabled(model.cleanup.result.totalSize == 0)
@@ -169,65 +157,79 @@ private struct SmartCareResultsView: View {
     }
 
     private var protectionCard: some View {
-        ResultCard(title: "Protection", symbol: "checkmark.shield.fill", theme: module.theme) {
-            let enabled = model.security.filter { $0.state == .enabled }.count
-            Text("\(enabled)/\(model.security.count)")
-                .font(.system(size: 34, weight: .semibold, design: .rounded))
-                .foregroundStyle(.white)
-            Text("built-in protections on")
-                .font(.system(size: 13)).foregroundStyle(.white.opacity(0.7))
-            VStack(alignment: .leading, spacing: 8) {
+        let enabled = model.security.filter { $0.state == .enabled }.count
+        let malware = model.threats.filter(\.isMalware).count
+        return ResultCard(title: "Protection", symbol: "checkmark.shield.fill", theme: module.theme) {
+            if malware > 0 {
+                BigValue(value: "\(malware)", caption: malware == 1 ? "threat found" : "threats found", alert: true)
+            } else {
+                BigValue(value: "\(enabled)/\(model.security.count)", caption: "built-in protections on, no malware")
+            }
+            HStack(spacing: 10) {
                 ForEach(model.security) { result in
-                    HStack(spacing: 8) {
-                        Image(systemName: result.state == .enabled ? "checkmark.circle.fill" : result.state == .disabled ? "exclamationmark.triangle.fill" : "questionmark.circle")
+                    Label {
+                        Text(result.check.title).lineLimit(1)
+                    } icon: {
+                        Image(systemName: result.state == .enabled ? "checkmark.circle.fill" : "exclamationmark.triangle.fill")
                             .foregroundStyle(result.state == .disabled ? Color(hex: 0xFFD43B) : .white)
-                        Text(result.check.title)
-                            .lineLimit(1)
-                        Spacer()
-                        if result.state == .disabled, let url = result.check.settingsURL {
-                            Button("Fix") { NSWorkspace.shared.open(url) }
-                                .buttonStyle(.plain)
-                                .foregroundStyle(Color(hex: 0xFFD43B))
-                        }
                     }
-                    .font(.system(size: 12, weight: .medium))
-                    .foregroundStyle(.white.opacity(0.85))
+                    .font(.system(size: 11, weight: .medium))
+                    .foregroundStyle(.white.opacity(0.8))
                     .help(Text(result.check.advice))
                 }
             }
-            .padding(.top, 10)
+            .padding(.top, 4)
         } footer: {
-            if let version = model.xprotectVersion {
-                Text("Apple XProtect definitions \(version)")
-                    .font(.system(size: 11)).foregroundStyle(.white.opacity(0.55))
+            HStack {
+                if let fix = model.disabledProtections.first, let url = fix.check.settingsURL {
+                    PillButton(title: "Turn On \(fix.check.title)", symbol: "wrench.fill") { NSWorkspace.shared.open(url) }
+                }
+                if !model.threats.isEmpty {
+                    PillButton(title: "Review Threats", symbol: "ladybug.fill") { app.selection = .protection; app.protection.open(.malware) }
+                }
             }
         }
     }
 
-    private var storageCard: some View {
-        ResultCard(title: "Storage", symbol: "internaldrive.fill", theme: module.theme) {
-            if let disk = model.disk {
-                Text(formatBytes(disk.available))
-                    .font(.system(size: 34, weight: .semibold, design: .rounded))
-                    .foregroundStyle(.white)
-                Text("available on \(disk.name)")
-                    .font(.system(size: 13)).foregroundStyle(.white.opacity(0.7))
-                GeometryReader { proxy in
-                    ZStack(alignment: .leading) {
-                        Capsule().fill(.white.opacity(0.15))
-                        Capsule()
-                            .fill(LinearGradient(colors: [.white, module.theme.glow], startPoint: .leading, endPoint: .trailing))
-                            .frame(width: proxy.size.width * disk.usedFraction)
-                    }
-                }
-                .frame(height: 10)
-                .padding(.top, 14)
-                Text("\(formatBytes(disk.used)) used of \(formatBytes(disk.total))")
-                    .font(.system(size: 12, weight: .medium)).foregroundStyle(.white.opacity(0.75))
-                    .padding(.top, 6)
+    private var performanceCard: some View {
+        ResultCard(title: "Performance", symbol: "bolt.fill", theme: module.theme) {
+            BigValue(value: "\(Int((model.memory?.usedFraction ?? 0) * 100))%", caption: "of memory in use")
+            Toggle(isOn: $model.includeTuneUp) {
+                Text("Tune up: \(model.tuneUpTasks.map { $0.title.resolved }.joined(separator: ", "))")
+                    .font(.system(size: 11, weight: .medium)).foregroundStyle(.white.opacity(0.8)).lineLimit(2)
             }
+            .toggleStyle(.checkbox)
+            .padding(.top, 4)
         } footer: {
-            PillButton(title: "Open Space Lens", symbol: "circle.hexagongrid.fill") { app.selection = .spaceLens }
+            PillButton(title: "More Tasks", symbol: "wrench.and.screwdriver.fill") { app.selection = .performance; app.performance.open(.maintenance) }
+        }
+    }
+
+    private var updatesCard: some View {
+        ResultCard(title: "Applications", symbol: "arrow.down.app.fill", theme: module.theme) {
+            BigValue(value: "\(model.updates.count)", caption: model.updates.isEmpty ? "apps up to date"
+                     : model.updates.count == 1 ? "app update available" : "app updates available")
+            Text(model.updates.prefix(3).map(\.app.name).joined(separator: ", "))
+                .font(.system(size: 11, weight: .medium)).foregroundStyle(.white.opacity(0.75)).lineLimit(1)
+        } footer: {
+            PillButton(title: "Open Updater", symbol: "arrow.down.circle.fill") { app.selection = .applications; app.applications.openUpdater() }
+                .disabled(model.updates.isEmpty)
+        }
+    }
+}
+
+private struct BigValue: View {
+    let value: String
+    let caption: LocalizedStringResource
+    var alert = false
+
+    var body: some View {
+        HStack(alignment: .firstTextBaseline, spacing: 8) {
+            Text(value)
+                .font(.system(size: 30, weight: .semibold, design: .rounded))
+                .foregroundStyle(alert ? Color(hex: 0xFFD43B) : .white)
+                .contentTransition(.numericText())
+            Text(caption).font(.system(size: 13)).foregroundStyle(.white.opacity(0.7))
         }
     }
 }
@@ -245,13 +247,13 @@ private struct ResultCard<Content: View, Footer: View>: View {
                 FeatureBadge(symbol: symbol, theme: theme, size: 30)
                 Text(title).font(.system(size: 15, weight: .semibold)).foregroundStyle(.white)
             }
-            .padding(.bottom, 12)
+            .padding(.bottom, 8)
             content
-            Spacer(minLength: 14)
+            Spacer(minLength: 10)
             footer
         }
-        .padding(20)
-        .frame(maxWidth: .infinity, minHeight: 290, alignment: .topLeading)
+        .padding(18)
+        .frame(maxWidth: .infinity, minHeight: 176, alignment: .topLeading)
         .glassPanel(cornerRadius: 22)
     }
 }

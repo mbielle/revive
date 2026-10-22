@@ -5,12 +5,55 @@ struct SettingsView: View {
 
     var body: some View {
         @Bindable var app = app
+        @Bindable var scheduler = app.scheduler
         Form {
             Section {
                 Toggle(isOn: $app.dryRun) {
                     Text("Simulation mode")
                     Text("Scans and cleanups run normally, but nothing is deleted. Useful to see what Lucent would do.")
                 }
+            }
+
+            Section("General") {
+                Toggle("Show the monitor in the menu bar", isOn: $app.showsMenuBar)
+                Toggle("Open Lucent at login", isOn: .init(get: { app.scheduler.opensAtLogin }, set: { app.scheduler.opensAtLogin = $0 }))
+            }
+
+            Section {
+                Picker("Scan for junk automatically", selection: $scheduler.frequency) {
+                    Text("Never").tag(AutoScanScheduler.Frequency.never)
+                    Text("Every day").tag(AutoScanScheduler.Frequency.daily)
+                    Text("Every week").tag(AutoScanScheduler.Frequency.weekly)
+                }
+                if scheduler.frequency != .never {
+                    Stepper("Notify me above \(scheduler.thresholdGB) GB", value: $scheduler.thresholdGB, in: 1...50)
+                }
+            } header: {
+                Text("Automatic Scan")
+            } footer: {
+                Text("Runs while Lucent is open and only notifies you. Nothing is removed without you.")
+            }
+
+            Section {
+                LabeledContent {
+                    switch app.privileged.helperState {
+                    case .enabled:
+                        Button("Uninstall") { Task { await app.privileged.uninstallHelper() } }
+                    case .needsApproval:
+                        Button("Open Login Items") { app.privileged.installHelper() }
+                    default:
+                        Button("Install") { app.privileged.installHelper() }
+                    }
+                } label: {
+                    Label(helperStatus, systemImage: app.privileged.helperState == .enabled ? "checkmark.circle.fill" : "key.fill")
+                }
+                if let error = app.privileged.lastError {
+                    Text(error).font(.caption).foregroundStyle(.secondary)
+                }
+            } header: {
+                Text("Administrator Helper")
+            } footer: {
+                Text("Runs a fixed list of maintenance tasks with administrator rights, so they don't ask for your password each time.")
             }
 
             Section("Full Disk Access") {
@@ -48,7 +91,17 @@ struct SettingsView: View {
             }
         }
         .formStyle(.grouped)
-        .frame(width: 520, height: 460)
+        .frame(width: 540, height: 640)
+        .onAppear { app.privileged.refresh() }
+    }
+
+    private var helperStatus: LocalizedStringResource {
+        switch app.privileged.helperState {
+        case .enabled: "Installed"
+        case .needsApproval: "Waiting for your approval in System Settings"
+        case .notInstalled: "Not installed"
+        case .unavailable: "Unavailable in this build"
+        }
     }
 
     private func addExclusion() {

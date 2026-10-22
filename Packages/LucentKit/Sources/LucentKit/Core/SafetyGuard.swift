@@ -76,10 +76,13 @@ public struct SafetyGuard: Sendable {
     public func check(_ url: URL, policy: Policy) -> Verdict {
         let verdict = checkPath(url, policy: policy)
         guard verdict.isAllowed else { return verdict }
-        // A symlinked ancestor could point anywhere: validate where the item really lives too.
+        // A symlinked ancestor could point anywhere: validate where the item really lives too,
+        // against the home folder resolved the same way (e.g. /tmp → /private/tmp).
         let resolved = url.deletingLastPathComponent().resolvingSymlinksInPath().appending(path: url.lastPathComponent)
-        if resolved.normalizedPath != url.normalizedPath {
-            return checkPath(resolved, policy: policy)
+        let resolvedHome = home.resolvingSymlinksInPath()
+        if resolved.normalizedPath != url.normalizedPath || resolvedHome.normalizedPath != home.normalizedPath {
+            let canonical = SafetyGuard(home: resolvedHome, userExclusions: userExclusions.map { $0.resolvingSymlinksInPath() })
+            return canonical.checkPath(resolved, policy: policy)
         }
         return .allowed
     }

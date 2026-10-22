@@ -1,20 +1,21 @@
 import LucentKit
 import SwiftUI
 
-/// One-click checkup: looks for junk, checks the Mac's protections and measures the disk.
+/// One-click checkup: junk, protections, performance and app updates, then one Run button.
 @MainActor @Observable
 final class SmartCareModel {
     enum Phase: Equatable { case idle, scanning, results, running, done }
 
     enum Step: Int, CaseIterable, Identifiable {
-        case junk, security, storage
+        case junk, security, performance, updates
         var id: Int { rawValue }
 
         var title: LocalizedStringResource {
             switch self {
             case .junk: "Looking for junk"
             case .security: "Checking protections"
-            case .storage: "Analyzing storage"
+            case .performance: "Checking performance"
+            case .updates: "Looking for app updates"
             }
         }
     }
@@ -24,12 +25,25 @@ final class SmartCareModel {
     private(set) var security: [SecurityCheckResult] = []
     private(set) var xprotectVersion: String?
     private(set) var disk: DiskSpace?
+    private(set) var memory: MemoryUsage?
+    private(set) var updates: [AppUpdate] = []
+    private(set) var threats: [Threat] = []
+    /// Run the tune-up tasks together with the cleanup.
+    var includeTuneUp = true
+    private(set) var tuneUpResult: PrivilegedResult?
 
     let cleanup: CleanupModel
+    @ObservationIgnored unowned let app: AppModel
     @ObservationIgnored private var task: Task<Void, Never>?
 
     init(app: AppModel) {
+        self.app = app
         cleanup = CleanupModel(app: app, categories: Set(CleanupCategory.allCases), module: .smartCare)
+    }
+
+    /// Maintenance run by Smart Care: no password prompt unless the helper is installed.
+    var tuneUpTasks: [MaintenanceTask] {
+        app.privileged.helperState == .enabled ? [.freeMemory, .flushDNS, .resetQuickLook] : [.resetQuickLook]
     }
 
     func scan() {
@@ -41,13 +55,25 @@ final class SmartCareModel {
             guard !Task.isCancelled else { return }
 
             currentStep = .security
-            security = await SystemStatus.securityChecks()
+            async let checks = SystemStatus.securityChecks()
+            async let found = app.protection.quickThreatScan()
+            security = await checks
+            threats = await found
             xprotectVersion = SystemStatus.xprotectVersion()
             guard !Task.isCancelled else { return }
 
-            currentStep = .storage
+            currentStep = .performance
             disk = SystemStatus.startupDisk()
-            try? await Task.sleep(for: .milliseconds(400))
+            memory = SystemMetrics.memory()
+            try? await Task.sleep(for: .milliseconds(300))
+            guard !Task.isCancelled else { return }
+
+            currentStep = .updates
+            updates = await Task.detached(priority: .userInitiated) {
+                var inventory = AppInventory()
+                inventory.measuresSizes = false
+                return await UpdateChecker().check(inventory.scan())
+            }.value
             guard !Task.isCancelled else { return }
             phase = .results
         }
@@ -62,7 +88,19 @@ final class SmartCareModel {
     func run() {
         phase = .running
         task = Task {
-            await cleanup.runClean()
+            if includeTuneUp && !app.dryRun {
+                let tasks = tuneUpTasks
+                let admin = tasks.compactMap(\.privilegedCommand)
+                if !admin.isEmpty { tuneUpResult = await app.privileged.run(admin) }
+                for task in tasks where task.privilegedCommand == nil {
+                    _ = await Task.detached { task.runAsUser() }.value
+                }
+            }
+            if !cleanup.selection.isEmpty {
+                await cleanup.runClean()
+            } else {
+                cleanup.markNothingToClean(simulated: app.dryRun)
+            }
             phase = .done
         }
     }
@@ -80,11 +118,14 @@ final class SmartCareModel {
     var healthScore: Int {
         var score = 100.0
         let junkGB = Double(cleanup.result.recommendedSize) / 1_000_000_000
-        score -= min(30, junkGB * 2)
-        score -= Double(disabledProtections.count) * 12
+        score -= min(25, junkGB * 2)
+        score -= Double(disabledProtections.count) * 10
+        score -= Double(min(threats.count, 3)) * 15
+        score -= Double(min(updates.count, 10))
         if let disk {
-            if disk.usedFraction > 0.95 { score -= 25 } else if disk.usedFraction > 0.85 { score -= 12 }
+            if disk.usedFraction > 0.95 { score -= 20 } else if disk.usedFraction > 0.85 { score -= 10 }
         }
+        if let memory, memory.usedFraction > 0.9 { score -= 5 }
         return max(5, Int(score.rounded()))
     }
 }

@@ -38,8 +38,11 @@ struct RootView: View {
         case .spaceLens: SpaceLensView(model: app.spaceLens)
         case .applications: ApplicationsView(model: app.applications)
         case .performance: PerformanceView(model: app.performance)
+        case .protection: ProtectionView(model: app.protection)
+        case .myClutter: ClutterView(model: app.clutter)
+        case .cloudCleanup: CloudView(model: app.cloud)
+        case .myTools: ToolsView(model: app.tools)
         case .myActivity: ActivityView(model: app.activity)
-        default: ComingSoonView(module: module)
         }
     }
 }

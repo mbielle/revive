@@ -37,5 +37,11 @@ struct LucentApp: App {
             SettingsView()
                 .environment(app)
         }
+
+        MenuBarExtra("Lucent", systemImage: "sparkles", isInserted: $app.showsMenuBar) {
+            MenuBarPanel()
+                .environment(app)
+        }
+        .menuBarExtraStyle(.window)
     }
 }

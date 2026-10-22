@@ -38,16 +38,10 @@ struct SidebarItem: View {
                     .frame(width: 26)
                 Text(module.title)
                     .font(.system(size: 15, weight: isSelected ? .semibold : .medium))
-                    .foregroundStyle(.white.opacity(isSelected ? 1 : module.plannedRelease == nil ? 0.92 : 0.6))
+                    .foregroundStyle(.white.opacity(isSelected ? 1 : 0.92))
                     .lineLimit(1)
                     .layoutPriority(1)
                 Spacer(minLength: 4)
-                if let version = module.plannedRelease {
-                    Image(systemName: "clock")
-                        .font(.system(size: 10, weight: .semibold))
-                        .foregroundStyle(.white.opacity(0.5))
-                        .help(Text("Coming in version \(version)"))
-                }
             }
             .padding(.horizontal, 12)
             .frame(height: 46)

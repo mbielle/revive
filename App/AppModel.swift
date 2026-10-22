@@ -25,6 +25,16 @@ final class AppModel {
     @ObservationIgnored lazy var activity = ActivityModel()
     @ObservationIgnored lazy var applications = ApplicationsModel(app: self)
     @ObservationIgnored lazy var performance = PerformanceModel(app: self)
+    @ObservationIgnored lazy var protection = ProtectionModel(app: self)
+    @ObservationIgnored lazy var clutter = ClutterModel(app: self)
+    @ObservationIgnored lazy var cloud = CloudModel(app: self)
+    @ObservationIgnored lazy var tools = ToolsModel()
+    let scheduler = AutoScanScheduler()
+
+    /// Shows the live monitor in the menu bar.
+    var showsMenuBar: Bool {
+        didSet { UserDefaults.standard.set(showsMenuBar, forKey: "showsMenuBar") }
+    }
     let privileged = PrivilegedRunner()
 
     private enum Keys {
@@ -36,6 +46,7 @@ final class AppModel {
         // Simulation can be forced from the command line: `open Lucent.app --args -dryRun YES`.
         dryRun = UserDefaults.standard.bool(forKey: Keys.dryRun)
         exclusions = UserDefaults.standard.stringArray(forKey: Keys.exclusions) ?? []
+        showsMenuBar = UserDefaults.standard.object(forKey: "showsMenuBar") as? Bool ?? true
         #if DEBUG
         // Development helpers: `--args -module cleanup -autoScan YES` opens a module and scans it.
         if let raw = UserDefaults.standard.string(forKey: "module"), let module = AppModule(rawValue: raw) {
@@ -48,6 +59,9 @@ final class AppModel {
                     case .spaceLens: spaceLens.scan()
                     case .applications: applications.scan()
                     case .performance: performance.scan()
+                    case .protection: protection.scan()
+                    case .myClutter: clutter.scan()
+                    case .cloudCleanup: cloud.scan()
                     default: break
                     }
                     await openDebugSection(UserDefaults.standard.string(forKey: "section"), in: module)
@@ -75,6 +89,15 @@ final class AppModel {
             case .performance where performance.phase == .ready:
                 performance.section = ["maintenance": .maintenance, "loginItems": .loginItems, "backgroundItems": .backgroundItems, "consumers": .consumers][name]
                 return
+            case .protection where protection.phase == .ready:
+                protection.section = ["malware": .malware, "privacy": .privacy, "extensions": .extensions, "wifi": .wifi, "permissions": .permissions][name]
+                return
+            case .myClutter where clutter.phase == .ready:
+                clutter.section = ["duplicates": .duplicates, "similar": .similar, "large": .large, "screenshots": .screenshots][name]
+                return
+            case .smartCare where smartCare.phase == .results:
+                if name == "review" { smartCare.cleanup.reviewing = .systemJunk }
+                return
             case .cleanup where cleanup.phase == .results:
                 cleanup.reviewing = CleanupCategory(rawValue: name)
                 return
@@ -85,8 +108,17 @@ final class AppModel {
     }
     #endif
 
+    /// The folder scanned as the user's home. Debug builds accept `-home <path>` to work on a demo
+    /// folder made by `scripts/make-demo-home.swift` instead of the real one.
+    let home: URL = {
+        #if DEBUG
+        if let path = UserDefaults.standard.string(forKey: "home") { return URL(filePath: path, directoryHint: .isDirectory) }
+        #endif
+        return FileManager.default.homeDirectoryForCurrentUser
+    }()
+
     var safetyGuard: SafetyGuard {
-        SafetyGuard(userExclusions: exclusions.map { URL(filePath: $0) })
+        SafetyGuard(home: home, userExclusions: exclusions.map { URL(filePath: $0) })
     }
 
     func remover() -> Remover {

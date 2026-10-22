@@ -16,6 +16,8 @@ final class CleanupModel {
     var selection: Set<String> = []
     /// Category opened in the review screen, nil when showing the summary.
     var reviewing: CleanupCategory?
+    /// Category to open once the running scan finishes (from My Tools).
+    var pendingReview: CleanupCategory?
 
     let categories: Set<CleanupCategory>
     let module: AppModule
@@ -54,6 +56,8 @@ final class CleanupModel {
             self.result = result
             selection = result.defaultSelection
             phase = .results
+            if let pending = pendingReview, result.totalSize(in: pending) > 0 { reviewing = pending }
+            pendingReview = nil
         } catch is CancellationError {
             phase = .idle
         } catch {
@@ -92,6 +96,14 @@ final class CleanupModel {
         }.value
         self.report = report
         app.record(report, module: module)
+        phase = .done
+    }
+
+    /// Ends a run where nothing was selected for removal (Smart Care with only a tune-up).
+    func markNothingToClean(simulated: Bool) {
+        var report = RemovalReport()
+        report.wasSimulated = simulated
+        self.report = report
         phase = .done
     }
 

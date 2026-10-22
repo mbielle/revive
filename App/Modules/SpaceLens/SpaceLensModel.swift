@@ -9,9 +9,10 @@ final class SpaceLensModel {
     enum Target: Hashable {
         case home, startupDisk, folder(URL)
 
-        var url: URL {
+        @MainActor
+        func url(home: URL) -> URL {
             switch self {
-            case .home: FileManager.default.homeDirectoryForCurrentUser
+            case .home: home
             case .startupDisk: URL(filePath: "/")
             case let .folder(url): url
             }
@@ -71,7 +72,7 @@ final class SpaceLensModel {
         itemsScanned = 0
         selection = []
         path = []
-        let url = target.url
+        let url = target.url(home: app.home)
         let onProgress: @Sendable (ScanProgress) -> Void = { [weak self] progress in
             Task { @MainActor in
                 self?.itemsScanned = progress.itemCount

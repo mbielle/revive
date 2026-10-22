@@ -49,31 +49,6 @@ extension ModuleLanding where Accessory == EmptyView {
     }
 }
 
-/// Landing of a module planned for a later release.
-struct ComingSoonView: View {
-    let module: AppModule
-
-    var body: some View {
-        ModuleLanding(module: module) {
-            VStack(spacing: 10) {
-                Image(systemName: "hammer.fill")
-                    .font(.system(size: 18, weight: .semibold))
-                    .foregroundStyle(.white.opacity(0.85))
-                if let version = module.plannedRelease {
-                    Text("Coming in version \(version)")
-                        .font(.system(size: 15, weight: .semibold))
-                        .foregroundStyle(.white)
-                }
-                Text("This module is being built in the open. Follow the progress on GitHub.")
-                    .font(.system(size: 13))
-                    .foregroundStyle(.white.opacity(0.7))
-            }
-            .padding(.horizontal, 26).padding(.vertical, 18)
-            .glassPanel(cornerRadius: 20)
-        }
-    }
-}
-
 /// Screen shown while a scan or a cleanup is running.
 struct WorkingView: View {
     let module: AppModule
