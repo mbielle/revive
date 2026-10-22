@@ -117,7 +117,7 @@ final class AppModel {
                 if name == "review" { smartCare.cleanup.reviewing = .systemJunk }
                 return
             case .cleanup where cleanup.phase == .results:
-                cleanup.reviewing = CleanupCategory(rawValue: name)
+                if name == "clean" { cleanup.clean() } else { cleanup.reviewing = CleanupCategory(rawValue: name) }
                 return
             default:
                 continue
