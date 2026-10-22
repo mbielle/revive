@@ -81,6 +81,9 @@ targets:
         PRODUCT_NAME: LucentHelper
         PRODUCT_BUNDLE_IDENTIFIER: io.github.mbielle.Lucent.Helper
         SKIP_INSTALL: YES
+        # Embeds an Info.plist so the helper is signed as io.github.mbielle.Lucent.Helper.
+        GENERATE_INFOPLIST_FILE: YES
+        CREATE_INFOPLIST_SECTION_IN_BINARY: YES
 
 schemes:
   Lucent:

@@ -13,6 +13,12 @@ final class PrivilegedRunner {
     private(set) var helperState: HelperState = .notInstalled
     private(set) var lastError: String?
 
+    /// The launchd plist is embedded in Contents/Library/LaunchDaemons.
+    static var isBundled: Bool {
+        let plist = Bundle.main.bundleURL.appending(path: "Contents/Library/LaunchDaemons/\(helperServiceName).plist")
+        return FileManager.default.fileExists(atPath: plist.path(percentEncoded: false))
+    }
+
     private var service: SMAppService { SMAppService.daemon(plistName: "\(helperServiceName).plist") }
 
     init() {
@@ -23,10 +29,14 @@ final class PrivilegedRunner {
         helperState = switch service.status {
         case .enabled: .enabled
         case .requiresApproval: .needsApproval
-        case .notRegistered: .notInstalled
-        case .notFound: .unavailable
+        // Before the first registration macOS reports `.notFound` even though the daemon ships
+        // in the bundle: only a missing plist means this build cannot install it.
+        case .notRegistered, .notFound: Self.isBundled ? .notInstalled : .unavailable
         @unknown default: .unavailable
         }
+        #if DEBUG
+        NSLog("Lucent helper state: %@", String(describing: helperState))
+        #endif
     }
 
     /// Registers the helper. macOS then asks the user to allow it in System Settings › Login Items.
@@ -72,34 +82,7 @@ final class PrivilegedRunner {
     // MARK: Helper
 
     private func runWithHelper(_ command: PrivilegedCommand) async -> PrivilegedResult? {
-        guard let payload = try? JSONEncoder().encode(command) else { return nil }
-        let connection = NSXPCConnection(machServiceName: helperServiceName, options: .privileged)
-        connection.remoteObjectInterface = NSXPCInterface(with: LucentHelperProtocol.self)
-        connection.resume()
-        defer { connection.invalidate() }
-
-        return await withCheckedContinuation { continuation in
-            let once = Once(continuation)
-            let proxy = connection.remoteObjectProxyWithErrorHandler { _ in once.resume(nil) } as? LucentHelperProtocol
-            guard let proxy else { return once.resume(nil) }
-            proxy.run(payload) { data in
-                once.resume(try? JSONDecoder().decode(PrivilegedResult.self, from: data))
-            }
-        }
-    }
-
-    /// Resumes a continuation exactly once, whichever XPC callback fires first.
-    private final class Once: @unchecked Sendable {
-        private var continuation: CheckedContinuation<PrivilegedResult?, Never>?
-        private let lock = NSLock()
-        init(_ continuation: CheckedContinuation<PrivilegedResult?, Never>) { self.continuation = continuation }
-        func resume(_ value: PrivilegedResult?) {
-            lock.lock()
-            let c = continuation
-            continuation = nil
-            lock.unlock()
-            c?.resume(returning: value)
-        }
+        await HelperClient.run(command, connection: HelperClient.systemConnection())
     }
 
     // MARK: Password prompt
@@ -110,11 +93,7 @@ final class PrivilegedRunner {
                 return PrivilegedResult(exitCode: -2, output: "Refused: \(problem)")
             }
         }
-        // Each command runs even if a previous one failed; the last status is reported.
-        let shell = commands.map { "(" + PrivilegedExecution.shellScript(for: $0) + ")" }.joined(separator: "; ")
-        let escaped = shell.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "\"", with: "\\\"")
-        let prompt = String(localized: "Lucent needs administrator rights for this task.")
-        let script = "do shell script \"\(escaped)\" with prompt \"\(prompt)\" with administrator privileges"
+        let script = PrivilegedExecution.appleScript(for: commands, prompt: String(localized: "Lucent needs administrator rights for this task."))
 
         return await Task.detached {
             let process = Process()

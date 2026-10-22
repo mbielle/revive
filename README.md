@@ -51,7 +51,7 @@ A cleaner touches your files, so Lucent is careful by design:
 | Need | Approach |
 |---|---|
 | Malware signatures | Apple ships its XProtect YARA rules on every Mac and keeps them up to date. Lucent compiles them with a vendored [YARA](https://github.com/VirusTotal/yara) 4.5.4 and scans startup programs, apps, Downloads and Desktop (deep scan: more folders) |
-| Administrator tasks | A small privileged helper (SMAppService launch daemon, XPC) runs a closed list of commands, only for the signed Lucent app. Without it, macOS asks for your password instead |
+| Administrator tasks | A small privileged helper (SMAppService launch daemon, XPC) runs a closed list of commands, only for a Lucent app signed by the same team. Unsigned builds can't prove who is calling, so their helper refuses every connection and macOS asks for your password instead |
 | Junk rules | Declarative JSON files: adding a rule needs no Swift code |
 | Similar photos | Apple Vision feature prints compared between neighboring shots |
 
