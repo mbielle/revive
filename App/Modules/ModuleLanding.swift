@@ -31,6 +31,7 @@ struct ModuleLanding<Accessory: View, Action: View>: View {
                     .padding(.top, 22)
                     accessory.padding(.top, 10)
                 }
+                .frame(maxWidth: 460, alignment: .leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
             .padding(.horizontal, 40)
@@ -68,21 +69,25 @@ struct WorkingView: View {
                     HeroIllustration(style: module.hero, symbol: module.symbol, theme: module.theme, size: 270)
                 }
                 .frame(maxWidth: .infinity)
+                // Fixed width and line counts: changing numbers and paths never reflow the column.
                 VStack(alignment: .leading, spacing: 14) {
                     Text(title).screenTitle()
-                    if let stat {
-                        Text(stat)
-                            .font(.system(size: 30, weight: .semibold, design: .rounded))
-                            .foregroundStyle(.white)
-                            .contentTransition(.numericText())
-                    }
-                    Text(detail)
+                        .lineLimit(2, reservesSpace: true)
+                        .minimumScaleFactor(0.8)
+                    Text(stat ?? " ")
+                        .font(.system(size: 30, weight: .semibold, design: .rounded))
+                        .monospacedDigit()
+                        .foregroundStyle(.white)
+                        .contentTransition(.numericText())
+                        .lineLimit(1)
+                        .opacity(stat == nil ? 0 : 1)
+                    Text(detail.isEmpty ? " " : detail)
                         .font(.system(size: 13, design: .monospaced))
                         .foregroundStyle(.white.opacity(0.6))
                         .lineLimit(1)
                         .truncationMode(.middle)
-                        .frame(maxWidth: 420, alignment: .leading)
                 }
+                .frame(width: 420, alignment: .leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
             .padding(.horizontal, 40)

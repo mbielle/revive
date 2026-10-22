@@ -15,7 +15,8 @@ struct SpaceLensView: View {
                     ScanButton(title: "Scan", theme: module.theme) { model.scan() }
                 }
             case .scanning:
-                WorkingView(module: module, title: "Mapping your storage…", progress: nil, detail: model.currentPath,
+                WorkingView(module: module, title: "Mapping your storage…", progress: nil,
+                            detail: model.currentPath.isEmpty ? String(localized: "Building the map…") : model.currentPath,
                             stat: String(localized: "\(model.itemsScanned.formatted()) items")) { model.stop() }
             case .ready, .removing:
                 if model.root != nil {
@@ -72,8 +73,15 @@ private struct SpaceMapView: View {
                     NodeList(model: model, node: current)
                         .frame(width: 360)
                         .glassPanel(cornerRadius: 20)
-                    BubbleMap(model: model, node: current, theme: theme)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    ZStack {
+                        BubbleMap(model: model, node: current, theme: theme)
+                            .id(current.id)
+                            .transition(.asymmetric(
+                                insertion: .scale(scale: model.wentDeeper ? 0.55 : 1.5).combined(with: .opacity),
+                                removal: .scale(scale: model.wentDeeper ? 1.5 : 0.55).combined(with: .opacity)
+                            ))
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             }
 
@@ -223,8 +231,9 @@ private struct BubbleMap: View {
     let node: FileNode
     let theme: ModuleTheme
     @State private var hovered: String?
+    @State private var appeared = false
 
-    private var shown: [FileNode] { Array(node.children.prefix(28)) }
+    private var shown: [FileNode] { Array(node.children.prefix(36)) }
 
     var body: some View {
         GeometryReader { proxy in
@@ -232,10 +241,19 @@ private struct BubbleMap: View {
             ZStack(alignment: .topLeading) {
                 ForEach(bubbles, id: \.index) { bubble in
                     let child = shown[bubble.index]
-                    BubbleView(node: child, radius: bubble.radius, hue: Double(bubble.index) / Double(max(shown.count, 1)),
-                               theme: theme, isHovered: hovered == child.id, isSelected: model.selection.contains(child.id))
+                    let isHovered = hovered == child.id
+                    BubbleView(node: child, radius: bubble.radius, colorIndex: bubble.index, theme: theme,
+                               isHovered: isHovered, isSelected: model.selection.contains(child.id),
+                               opens: child.isDirectory && !child.children.isEmpty)
+                        .scaleEffect(appeared ? 1 : 0.2)
+                        .opacity(appeared ? (hovered == nil || isHovered ? 1 : 0.75) : 0)
+                        .animation(.spring(duration: 0.55, bounce: 0.35).delay(appeared ? 0 : Double(bubble.index) * 0.025), value: appeared)
+                        .animation(.easeOut(duration: 0.2), value: hovered)
                         .position(bubble.center)
-                        .onHover { hovered = $0 ? child.id : (hovered == child.id ? nil : hovered) }
+                        .zIndex(isHovered ? 10 : 0)
+                        .onHover { inside in
+                            if inside { hovered = child.id } else if hovered == child.id { hovered = nil }
+                        }
                         .onTapGesture {
                             if child.isDirectory && !child.children.isEmpty {
                                 model.open(child)
@@ -243,58 +261,84 @@ private struct BubbleMap: View {
                                 model.toggle(child)
                             }
                         }
-                        .help("\(child.name) — \(formatBytes(child.size))")
                 }
             }
-            .animation(.spring(duration: 0.5), value: node.id)
         }
-        .id(node.id)
-        .transition(.scale(scale: 0.9).combined(with: .opacity))
+        .onAppear {
+            appeared = true
+            #if DEBUG
+            // `-hoverBubble <n>` shows bubble n as hovered, for screenshots.
+            let index = UserDefaults.standard.integer(forKey: "hoverBubble")
+            if index > 0, index <= shown.count { hovered = shown[index - 1].id }
+            #endif
+        }
     }
 }
 
 private struct BubbleView: View {
     let node: FileNode
     let radius: CGFloat
-    let hue: Double
+    let colorIndex: Int
     let theme: ModuleTheme
     let isHovered: Bool
     let isSelected: Bool
+    let opens: Bool
+
+    /// Accent colors mixed into the module color so neighbors are easy to tell apart.
+    private static let palette: [UInt32] = [0x4FD1FF, 0xFF7FD0, 0x6FF0C0, 0xFFC66B, 0xB18CFF, 0x7FA8FF]
+
+    /// Hovered bubbles grow enough to show their name, however small they are.
+    private var displayRadius: CGFloat {
+        isHovered ? min(max(radius * 1.12, 64), radius * 4) : radius
+    }
 
     var body: some View {
-        let tint = theme.glow.blend(Color(hex: 0x4FD1FF), hue * 0.6)
+        let r = displayRadius
+        let tint = theme.glow.blend(Color(hex: Self.palette[colorIndex % Self.palette.count]), 0.45)
         ZStack {
             Circle()
-                .fill(RadialGradient(colors: [tint.blend(.white, 0.35).opacity(0.85), theme.button.opacity(0.55), theme.dark.opacity(0.6)],
-                                     center: .init(x: 0.35, y: 0.3), startRadius: 1, endRadius: radius * 1.4))
+                .fill(RadialGradient(colors: [tint.blend(.white, 0.35).opacity(0.9), tint.blend(theme.button, 0.5).opacity(0.7), theme.dark.opacity(0.7)],
+                                     center: .init(x: 0.35, y: 0.3), startRadius: 1, endRadius: r * 1.4))
             Circle()
-                .strokeBorder(.white.opacity(isSelected ? 1 : isHovered ? 0.7 : 0.3), lineWidth: isSelected ? 3 : 1.2)
-            if radius > 30 {
+                .fill(LinearGradient(colors: [.white.opacity(0.35), .clear], startPoint: .top, endPoint: .center))
+                .padding(r * 0.08)
+                .blendMode(.screen)
+            Circle()
+                .strokeBorder(.white.opacity(isSelected ? 1 : isHovered ? 0.85 : 0.3), lineWidth: isSelected ? 3 : isHovered ? 2 : 1.2)
+            if r > 30 {
                 VStack(spacing: 2) {
                     Image(systemName: node.isDirectory ? "folder.fill" : "doc.fill")
-                        .font(.system(size: min(22, radius * 0.28)))
-                        .foregroundStyle(.white.opacity(0.85))
+                        .font(.system(size: min(22, r * 0.28)))
+                        .foregroundStyle(.white.opacity(0.9))
                     Text(node.name)
-                        .font(.system(size: min(14, radius * 0.2), weight: .semibold))
+                        .font(.system(size: min(14, max(10, r * 0.2)), weight: .semibold))
                         .lineLimit(1)
+                        .minimumScaleFactor(0.7)
                     Text(formatBytes(node.size))
-                        .font(.system(size: min(12, radius * 0.17), weight: .medium, design: .rounded))
-                        .opacity(0.8)
+                        .font(.system(size: min(12, max(9, r * 0.17)), weight: .medium, design: .rounded))
+                        .monospacedDigit()
+                        .opacity(0.85)
+                    if isHovered && opens {
+                        Image(systemName: "arrow.down.right.and.arrow.up.left")
+                            .font(.system(size: 9, weight: .bold))
+                            .opacity(0.7)
+                            .padding(.top, 1)
+                    }
                 }
                 .foregroundStyle(.white)
-                .frame(width: radius * 1.6)
+                .frame(width: r * 1.55)
+                .transition(.opacity.combined(with: .scale(scale: 0.8)))
             }
             if isSelected {
                 Image(systemName: "checkmark.circle.fill")
                     .font(.system(size: 18))
                     .foregroundStyle(.white, theme.button)
-                    .offset(x: radius * 0.62, y: -radius * 0.62)
+                    .offset(x: r * 0.62, y: -r * 0.62)
             }
         }
-        .frame(width: radius * 2, height: radius * 2)
-        .shadow(color: theme.dark.opacity(0.5), radius: isHovered ? 16 : 8, y: 4)
-        .scaleEffect(isHovered ? 1.04 : 1)
-        .animation(.spring(duration: 0.25), value: isHovered)
+        .frame(width: r * 2, height: r * 2)
+        .shadow(color: theme.dark.opacity(isHovered ? 0.7 : 0.45), radius: isHovered ? 22 : 8, y: isHovered ? 8 : 4)
+        .animation(.spring(duration: 0.35, bounce: 0.3), value: isHovered)
         .contentShape(Circle())
     }
 }

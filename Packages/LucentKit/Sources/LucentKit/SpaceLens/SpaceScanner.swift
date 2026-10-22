@@ -95,7 +95,7 @@ public struct SpaceScanner: Sendable {
             if v.isDirectory == true {
                 if v.isPackage == true {
                     // Apps and other bundles are shown as a single item, like Finder does.
-                    let (size, complete) = FileSizes.allocatedSize(of: child)
+                    let (size, complete) = FileSizes.allocatedSize(of: child) { counter.tick($0) }
                     files.append(FileNode(url: child, size: size, isDirectory: false, isIncomplete: !complete))
                 } else {
                     folders.append(child)
@@ -130,17 +130,21 @@ public struct SpaceScanner: Sendable {
         return FileNode(url: url, size: total, isDirectory: true, children: listed, otherSize: other, isIncomplete: incomplete)
     }
 
-    /// Throttles progress callbacks to one every few thousand entries.
+    /// Throttles progress callbacks: at most about five per second, but never silent for long,
+    /// even while a single huge bundle (an app, a Photos library) is being measured.
     final class Counter: Sendable {
-        private let state = OSAllocatedUnfairLock(initialState: 0)
+        private let state = OSAllocatedUnfairLock(initialState: (count: 0, last: Date.distantPast))
         private let progress: @Sendable (ScanProgress) -> Void
 
         init(progress: @escaping @Sendable (ScanProgress) -> Void) { self.progress = progress }
 
         func tick(_ url: URL) {
-            let report: Int? = state.withLock { count in
-                count += 1
-                return count % 2_000 == 0 ? count : nil
+            let report: Int? = state.withLock { s in
+                s.count += 1
+                let now = Date.now
+                guard now.timeIntervalSince(s.last) > 0.2 else { return nil }
+                s.last = now
+                return s.count
             }
             if let report {
                 progress(ScanProgress(currentPath: url.path(percentEncoded: false), bytesFound: 0, itemCount: report))
@@ -148,7 +152,7 @@ public struct SpaceScanner: Sendable {
         }
 
         func flush() {
-            let count = state.withLock { $0 }
+            let count = state.withLock { $0.count }
             progress(ScanProgress(currentPath: "", bytesFound: 0, fraction: 1, itemCount: count))
         }
     }

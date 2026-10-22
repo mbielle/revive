@@ -3,6 +3,7 @@ import Foundation
 /// Live status sent by a scanner while it works.
 public struct ScanProgress: Sendable {
     public var currentPath: String
+    /// Negative when the update only names what is being worked on.
     public var bytesFound: Int64
     /// 0...1 when the total amount of work is known.
     public var fraction: Double?

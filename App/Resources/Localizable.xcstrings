@@ -618,6 +618,16 @@
         }
       }
     },
+    "Building the map…": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Construction de la carte…"
+          }
+        }
+      }
+    },
     "CPU": {
       "shouldTranslate": false
     },
@@ -711,6 +721,16 @@
         }
       }
     },
+    "Checking browsers, Wi-Fi and permissions…": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vérification des navigateurs, du Wi-Fi et des autorisations…"
+          }
+        }
+      }
+    },
     "Checking for new versions…": {
       "localizations": {
         "fr": {
@@ -757,6 +777,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Vérification des protections"
+          }
+        }
+      }
+    },
+    "Checking startup items…": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vérification des éléments de démarrage…"
           }
         }
       }
@@ -1603,6 +1633,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Restes d’apps"
+          }
+        }
+      }
+    },
+    "Listing apps and downloads to check…": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recensement des apps et téléchargements à vérifier…"
+          }
+        }
+      }
+    },
+    "Loading Apple's malware signatures…": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chargement des signatures de malwares d’Apple…"
           }
         }
       }

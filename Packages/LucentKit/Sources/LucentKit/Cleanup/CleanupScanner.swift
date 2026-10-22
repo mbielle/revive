@@ -44,6 +44,8 @@ public struct CleanupScanner: Sendable {
                 let ruleID = rules[candidate.ruleIndex].id
                 group.addTask {
                     try Task.checkCancellation()
+                    // Big folders take a while to measure: say which one, without touching the totals.
+                    progress(ScanProgress(currentPath: candidate.url.path(percentEncoded: false), bytesFound: -1))
                     let (size, complete) = FileSizes.allocatedSize(of: candidate.url)
                     guard size > 0 else { return (candidate.ruleIndex, nil) }
                     return (candidate.ruleIndex, CleanupItem(

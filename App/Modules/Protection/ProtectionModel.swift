@@ -73,6 +73,7 @@ final class ProtectionModel {
         let onProgress: @Sendable (ScanProgress) -> Void = { [weak self] progress in
             Task { @MainActor in self?.progress = progress }
         }
+        progress = ScanProgress(currentPath: String(localized: "Loading Apple's malware signatures…"), bytesFound: 0)
         task = Task {
             let rules = await loadRules()
             let home = app.safetyGuard.home
@@ -84,6 +85,7 @@ final class ProtectionModel {
             threats = found
             selectedThreats = Set(found.filter(\.isMalware).map(\.id))
 
+            progress = ScanProgress(currentPath: String(localized: "Checking browsers, Wi-Fi and permissions…"), bytesFound: 0, fraction: 1)
             let (privacy, extensions) = await Task.detached {
                 let scanner = PrivacyScanner(home: home)
                 return (scanner.scan(), scanner.extensions())

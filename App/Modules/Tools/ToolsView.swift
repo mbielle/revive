@@ -146,8 +146,12 @@ struct ToolsView: View {
                         }
                     }
                 }
-                .padding(.bottom, 24)
+                // Room for the hover zoom: the scroll view would otherwise clip the cards' edges.
+                .padding(10)
+                .padding(.bottom, 14)
             }
+            .scrollClipDisabled()
+            .padding(-10)
             .overlay {
                 if model.pinned.isEmpty && !model.isEditing {
                     EmptyState(symbol: "pin", message: "No pinned tools. Click Customize to add some.")

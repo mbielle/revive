@@ -36,17 +36,19 @@ public struct ThreatScanner: Sendable {
 
     public func scan(depth: Depth, rules: YaraRules?, progress: @escaping @Sendable (ScanProgress) -> Void = { _ in }) async -> [Threat] {
         var threats: [Threat] = []
+        progress(ScanProgress(currentPath: String(localized: "Checking startup items…"), bytesFound: 0))
         let launchItems = LaunchItemScanner(home: home).scan()
         threats += persistenceFindings(launchItems)
 
         guard let rules else { return threats }
+        progress(ScanProgress(currentPath: String(localized: "Listing apps and downloads to check…"), bytesFound: 0))
         let targets = filesToScan(depth: depth, launchItems: launchItems)
         let flagged = Set(threats.map(\.id))
         var done = 0
         for target in targets {
             if Task.isCancelled { break }
             done += 1
-            if done % 25 == 0 || done == targets.count {
+            if done % 5 == 0 || done == targets.count {
                 progress(ScanProgress(currentPath: target.path(percentEncoded: false), bytesFound: 0,
                                       fraction: Double(done) / Double(max(targets.count, 1)), itemCount: done))
             }

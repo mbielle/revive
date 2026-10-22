@@ -8,6 +8,11 @@ public enum FileSizes {
     /// Allocated size on disk of a file or a whole directory tree. Symbolic links are not followed.
     /// Unreadable children are skipped; `isComplete` tells whether anything was skipped.
     public static func allocatedSize(of url: URL) -> (bytes: Int64, isComplete: Bool) {
+        allocatedSize(of: url, onFile: nil)
+    }
+
+    /// Same, calling `onFile` for every file measured so callers can report progress.
+    public static func allocatedSize(of url: URL, onFile: ((URL) -> Void)?) -> (bytes: Int64, isComplete: Bool) {
         let values = try? url.resourceValues(forKeys: Set(prefetchKeys))
         if values?.isSymbolicLink == true { return (0, true) }
         if values?.isDirectory != true {
@@ -28,6 +33,7 @@ public enum FileSizes {
         while let child = enumerator?.nextObject() as? URL {
             guard let v = try? child.resourceValues(forKeys: Set(prefetchKeys)), v.isRegularFile == true else { continue }
             total += Int64(v.totalFileAllocatedSize ?? v.fileAllocatedSize ?? 0)
+            onFile?(child)
         }
         return (total, complete)
     }

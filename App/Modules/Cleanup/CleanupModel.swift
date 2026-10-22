@@ -75,7 +75,14 @@ final class CleanupModel {
     /// Forwards progress from background work to the UI without keeping the model alive.
     private func progressHandler() -> @Sendable (ScanProgress) -> Void {
         { [weak self] progress in
-            Task { @MainActor in self?.progress = progress }
+            Task { @MainActor in
+                guard let self else { return }
+                if progress.bytesFound < 0 {
+                    self.progress.currentPath = progress.currentPath
+                } else {
+                    self.progress = progress
+                }
+            }
         }
     }
 

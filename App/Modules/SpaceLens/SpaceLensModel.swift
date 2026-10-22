@@ -73,6 +73,7 @@ final class SpaceLensModel {
         selection = []
         path = []
         let url = target.url(home: app.home)
+        currentPath = url.path(percentEncoded: false)
         let onProgress: @Sendable (ScanProgress) -> Void = { [weak self] progress in
             Task { @MainActor in
                 self?.itemsScanned = progress.itemCount
@@ -98,16 +99,24 @@ final class SpaceLensModel {
         phase = root == nil ? .idle : .ready
     }
 
+    /// Direction of the last navigation, for the zoom transition.
+    private(set) var wentDeeper = true
+
     func open(_ node: FileNode) {
         guard node.isDirectory, !node.children.isEmpty else { return }
-        path.append(node.id)
+        wentDeeper = true
+        withAnimation(.smooth(duration: 0.5)) { path.append(node.id) }
     }
 
     func goUp(to node: FileNode) {
-        if node.id == root?.id {
-            path = []
-        } else if let index = path.firstIndex(of: node.id) {
-            path = Array(path.prefix(through: index))
+        guard node.id != current?.id else { return }
+        wentDeeper = false
+        withAnimation(.smooth(duration: 0.5)) {
+            if node.id == root?.id {
+                path = []
+            } else if let index = path.firstIndex(of: node.id) {
+                path = Array(path.prefix(through: index))
+            }
         }
     }
 
