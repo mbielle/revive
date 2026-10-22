@@ -10,8 +10,15 @@ public struct SafetyGuard: Sendable {
     public enum Policy: Sendable {
         /// Items picked by a scanner rule. Strictest: user content folders are off-limits.
         case automatic
-        /// Items the user picked by hand (Space Lens, uninstaller...). User files are allowed.
+        /// Items the user picked by hand (Space Lens...). User files are allowed.
         case userInitiated
+        /// Uninstalling an app: its bundle, preferences, containers and launch agents, in the home
+        /// folder and in the system-wide Library. Apple's own apps and data are never allowed.
+        case appRemoval
+        /// Commands run by the privileged helper. Same scope as `appRemoval`.
+        case administrator
+
+        var reachesSystemLibrary: Bool { self == .appRemoval || self == .administrator }
     }
 
     public enum Verdict: Equatable, Sendable {
@@ -51,6 +58,18 @@ public struct SafetyGuard: Sendable {
         "com.apple.finder", "com.apple.HomeKit", "com.apple.akd", "FamilyCircle", "com.apple.bird",
     ]
 
+    /// Home sub-paths an uninstaller may reach although they are otherwise protected.
+    static let appDataInHome = ["Library/Preferences", "Library/Group Containers", "Library/LaunchAgents", "Library/Cookies"]
+
+    /// System folders where third-party apps install support files.
+    static let systemRemovableRoots = [
+        "/Library/LaunchAgents", "/Library/LaunchDaemons", "/Library/PrivilegedHelperTools",
+        "/Library/Application Support", "/Library/Caches", "/Library/Logs", "/Library/Preferences",
+        "/Library/Internet Plug-Ins", "/Library/Input Methods", "/Library/Screen Savers", "/Library/PreferencePanes",
+        "/Library/QuickLook", "/Library/Spotlight", "/Library/Audio/Plug-Ins/Components", "/Library/Audio/Plug-Ins/HAL",
+        "/Library/Audio/Plug-Ins/VST", "/Library/Audio/Plug-Ins/VST3",
+    ]
+
     /// Folders holding the user's own documents. Rules never reach into them automatically.
     static let userContentFolders = ["Documents", "Desktop", "Pictures", "Movies", "Music", "Downloads", "Public", "Sites"]
 
@@ -84,6 +103,7 @@ public struct SafetyGuard: Sendable {
         }
 
         guard url.isInside(home), path != homePath else {
+            if policy.reachesSystemLibrary, let verdict = checkSystemItem(url) { return verdict }
             if Self.systemRoots.contains(where: { url.isInside(URL(filePath: $0)) }) {
                 return .blocked(reason: "System location")
             }
@@ -100,7 +120,18 @@ public struct SafetyGuard: Sendable {
 
         for protected in Self.hardProtectedInHome {
             if relative == protected || relative.hasPrefix(protected + "/") {
-                return .blocked(reason: "Protected location")
+                let isAppData = policy.reachesSystemLibrary && Self.appDataInHome.contains(protected) && components.count >= 3
+                if !isAppData { return .blocked(reason: "Protected location") }
+            }
+        }
+
+        if policy.reachesSystemLibrary {
+            // Apple's own data is never part of an app removal.
+            if components.first == "Library", components.count >= 3, Self.isAppleName(components[2]) {
+                return .blocked(reason: "Belongs to macOS")
+            }
+            if components.first == "Applications", let verdict = checkAppBundle(url, depth: components.count - 1) {
+                return verdict
             }
         }
 
@@ -119,5 +150,36 @@ public struct SafetyGuard: Sendable {
         }
 
         return .allowed
+    }
+
+    /// Verdict for an item outside the home folder under an app-removal policy, or nil to fall back.
+    private func checkSystemItem(_ url: URL) -> Verdict? {
+        let path = url.normalizedPath
+        if path.hasPrefix("/Applications/") {
+            let depth = path.split(separator: "/").count - 1
+            return checkAppBundle(url, depth: depth) ?? .blocked(reason: "Inside an application")
+        }
+        for root in Self.systemRemovableRoots where path.hasPrefix(root + "/") {
+            let first = path.dropFirst(root.count + 1).split(separator: "/").first.map(String.init) ?? ""
+            return Self.isAppleName(first) ? .blocked(reason: "Belongs to macOS") : .allowed
+        }
+        return nil
+    }
+
+    /// Only whole app bundles may go: `Applications/X.app` or `Applications/Folder/X.app`, never Apple's.
+    private func checkAppBundle(_ url: URL, depth: Int) -> Verdict? {
+        let isBundle = url.pathExtension == "app"
+        guard isBundle, depth <= 2 else {
+            let insideBundle = url.pathComponents.dropLast().contains { $0.hasSuffix(".app") }
+            return insideBundle ? .blocked(reason: "Inside an application") : nil
+        }
+        if let id = Bundle(url: url)?.bundleIdentifier, Self.isAppleName(id) {
+            return .blocked(reason: "Apple application")
+        }
+        return .allowed
+    }
+
+    static func isAppleName(_ name: String) -> Bool {
+        name.hasPrefix("com.apple.") || name == "com.apple" || name.hasPrefix("Apple")
     }
 }

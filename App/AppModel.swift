@@ -23,6 +23,9 @@ final class AppModel {
     @ObservationIgnored lazy var smartCare = SmartCareModel(app: self)
     @ObservationIgnored lazy var spaceLens = SpaceLensModel(app: self)
     @ObservationIgnored lazy var activity = ActivityModel()
+    @ObservationIgnored lazy var applications = ApplicationsModel(app: self)
+    @ObservationIgnored lazy var performance = PerformanceModel(app: self)
+    let privileged = PrivilegedRunner()
 
     private enum Keys {
         static let dryRun = "dryRun"
@@ -43,13 +46,44 @@ final class AppModel {
                     case .cleanup: cleanup.scan()
                     case .smartCare: smartCare.scan()
                     case .spaceLens: spaceLens.scan()
+                    case .applications: applications.scan()
+                    case .performance: performance.scan()
                     default: break
                     }
+                    await openDebugSection(UserDefaults.standard.string(forKey: "section"), in: module)
                 }
             }
         }
         #endif
     }
+
+    #if DEBUG
+    /// `-section <name>` opens a detail screen once the module's scan is done.
+    private func openDebugSection(_ name: String?, in module: AppModule) async {
+        guard let name else { return }
+        for _ in 0..<240 {
+            try? await Task.sleep(for: .milliseconds(500))
+            switch module {
+            case .applications where applications.phase == .ready:
+                applications.section = ["uninstaller": .uninstaller, "updater": .updater, "leftovers": .leftovers, "installers": .installers][name]
+                if name == "review", let first = applications.visibleApps.first {
+                    applications.selectedApps = [first.id]
+                    applications.section = .uninstaller
+                    applications.prepareUninstall()
+                }
+                return
+            case .performance where performance.phase == .ready:
+                performance.section = ["maintenance": .maintenance, "loginItems": .loginItems, "backgroundItems": .backgroundItems, "consumers": .consumers][name]
+                return
+            case .cleanup where cleanup.phase == .results:
+                cleanup.reviewing = CleanupCategory(rawValue: name)
+                return
+            default:
+                continue
+            }
+        }
+    }
+    #endif
 
     var safetyGuard: SafetyGuard {
         SafetyGuard(userExclusions: exclusions.map { URL(filePath: $0) })

@@ -36,6 +36,8 @@ struct RootView: View {
         case .smartCare: SmartCareView(model: app.smartCare)
         case .cleanup: CleanupView(model: app.cleanup)
         case .spaceLens: SpaceLensView(model: app.spaceLens)
+        case .applications: ApplicationsView(model: app.applications)
+        case .performance: PerformanceView(model: app.performance)
         case .myActivity: ActivityView(model: app.activity)
         default: ComingSoonView(module: module)
         }

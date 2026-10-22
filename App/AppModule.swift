@@ -119,7 +119,6 @@ enum AppModule: String, CaseIterable, Identifiable {
     /// Version in which a module that is not built yet is planned.
     var plannedRelease: String? {
         switch self {
-        case .applications, .performance: "0.2"
         case .protection, .myClutter, .myTools: "0.3"
         case .cloudCleanup: "0.4"
         default: nil
