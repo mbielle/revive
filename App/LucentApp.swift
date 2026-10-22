@@ -38,6 +38,14 @@ struct LucentApp: App {
                 .environment(app)
         }
 
+        #if DEBUG
+        // `-previewMenuBar YES` shows the menu bar panel in a window, for screenshots.
+        Window("Menu Bar Preview", id: "menubar-preview") {
+            MenuBarPanel().environment(app)
+        }
+        .windowResizability(.contentSize)
+        #endif
+
         MenuBarExtra("Lucent", systemImage: "sparkles", isInserted: $app.showsMenuBar) {
             MenuBarPanel()
                 .environment(app)

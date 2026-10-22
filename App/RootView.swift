@@ -2,6 +2,7 @@ import SwiftUI
 
 struct RootView: View {
     @Environment(AppModel.self) private var app
+    @Environment(\.openWindow) private var openWindow
 
     var body: some View {
         @Bindable var app = app
@@ -24,6 +25,11 @@ struct RootView: View {
         .background { ModuleBackground(theme: module.theme).animation(.easeInOut(duration: 0.45), value: module) }
         .animation(.easeInOut(duration: 0.3), value: module)
         .environment(\.colorScheme, .dark)
+        .onAppear {
+            #if DEBUG
+            if UserDefaults.standard.bool(forKey: "previewMenuBar") { openWindow(id: "menubar-preview") }
+            #endif
+        }
         .sheet(isPresented: $app.showsAccessGuide) {
             FullDiskAccessGuide()
                 .environment(app)

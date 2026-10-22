@@ -198,3 +198,37 @@ import Testing
         print("Probe sent to the Trash as \(name); visible in Trash: \(inTrash)")
     }
 }
+
+/// Same as RealTrashTests, through NSWorkspace (used for apps and user files).
+@Suite struct RealWorkspaceTrashTests {
+    @Test(.enabled(if: ProcessInfo.processInfo.environment["LUCENT_TRASH_TEST"] == "1"))
+    @MainActor
+    func workspaceRecycleMovesItemToTheTrash() async throws {
+        let fixture = try Fixture()
+        defer { fixture.cleanUp() }
+        let file = try fixture.file("Documents/LucentWorkspaceProbe-\(UUID().uuidString.prefix(8)).txt", size: 1000)
+        let item = CleanupItem(url: file, ruleID: "probe", size: 1000)
+
+        let blocked = await WorkspaceRemover.recycle([item], policy: .automatic, safetyGuard: fixture.safetyGuard, dryRun: false)
+        #expect(blocked.removedCount == 0 && blocked.failures.count == 1, "documents are off-limits for automatic cleanups")
+
+        let report = await WorkspaceRemover.recycle([item], policy: .userInitiated, safetyGuard: fixture.safetyGuard, dryRun: false)
+        #expect(report.removedCount == 1)
+        #expect(!FileManager.default.fileExists(atPath: file.path(percentEncoded: false)))
+        print("Workspace probe sent to the Trash: \(file.lastPathComponent)")
+    }
+}
+
+@Suite struct UnattendedScanTests {
+    @Test func skipsPromptingLocationsWhenAsked() async throws {
+        let fixture = try Fixture()
+        defer { fixture.cleanUp() }
+        try fixture.file("Library/Containers/com.apple.mail/Data/Library/Mail Downloads/A/file.pdf")
+        try fixture.file("Library/Caches/com.spotify.client/blob")
+
+        var scanner = CleanupScanner(rules: try RuleCatalog.bundled(), safetyGuard: fixture.safetyGuard)
+        scanner.avoidsPrivacyPrompts = true
+        let names = try await scanner.scan().allItems.map { $0.url.lastPathComponent }
+        #expect(names == ["com.spotify.client"])
+    }
+}

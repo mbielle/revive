@@ -105,7 +105,7 @@ private struct SmartCareResultsView: View {
                 HealthGauge(score: model.healthScore, theme: module.theme)
                     .frame(width: 118, height: 118)
                 VStack(alignment: .leading, spacing: 8) {
-                    Text(headline).screenTitle()
+                    Text(headline).screenTitle().lineLimit(1).minimumScaleFactor(0.6)
                     if let disk = model.disk {
                         Text("\(formatBytes(disk.available)) available on \(disk.name). Review any card, then click Run.").screenSubtitle()
                     }

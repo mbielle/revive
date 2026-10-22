@@ -23,9 +23,23 @@ open build/DerivedData/Build/Products/Debug/Lucent.app --args -dryRun YES -modul
 ```
 
 - `-dryRun YES`: simulation mode, nothing is deleted
-- `-module <name>`: opens a module (`smartCare`, `cleanup`, `spaceLens`, ...)
+- `-home <path>`: scans this folder instead of your home (make one with `swift scripts/make-demo-home.swift <path>`)
+- `-module <name>`: opens a module (`smartCare`, `cleanup`, `protection`, `performance`, `applications`, `myClutter`, `spaceLens`, `cloudCleanup`, `myTools`, `myActivity`)
 - `-autoScan YES`: starts its scan right away
+- `-section <name>`: then opens a detail screen (e.g. `uninstaller`, `updater`, `malware`, `similar`, `maintenance`)
+- `-previewMenuBar YES`: shows the menu bar panel in a window
 - `-AppleLanguages "(fr)"`: runs the app in French
+
+Without Full Disk Access, macOS asks for permission (and blocks) the first time Lucent opens Desktop,
+Documents or Downloads. Use `-home` with the demo folder to test without those prompts.
+
+## Real removal tests
+
+Two opt-in tests move a tiny probe file to your real Trash to check the end-to-end path:
+
+```bash
+cd Packages/LucentKit && LUCENT_TRASH_TEST=1 swift test --filter "RealTrash|RealWorkspace"
+```
 
 ## Cleanup rules
 

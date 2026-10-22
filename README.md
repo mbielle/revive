@@ -5,7 +5,7 @@
 <h1 align="center">Lucent</h1>
 
 <p align="center">
-  A free and open source Mac cleaner and care app, built natively in SwiftUI.<br>
+  A free and open source Mac cleaner, optimizer and malware scanner, built natively in SwiftUI.<br>
   <a href="README.fr.md">Version française</a>
 </p>
 
@@ -13,39 +13,56 @@
 
 Lucent keeps your Mac clean, safe and fast, with a polished interface and no subscription. Tools like this are useful to everyone, so they should be free for everyone.
 
-> **Status: early preview (0.1).** Smart Care, Cleanup, Space Lens and My Activity work today. The other modules are built in the open; see the [roadmap](#roadmap).
+> **Status: preview (0.4).** Every module works. It has not yet been tested widely: keep **Simulation mode** on (Settings) until you trust it, and report anything odd.
 
 ## Features
 
-| Module | What it does | Status |
-|---|---|---|
-| **Smart Care** | One-click checkup: finds junk, checks the Mac's built-in protections (SIP, Gatekeeper, FileVault, firewall), measures free space and gives a health score | ✅ 0.1 |
-| **Cleanup** | System junk (caches, logs, Xcode, browsers, package managers), AI clutter (AI app caches, ML package caches, downloaded models), Mail attachments, Trash bins | ✅ 0.1 |
-| **Space Lens** | Navigable bubble map of any folder or the whole disk; remove what you don't need | ✅ 0.1 |
-| **My Activity** | History of everything that was cleaned | ✅ 0.1 |
-| **Applications** | Complete uninstaller, leftovers finder, app updates (Sparkle, App Store, Homebrew) | 🛠 0.2 |
-| **Performance** | Maintenance tasks, login items, background items | 🛠 0.2 |
-| **Protection** | Malware scan with Apple's XProtect YARA rules, persistence check, privacy cleanup, app permissions | 🛠 0.3 |
-| **My Clutter** | Duplicates, similar photos, large and old files | 🛠 0.3 |
-| **Menu bar** | Live CPU, memory, disk, network and battery stats | 🛠 0.3 |
-| **Cloud Cleanup** | Large files and local copies of iCloud Drive, Google Drive, OneDrive | 🛠 0.4 |
+| Module | What it does |
+|---|---|
+| **Smart Care** | One click: junk, built-in protections (SIP, Gatekeeper, FileVault, firewall), malware quick scan, memory and app updates, with a health score and one Run button |
+| **Cleanup** | System junk (caches, logs, Xcode, browsers, package managers), AI clutter (AI app caches, ML package caches, downloaded models), Mail attachments, Trash bins |
+| **Protection** | Malware scan with **Apple's own XProtect signatures** (YARA), suspicious startup items, browser history and cookies, browser extensions, saved Wi-Fi networks, app permissions (camera, microphone, screen, files…) |
+| **Performance** | Maintenance tasks (free RAM, flush DNS, repair "Open With", reset Quick Look, reindex Spotlight, thin Time Machine snapshots), login items, background agents and daemons, heavy CPU and memory consumers |
+| **Applications** | Complete uninstaller with leftover review and app reset, files of apps already deleted, installer files, updates from Sparkle feeds, the Mac App Store and Homebrew |
+| **My Clutter** | Duplicates (SHA-256), similar photos (Apple Vision), large and old files, screenshots |
+| **Space Lens** | Navigable bubble map of any folder or of the whole disk |
+| **Cloud Cleanup** | iCloud Drive, Google Drive, OneDrive, Dropbox: free local copies without deleting anything from the cloud, find local duplicates of cloud files |
+| **My Tools** | Pin your favorite tools |
+| **My Activity** | History of everything that was removed |
+| **Menu bar** | Live CPU, memory, disk, battery and network, one-click RAM release |
+| **Automatic scans** | Daily or weekly junk check that only notifies you |
+
+English and French.
 
 ## Safety first
 
 A cleaner touches your files, so Lucent is careful by design:
 
-- **Nothing is deleted without a review.** Every scan ends on a summary you can inspect item by item.
+- **Nothing is removed without a review.** Every scan ends on a summary you can inspect item by item.
 - **Everything goes to the Trash**, except what is already in a Trash when you choose to empty it.
-- **A safety guard** checks every single item right before it is touched. It refuses system locations, your documents (for automatic cleanups), keychains, iCloud and cloud storage folders, Mail and Messages databases, and the caches macOS cannot rebuild safely. Symbolic links are resolved first, so a link cannot trick it.
-- **Apps that are running** keep their caches: those items start unchecked.
-- **Simulation mode** (Settings) runs every flow without deleting anything.
-- **Exclusions**: tell Lucent which folders it must never touch.
-- **No network, no telemetry.** Lucent never sends anything off your Mac.
+- **A safety guard** checks every item right before it is touched. It refuses system locations, your documents for automatic cleanups, keychains, iCloud and cloud storage folders, Mail and Messages databases, Apple's own apps and data, and the caches macOS cannot rebuild safely. Symbolic links are resolved first.
+- **Running apps** keep their caches: those items start unchecked. Apps are quit before being uninstalled.
+- **Uninstalling is strict**: only files named exactly after the app's bundle identifier or name are proposed.
+- **Simulation mode** runs every flow without changing anything. **Exclusions** protect the folders you choose.
+- **Your data stays on your Mac.** The only network requests are update checks (each app's own update feed, Apple's App Store lookup), made when you open the Updater or run Smart Care.
+
+## How it works
+
+| Need | Approach |
+|---|---|
+| Malware signatures | Apple ships its XProtect YARA rules on every Mac and keeps them up to date. Lucent compiles them with a vendored [YARA](https://github.com/VirusTotal/yara) 4.5.4 and scans startup programs, apps, Downloads and Desktop (deep scan: more folders) |
+| Administrator tasks | A small privileged helper (SMAppService launch daemon, XPC) runs a closed list of commands, only for the signed Lucent app. Without it, macOS asks for your password instead |
+| Junk rules | Declarative JSON files: adding a rule needs no Swift code |
+| Similar photos | Apple Vision feature prints compared between neighboring shots |
 
 ## Requirements
 
 - macOS 14 Sonoma or later (Liquid Glass effects on macOS 26 and later)
 - Apple silicon or Intel
+
+## Install
+
+Download the latest DMG from [Releases](https://github.com/mbielle/lucent/releases), open it and drag Lucent to Applications. Then give Lucent **Full Disk Access** when it asks (System Settings › Privacy & Security): without it, macOS hides Mail, Safari, the Trash and app data.
 
 ## Build from source
 
@@ -57,34 +74,37 @@ xcodegen generate
 open Lucent.xcodeproj
 ```
 
-Then press ⌘R in Xcode. Or from the terminal:
+Press ⌘R. To package a DMG: `scripts/make-dmg.sh` (see the script for signing and notarization).
+
+### Try it on fake data
 
 ```bash
-xcodebuild -project Lucent.xcodeproj -scheme Lucent -configuration Release -derivedDataPath build build
-open build/Build/Products/Release/Lucent.app
+swift scripts/make-demo-home.swift /tmp/LucentDemo
+open build/DerivedData/Build/Products/Debug/Lucent.app --args -home /tmp/LucentDemo -dryRun YES
 ```
 
-For the best results, give Lucent **Full Disk Access** (System Settings › Privacy & Security). The app walks you through it.
+Debug builds then scan a generated folder full of junk, duplicates, similar photos, a fake cloud drive and a suspicious startup item, instead of your home folder.
 
 ## Project layout
 
 ```
-App/                    SwiftUI app: design system, modules, onboarding, settings
-Packages/LucentKit/     Engine, testable without UI
+App/                      SwiftUI app: design system, one folder per module, menu bar, settings
+Helper/                   Privileged helper (launch daemon) and its launchd plist
+Packages/LucentKit/       Engine, testable without UI
   Sources/LucentKit/
-    Core/               SafetyGuard, Remover, ActivityLog, models
-    Rules/              Rule model + glob expansion
-    Resources/Rules/    Cleanup rules as JSON (add yours here!)
-    Cleanup/            CleanupScanner
-    SpaceLens/          SpaceScanner (folder tree)
-    System/             Security checks, disk info, Full Disk Access
-  Tests/                Swift Testing suite on throwaway fake home folders
-project.yml             XcodeGen spec (the .xcodeproj is generated)
+    Core/                 SafetyGuard, Remover, WorkspaceRemover, ActivityLog
+    Rules/ Resources/     Cleanup rules (JSON) and their glob engine
+    Cleanup/ SpaceLens/ Apps/ Performance/ Protection/ Clutter/ Cloud/ System/ Privileged/
+  Sources/CYara/          Vendored libyara (BSD-3-Clause)
+  Tests/                  Swift Testing suite on throwaway fake home folders
+scripts/                  Demo home generator, DMG packaging
+Casks/                    Homebrew cask template
+project.yml               XcodeGen spec (the .xcodeproj is generated)
 ```
 
 ### Adding a cleanup rule
 
-Rules are plain JSON in `Packages/LucentKit/Sources/LucentKit/Resources/Rules/`. Example:
+Rules live in `Packages/LucentKit/Sources/LucentKit/Resources/Rules/`:
 
 ```json
 {
@@ -101,18 +121,12 @@ Rules are plain JSON in `Packages/LucentKit/Sources/LucentKit/Resources/Rules/`.
 
 Then run `swift test` in `Packages/LucentKit`: the suite checks that every rule only reaches locations the safety guard allows.
 
-## Roadmap
-
-- **0.2**: privileged helper (SMAppService), Applications (uninstaller, leftovers, updater), Performance
-- **0.3**: Protection (XProtect YARA scan, persistence, privacy, permissions), My Clutter, menu bar monitor, My Tools
-- **0.4**: Cloud Cleanup, scheduled scans, signed and notarized DMG, Homebrew cask
-
 ## Contributing
 
-Contributions are welcome, especially new cleanup rules and translations. See [CONTRIBUTING.md](CONTRIBUTING.md).
+Contributions are welcome, especially cleanup rules and translations. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
-Lucent is free software, licensed under the [GNU General Public License v3.0](LICENSE). Credits for the open source projects it learns from are in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+Lucent is free software, licensed under the [GNU General Public License v3.0](LICENSE). Credits are in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
-Lucent is an independent project. It is not affiliated with MacPaw or CleanMyMac.
+Lucent is an independent project, not affiliated with MacPaw or CleanMyMac.

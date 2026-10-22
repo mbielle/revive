@@ -11,6 +11,9 @@ public struct CleanupScanner: Sendable {
     public let runningApps: [String: String]
     /// How many folders are measured at the same time.
     public var concurrency = 6
+    /// Skip places where macOS would ask the user for permission (other apps' containers).
+    /// Unattended scans set it when Full Disk Access is missing: the prompt would block the scan.
+    public var avoidsPrivacyPrompts = false
 
     public init(rules: [CleanupRule], safetyGuard: SafetyGuard, runningApps: [String: String] = [:]) {
         self.rules = rules
@@ -84,6 +87,7 @@ public struct CleanupScanner: Sendable {
             let runningApp = rule.appBundleIDs.lazy.compactMap { runningApps[$0] }.first
             for glob in rule.paths {
                 noteUnreadableParent(of: glob, pattern: pattern, into: &unreadable)
+                if avoidsPrivacyPrompts, Self.triggersPrivacyPrompt(pattern.expandedPattern(glob)) { continue }
                 for url in pattern.matches(glob) {
                     if url.lastPathComponent == ".DS_Store" { continue }
                     if pattern.isExcluded(url, by: rule.exclude) { continue }
@@ -109,6 +113,10 @@ public struct CleanupScanner: Sendable {
         if (try? FileManager.default.contentsOfDirectory(atPath: parent)) == nil, !list.contains(parent) {
             list.append(parent)
         }
+    }
+
+    static func triggersPrivacyPrompt(_ path: String) -> Bool {
+        ["/Library/Containers/", "/Library/Group Containers/", "/Library/Mail", "/Library/Safari", "/.Trash"].contains { path.contains($0) }
     }
 
     private func isOlder(_ url: URL, thanDays days: Int) -> Bool {

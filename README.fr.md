@@ -5,7 +5,7 @@
 <h1 align="center">Lucent</h1>
 
 <p align="center">
-  Un nettoyeur et outil d'entretien pour Mac, gratuit et open source, développé nativement en SwiftUI.<br>
+  Un nettoyeur, optimiseur et antimalware pour Mac, gratuit et open source, développé nativement en SwiftUI.<br>
   <a href="README.md">English version</a>
 </p>
 
@@ -13,32 +13,33 @@
 
 Lucent garde votre Mac propre, sûr et rapide, avec une interface soignée et sans abonnement. Ce genre d'outil est utile à tout le monde : il devrait être gratuit pour tout le monde.
 
-> **État : préversion (0.1).** Smart Care, Nettoyage, Space Lens et Mon activité fonctionnent déjà. Les autres modules sont développés en open source, voir la [feuille de route](#feuille-de-route).
+> **État : préversion (0.4).** Tous les modules fonctionnent, mais ils n'ont pas encore été testés à grande échelle. Laissez le **mode simulation** activé (Réglages) tant que vous n'avez pas confiance, et signalez tout comportement étrange.
 
 ## Fonctionnalités
 
-| Module | Ce qu'il fait | État |
-|---|---|---|
-| **Smart Care** | Bilan en un clic : fichiers inutiles, protections intégrées du Mac (SIP, Gatekeeper, FileVault, pare-feu), espace libre et score de santé | ✅ 0.1 |
-| **Nettoyage** | Fichiers système inutiles (caches, journaux, Xcode, navigateurs, gestionnaires de paquets), encombrement IA, pièces jointes Mail, corbeilles | ✅ 0.1 |
-| **Space Lens** | Carte en bulles navigable d'un dossier ou du disque entier | ✅ 0.1 |
-| **Mon activité** | Historique de tout ce qui a été nettoyé | ✅ 0.1 |
-| **Applications** | Désinstallation complète, restes d'apps, mises à jour (Sparkle, App Store, Homebrew) | 🛠 0.2 |
-| **Performances** | Tâches de maintenance, ouverture à la connexion, éléments en arrière-plan | 🛠 0.2 |
-| **Protection** | Recherche de malwares avec les règles YARA XProtect d'Apple, persistance, confidentialité, autorisations | 🛠 0.3 |
-| **Encombrement** | Doublons, photos similaires, gros fichiers anciens | 🛠 0.3 |
-| **Barre des menus** | CPU, mémoire, disque, réseau et batterie en direct | 🛠 0.3 |
-| **Nettoyage cloud** | Gros fichiers et copies locales d'iCloud Drive, Google Drive, OneDrive | 🛠 0.4 |
+| Module | Ce qu'il fait |
+|---|---|
+| **Smart Care** | En un clic : fichiers inutiles, protections intégrées (SIP, Gatekeeper, FileVault, pare-feu), recherche rapide de malwares, mémoire et mises à jour d'apps, avec un score de santé |
+| **Nettoyage** | Fichiers système inutiles, encombrement IA, pièces jointes Mail, corbeilles |
+| **Protection** | Malwares détectés avec **les signatures XProtect d'Apple** (YARA), éléments de démarrage suspects, historique et cookies, extensions, réseaux Wi-Fi, autorisations des apps |
+| **Performances** | Tâches de maintenance, éléments d'ouverture, agents et daemons, gros consommateurs de CPU et de mémoire |
+| **Applications** | Désinstallation complète avec revue des restes, réinitialisation, restes d'apps supprimées, installeurs, mises à jour (Sparkle, App Store, Homebrew) |
+| **Encombrement** | Doublons (SHA-256), photos similaires (Vision d'Apple), gros fichiers anciens, captures d'écran |
+| **Space Lens** | Carte en bulles navigable d'un dossier ou du disque |
+| **Nettoyage cloud** | iCloud Drive, Google Drive, OneDrive, Dropbox : libérer les copies locales sans rien supprimer du cloud |
+| **Mes outils / Mon activité / barre des menus / analyses automatiques** | Outils épinglés, historique, moniteur en direct, alertes quand les fichiers inutiles s'accumulent |
 
 ## La sécurité d'abord
 
-- **Rien n'est supprimé sans vérification** : chaque analyse se termine sur un récapitulatif détaillé.
-- **Tout passe par la Corbeille**, sauf ce qui y est déjà quand vous choisissez de la vider.
-- **Un garde de sécurité** contrôle chaque élément juste avant d'y toucher : emplacements système, documents (pour les nettoyages automatiques), trousseaux, iCloud, bases Mail et Messages, et caches que macOS ne sait pas recréer sont refusés. Les liens symboliques sont résolus avant.
-- **Les apps ouvertes** gardent leurs caches : ces éléments restent décochés.
-- **Mode simulation** (Réglages) : tout fonctionne, rien n'est supprimé.
-- **Exclusions** : indiquez les dossiers que Lucent ne doit jamais toucher.
-- **Aucun réseau, aucune télémétrie.**
+- **Rien n'est supprimé sans vérification**, et tout passe par la Corbeille.
+- **Un garde de sécurité** contrôle chaque élément juste avant d'y toucher : emplacements système, documents (nettoyages automatiques), trousseaux, iCloud, bases Mail et Messages, apps et données d'Apple, caches que macOS ne sait pas recréer.
+- **Les apps ouvertes** gardent leurs caches ; elles sont quittées avant d'être désinstallées.
+- **Mode simulation** et **exclusions** dans les Réglages.
+- **Vos données restent sur votre Mac.** Seules les vérifications de mises à jour contactent Internet.
+
+## Installer
+
+Téléchargez le DMG dans [Releases](https://github.com/mbielle/lucent/releases), puis glissez Lucent dans Applications. Donnez ensuite à Lucent l'**accès complet au disque** quand il le demande.
 
 ## Compiler
 
@@ -50,13 +51,7 @@ xcodegen generate
 open Lucent.xcodeproj
 ```
 
-Pour de meilleurs résultats, donnez à Lucent l'**accès complet au disque** (Réglages Système › Confidentialité et sécurité). L'app vous guide.
-
-## Feuille de route
-
-- **0.2** : outil d'aide privilégié, Applications, Performances
-- **0.3** : Protection, Encombrement, barre des menus, Mes outils
-- **0.4** : Nettoyage cloud, analyses planifiées, DMG signé et notarisé, cask Homebrew
+Pour tester sans toucher à vos fichiers : `swift scripts/make-demo-home.swift /tmp/LucentDemo`, puis lancez l'app de debug avec `--args -home /tmp/LucentDemo -dryRun YES`.
 
 ## Licence
 

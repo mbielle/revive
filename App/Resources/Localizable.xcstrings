@@ -1,8 +1,51 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "": {
+      "shouldTranslate": false
+    },
     "%@": {
       "shouldTranslate": false
+    },
+    "%@ available on %@. Review any card, then click Run.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ disponibles sur %2$@. Vérifiez une carte, puis cliquez sur Lancer."
+          }
+        }
+      }
+    },
+    "%@ files": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ fichiers"
+          }
+        }
+      }
+    },
+    "%@ freed. The files are still in the cloud.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ libérés. Les fichiers sont toujours dans le cloud."
+          }
+        }
+      }
+    },
+    "%@ in the cloud": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ dans le cloud"
+          }
+        }
+      }
     },
     "%@ is open": {
       "localizations": {
@@ -24,12 +67,42 @@
         }
       }
     },
+    "%@ of cloud files on this Mac": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ de fichiers cloud sur ce Mac"
+          }
+        }
+      }
+    },
+    "%@ of duplicates and similar photos": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ de doublons et de photos similaires"
+          }
+        }
+      }
+    },
     "%@ of junk found": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ de fichiers inutiles trouvés"
+          }
+        }
+      }
+    },
+    "%@ of junk piled up on your Mac. Open Lucent to review it.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ de fichiers inutiles se sont accumulés sur votre Mac. Ouvrez Lucent pour les vérifier."
           }
         }
       }
@@ -64,11 +137,87 @@
         }
       }
     },
+    "%@ · %@": {
+      "shouldTranslate": false
+    },
+    "%@ · last used %@": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ · dernière utilisation %2$@"
+          }
+        }
+      }
+    },
     "%@ — %@": {
+      "shouldTranslate": false
+    },
+    "%@ → %@": {
       "shouldTranslate": false
     },
     "%lld": {
       "shouldTranslate": false
+    },
+    "%lld apps installed": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld apps installées"
+          }
+        }
+      }
+    },
+    "%lld copies · %@ to free": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld copies · %@ à libérer"
+          }
+        }
+      }
+    },
+    "%lld files checked": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld fichiers vérifiés"
+          }
+        }
+      }
+    },
+    "%lld files could not be freed by their cloud app.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld fichiers n’ont pas pu être libérés par leur app cloud."
+          }
+        }
+      }
+    },
+    "%lld files with identical copies.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld fichiers ont des copies identiques."
+          }
+        }
+      }
+    },
+    "%lld groups of look-alike shots.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld groupes de photos qui se ressemblent."
+          }
+        }
+      }
     },
     "%lld items": {
       "localizations": {
@@ -90,6 +239,26 @@
         }
       }
     },
+    "%lld items need your attention": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld éléments nécessitent votre attention"
+          }
+        }
+      }
+    },
+    "%lld recommended": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld recommandées"
+          }
+        }
+      }
+    },
     "%lld selected · %@": {
       "localizations": {
         "fr": {
@@ -100,8 +269,41 @@
         }
       }
     },
+    "%lld%%": {
+      "shouldTranslate": false
+    },
     "%lld/%lld": {
       "shouldTranslate": false
+    },
+    "1 file with identical copies.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 fichier a des copies identiques."
+          }
+        }
+      }
+    },
+    "1 group of look-alike shots.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 groupe de photos qui se ressemblent."
+          }
+        }
+      }
+    },
+    "1 item needs your attention": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 élément nécessite votre attention"
+          }
+        }
+      }
     },
     "AI Clutter": {
       "localizations": {
@@ -109,6 +311,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Encombrement IA"
+          }
+        }
+      }
+    },
+    "Accessibility": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accessibilité"
           }
         }
       }
@@ -123,12 +335,82 @@
         }
       }
     },
+    "Add-ons that can read the pages you visit.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modules qui peuvent lire les pages que vous visitez."
+          }
+        }
+      }
+    },
+    "Administrator Helper": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Outil d’aide administrateur"
+          }
+        }
+      }
+    },
+    "Agents and daemons apps installed.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Agents et daemons installés par les apps."
+          }
+        }
+      }
+    },
+    "All": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toutes"
+          }
+        }
+      }
+    },
     "All done!": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
             "value": "Terminé !"
+          }
+        }
+      }
+    },
+    "All users": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tous"
+          }
+        }
+      }
+    },
+    "All your apps are up to date.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toutes vos apps sont à jour."
+          }
+        }
+      }
+    },
+    "Allow Lucent's helper in System Settings": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Autorisez l’outil d’aide de Lucent dans Réglages Système"
           }
         }
       }
@@ -143,12 +425,25 @@
         }
       }
     },
+    "App Store": {
+      "shouldTranslate": false
+    },
     "Apple XProtect definitions %@": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
             "value": "Définitions XProtect d’Apple %@"
+          }
+        }
+      }
+    },
+    "Apple's XProtect signatures could not be loaded; only startup items were checked.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les signatures XProtect d’Apple n’ont pas pu être chargées : seuls les éléments de démarrage ont été vérifiés."
           }
         }
       }
@@ -173,12 +468,62 @@
         }
       }
     },
+    "Apps allowed to use your camera, files, screen…": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apps autorisées à utiliser votre caméra, vos fichiers, votre écran…"
+          }
+        }
+      }
+    },
+    "Apps that open when you log in.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apps qui s’ouvrent à la connexion."
+          }
+        }
+      }
+    },
+    "Apps using the most CPU and memory right now.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apps qui utilisent le plus de CPU et de mémoire en ce moment."
+          }
+        }
+      }
+    },
     "Attachments Mail saved on this Mac.": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
             "value": "Pièces jointes enregistrées par Mail sur ce Mac."
+          }
+        }
+      }
+    },
+    "Automatic Scan": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Analyse automatique"
+          }
+        }
+      }
+    },
+    "Automation": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Automatisation"
           }
         }
       }
@@ -193,6 +538,46 @@
         }
       }
     },
+    "Battery": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Batterie"
+          }
+        }
+      }
+    },
+    "Best": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Meilleure"
+          }
+        }
+      }
+    },
+    "Big files and files untouched for a year.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gros fichiers et fichiers inutilisés depuis un an."
+          }
+        }
+      }
+    },
+    "Biggest files downloaded on this Mac. Removing the local copy keeps the file in the cloud; it downloads again when you open it.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les plus gros fichiers téléchargés sur ce Mac. Supprimer la copie locale garde le fichier dans le cloud ; il se retélécharge quand vous l’ouvrez."
+          }
+        }
+      }
+    },
     "Blocks unwanted incoming network connections.": {
       "localizations": {
         "fr": {
@@ -202,6 +587,39 @@
           }
         }
       }
+    },
+    "Bluetooth": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bluetooth"
+          }
+        }
+      }
+    },
+    "Browser Extensions": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Extensions de navigateur"
+          }
+        }
+      }
+    },
+    "Browsing history, cookies and recent items.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Historique, cookies et éléments récents."
+          }
+        }
+      }
+    },
+    "CPU": {
+      "shouldTranslate": false
     },
     "Caches and downloads of AI apps and tools.": {
       "localizations": {
@@ -223,6 +641,46 @@
         }
       }
     },
+    "Calendars": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Calendriers"
+          }
+        }
+      }
+    },
+    "Camera": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Caméra"
+          }
+        }
+      }
+    },
+    "Cancel": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Annuler"
+          }
+        }
+      }
+    },
+    "Canceled": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Annulé"
+          }
+        }
+      }
+    },
     "Check Again": {
       "localizations": {
         "fr": {
@@ -239,6 +697,56 @@
           "stringUnit": {
             "state": "translated",
             "value": "Vérifiez votre Mac contre toutes sortes de menaces et de vulnérabilités."
+          }
+        }
+      }
+    },
+    "Checked against %lld of Apple's XProtect malware signatures.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vérifié avec %lld signatures de malwares XProtect d’Apple."
+          }
+        }
+      }
+    },
+    "Checking for new versions…": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recherche de nouvelles versions…"
+          }
+        }
+      }
+    },
+    "Checking for threats…": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recherche de menaces…"
+          }
+        }
+      }
+    },
+    "Checking performance": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vérification des performances"
+          }
+        }
+      }
+    },
+    "Checking performance…": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vérification des performances…"
           }
         }
       }
@@ -333,12 +841,32 @@
         }
       }
     },
+    "Clear the traces your browsing leaves on this Mac. Saved passwords and bookmarks are never touched.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Effacez les traces de navigation laissées sur ce Mac. Les mots de passe et les signets ne sont jamais touchés."
+          }
+        }
+      }
+    },
     "Click Open System Settings below.": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
             "value": "Cliquez sur Ouvrir Réglages Système ci-dessous."
+          }
+        }
+      }
+    },
+    "Click a tool to pin or unpin it.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cliquez sur un outil pour l’épingler ou le retirer."
           }
         }
       }
@@ -373,6 +901,36 @@
         }
       }
     },
+    "Contacts": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contacts"
+          }
+        }
+      }
+    },
+    "Customize": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Personnaliser"
+          }
+        }
+      }
+    },
+    "Deep Scan": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Analyse approfondie"
+          }
+        }
+      }
+    },
     "Deselect": {
       "localizations": {
         "fr": {
@@ -383,12 +941,82 @@
         }
       }
     },
+    "Deselect All": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tout désélectionner"
+          }
+        }
+      }
+    },
+    "Desktop Folder": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dossier Bureau"
+          }
+        }
+      }
+    },
+    "Developer Tools": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Outils de développement"
+          }
+        }
+      }
+    },
+    "Disk": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Disque"
+          }
+        }
+      }
+    },
+    "Disk images and installer packages in Downloads and on the Desktop. Once an app is installed, you rarely need them.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Images disque et paquets d’installation dans Téléchargements et sur le Bureau. Une fois l’app installée, ils servent rarement."
+          }
+        }
+      }
+    },
+    "Documents Folder": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dossier Documents"
+          }
+        }
+      }
+    },
     "Done": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
             "value": "OK"
+          }
+        }
+      }
+    },
+    "Downloads Folder": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dossier Téléchargements"
           }
         }
       }
@@ -413,6 +1041,46 @@
         }
       }
     },
+    "Every day": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tous les jours"
+          }
+        }
+      }
+    },
+    "Every week": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toutes les semaines"
+          }
+        }
+      }
+    },
+    "Everything goes to the Trash. Uncheck an app itself to only reset it: its settings and data are removed, the app stays.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tout passe par la Corbeille. Décochez l’app elle-même pour seulement la réinitialiser : ses réglages et données sont supprimés, l’app reste."
+          }
+        }
+      }
+    },
+    "Everything is already online-only.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tout est déjà uniquement en ligne."
+          }
+        }
+      }
+    },
     "Everything your Mac got rid of, in one place.": {
       "localizations": {
         "fr": {
@@ -423,12 +1091,62 @@
         }
       }
     },
+    "Extensions can read and change the pages you visit. Remove the ones you don't recognize. Quit the browser first.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les extensions peuvent lire et modifier les pages que vous visitez. Supprimez celles que vous ne reconnaissez pas, après avoir quitté le navigateur."
+          }
+        }
+      }
+    },
+    "Failed": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Échec"
+          }
+        }
+      }
+    },
     "FileVault disk encryption": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
             "value": "Chiffrement FileVault"
+          }
+        }
+      }
+    },
+    "Files in Downloads, Desktop or Documents also stored in the cloud.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fichiers de Téléchargements, du Bureau ou de Documents aussi présents dans le cloud."
+          }
+        }
+      }
+    },
+    "Files of apps you already deleted.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fichiers d’apps déjà supprimées."
+          }
+        }
+      }
+    },
+    "Files over 50 MB, and files over 10 MB nobody opened for a year. Nothing is checked: decide one by one.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fichiers de plus de 50 Mo, et fichiers de plus de 10 Mo non ouverts depuis un an. Rien n’est coché : décidez un par un."
           }
         }
       }
@@ -483,6 +1201,56 @@
         }
       }
     },
+    "Flush DNS Cache": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vider le cache DNS"
+          }
+        }
+      }
+    },
+    "Forget": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oublier"
+          }
+        }
+      }
+    },
+    "Free Up": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Libérer"
+          }
+        }
+      }
+    },
+    "Free Up RAM": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Libérer la RAM"
+          }
+        }
+      }
+    },
+    "Free local copies you don't need right now: the files stay safe in the cloud.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Libérez les copies locales dont vous n’avez pas besoin : les fichiers restent en sécurité dans le cloud."
+          }
+        }
+      }
+    },
     "Full Disk Access": {
       "localizations": {
         "fr": {
@@ -505,6 +1273,16 @@
     },
     "Gatekeeper": {
       "shouldTranslate": false
+    },
+    "General": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Général"
+          }
+        }
+      }
     },
     "Get a visual map of your storage and decide what deserves the space.": {
       "localizations": {
@@ -576,6 +1354,26 @@
         }
       }
     },
+    "Heavy Consumers": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gros consommateurs"
+          }
+        }
+      }
+    },
+    "Helpers that apps installed to run in the background. Removing one stops it for good; the app may ask to reinstall it.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Assistants installés par les apps pour tourner en arrière-plan. En supprimer un l’arrête définitivement ; l’app peut demander à le réinstaller."
+          }
+        }
+      }
+    },
     "Here is what Smart Care found. Review any card, then click Run.": {
       "localizations": {
         "fr": {
@@ -592,6 +1390,99 @@
           "stringUnit": {
             "state": "translated",
             "value": "Dossier personnel"
+          }
+        }
+      }
+    },
+    "Homebrew": {
+      "shouldTranslate": false
+    },
+    "Identical files, byte for byte. The oldest copy of each is kept unchecked.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fichiers identiques, octet pour octet. La copie la plus ancienne reste décochée."
+          }
+        }
+      }
+    },
+    "Input Monitoring": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Surveillance de l’entrée"
+          }
+        }
+      }
+    },
+    "Install": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Installer"
+          }
+        }
+      }
+    },
+    "Install Helper": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Installer l’outil d’aide"
+          }
+        }
+      }
+    },
+    "Install the helper once to run them without a password prompt.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Installez l’outil d’aide une fois pour les lancer sans mot de passe."
+          }
+        }
+      }
+    },
+    "Installation Files": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fichiers d’installation"
+          }
+        }
+      }
+    },
+    "Installed": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Installé"
+          }
+        }
+      }
+    },
+    "Installers you no longer need.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Installeurs dont vous n’avez plus besoin."
+          }
+        }
+      }
+    },
+    "It is stopped and its file goes to the Trash.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il est arrêté et son fichier va à la Corbeille."
           }
         }
       }
@@ -636,12 +1527,72 @@
         }
       }
     },
+    "Keep your apps up to date.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gardez vos apps à jour."
+          }
+        }
+      }
+    },
+    "Keyboard and Mouse Control": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contrôle du clavier et de la souris"
+          }
+        }
+      }
+    },
+    "Large": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volumineuses"
+          }
+        }
+      }
+    },
     "Large & Old Files": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
             "value": "Gros fichiers anciens"
+          }
+        }
+      }
+    },
+    "Last Opened": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dernière ouverture"
+          }
+        }
+      }
+    },
+    "Last opened %@": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouverte %@"
+          }
+        }
+      }
+    },
+    "Last opened: unknown": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dernière ouverture inconnue"
           }
         }
       }
@@ -666,12 +1617,52 @@
         }
       }
     },
+    "Local Duplicates": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Doublons locaux"
+          }
+        }
+      }
+    },
     "Login Items": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
             "value": "Ouverture à la connexion"
+          }
+        }
+      }
+    },
+    "Looking at your apps…": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Analyse de vos apps…"
+          }
+        }
+      }
+    },
+    "Looking for app updates": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recherche de mises à jour"
+          }
+        }
+      }
+    },
+    "Looking for clutter…": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recherche de l’encombrement…"
           }
         }
       }
@@ -698,6 +1689,46 @@
     },
     "Lucent": {
       "shouldTranslate": false
+    },
+    "Lucent checks each app's own update feed, the Mac App Store and Homebrew. Nothing else is sent.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lucent consulte le flux de mise à jour de chaque app, le Mac App Store et Homebrew. Rien d’autre n’est envoyé."
+          }
+        }
+      }
+    },
+    "Lucent looks at iCloud Drive and at Google Drive, OneDrive, Dropbox and Box folders in Finder.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lucent regarde iCloud Drive et les dossiers Google Drive, OneDrive, Dropbox et Box du Finder."
+          }
+        }
+      }
+    },
+    "Lucent needs Full Disk Access to read which apps you gave permissions to.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lucent a besoin de l’accès complet au disque pour lire les autorisations données aux apps."
+          }
+        }
+      }
+    },
+    "Lucent needs administrator rights for this task.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lucent a besoin des droits administrateur pour cette tâche."
+          }
+        }
+      }
     },
     "Lucent never scans or removes anything inside these folders.": {
       "localizations": {
@@ -742,12 +1773,105 @@
         }
       }
     },
+    "Malware found. Remove it now.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Malware trouvé. Supprimez-le maintenant."
+          }
+        }
+      }
+    },
+    "Malware: %@": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Malware : %@"
+          }
+        }
+      }
+    },
     "Mapping your storage…": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
             "value": "Cartographie du stockage…"
+          }
+        }
+      }
+    },
+    "Measuring your cloud folders…": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mesure de vos dossiers cloud…"
+          }
+        }
+      }
+    },
+    "Media & Apple Music": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Médias et Apple Music"
+          }
+        }
+      }
+    },
+    "Memory": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mémoire"
+          }
+        }
+      }
+    },
+    "Memory in use: %lld%%. Pick what to tune up.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mémoire utilisée : %lld %%. Choisissez quoi optimiser."
+          }
+        }
+      }
+    },
+    "Menu Bar Preview": {
+      "shouldTranslate": false
+    },
+    "Microphone": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Micro"
+          }
+        }
+      }
+    },
+    "More Tasks": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plus de tâches"
+          }
+        }
+      }
+    },
+    "Move %lld files to the Trash?": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Placer %lld fichiers dans la Corbeille ?"
           }
         }
       }
@@ -812,12 +1936,72 @@
         }
       }
     },
+    "Name": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nom"
+          }
+        }
+      }
+    },
+    "Needs administrator rights": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nécessite les droits administrateur"
+          }
+        }
+      }
+    },
+    "Network": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Réseau"
+          }
+        }
+      }
+    },
+    "Network Volumes": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volumes réseau"
+          }
+        }
+      }
+    },
+    "Never": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jamais"
+          }
+        }
+      }
+    },
     "Never touch": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
             "value": "Ne jamais toucher"
+          }
+        }
+      }
+    },
+    "New": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nouveau"
           }
         }
       }
@@ -832,12 +2016,122 @@
         }
       }
     },
+    "No app opens at login.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucune app ne s’ouvre à la connexion."
+          }
+        }
+      }
+    },
+    "No apps match.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucune app ne correspond."
+          }
+        }
+      }
+    },
+    "No background items.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun élément en arrière-plan."
+          }
+        }
+      }
+    },
+    "No browser extensions found.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucune extension trouvée."
+          }
+        }
+      }
+    },
+    "No browsing traces found.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucune trace de navigation."
+          }
+        }
+      }
+    },
+    "No cloud storage found": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun stockage cloud trouvé"
+          }
+        }
+      }
+    },
     "No excluded folders": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
             "value": "Aucun dossier exclu"
+          }
+        }
+      }
+    },
+    "No local duplicates.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun doublon local."
+          }
+        }
+      }
+    },
+    "No malware and no suspicious startup items were found.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun malware ni élément de démarrage suspect."
+          }
+        }
+      }
+    },
+    "No pinned tools. Click Customize to add some.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun outil épinglé. Cliquez sur Personnaliser pour en ajouter."
+          }
+        }
+      }
+    },
+    "No saved networks.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun réseau enregistré."
+          }
+        }
+      }
+    },
+    "No threats found": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucune menace trouvée"
           }
         }
       }
@@ -862,12 +2156,42 @@
         }
       }
     },
+    "Not installed": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non installé"
+          }
+        }
+      }
+    },
+    "Nothing here. Nice and tidy.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rien ici. Tout est rangé."
+          }
+        }
+      }
+    },
     "Nothing is deleted while simulation mode is on. Change it in Settings.": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
             "value": "Rien n’est supprimé tant que le mode simulation est actif. Modifiable dans les Réglages."
+          }
+        }
+      }
+    },
+    "Nothing to remove here.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rien à supprimer ici."
           }
         }
       }
@@ -892,12 +2216,92 @@
         }
       }
     },
+    "Notify me above %lld GB": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "M’avertir au-delà de %lld Go"
+          }
+        }
+      }
+    },
+    "Off": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Désactivé"
+          }
+        }
+      }
+    },
+    "On": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activé"
+          }
+        }
+      }
+    },
     "Only allows apps from identified developers to open.": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
             "value": "N’autorise que les apps de développeurs identifiés."
+          }
+        }
+      }
+    },
+    "Open": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvrir"
+          }
+        }
+      }
+    },
+    "Open Login Items": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvrir Ouverture"
+          }
+        }
+      }
+    },
+    "Open Login Items Settings": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvrir les réglages d’ouverture"
+          }
+        }
+      }
+    },
+    "Open Lucent at login": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvrir Lucent à la connexion"
+          }
+        }
+      }
+    },
+    "Open Settings": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvrir les réglages"
           }
         }
       }
@@ -922,12 +2326,62 @@
         }
       }
     },
+    "Open Updater": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvrir les mises à jour"
+          }
+        }
+      }
+    },
+    "Open to Update": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvrir pour mettre à jour"
+          }
+        }
+      }
+    },
+    "Original · %@": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Original · %@"
+          }
+        }
+      }
+    },
     "Performance": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
             "value": "Performances"
+          }
+        }
+      }
+    },
+    "Photos": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Photos"
+          }
+        }
+      }
+    },
+    "Photos that look alike, usually bursts or retakes. The largest of each group is kept unchecked.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Photos qui se ressemblent, souvent des rafales ou des reprises. La plus grande de chaque groupe reste décochée."
           }
         }
       }
@@ -952,12 +2406,32 @@
         }
       }
     },
+    "Plus %lld large or forgotten files and %lld screenshots to look at.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plus %1$lld gros fichiers oubliés et %2$lld captures d’écran à regarder."
+          }
+        }
+      }
+    },
     "Privacy Check": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
             "value": "Confidentialité"
+          }
+        }
+      }
+    },
+    "Privacy Settings": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Réglages de confidentialité"
           }
         }
       }
@@ -1012,12 +2486,62 @@
         }
       }
     },
+    "Quit": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quitter"
+          }
+        }
+      }
+    },
+    "Quit %@ first.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quittez d’abord %@."
+          }
+        }
+      }
+    },
+    "Quit %@ to clean its data.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quittez %@ pour nettoyer ses données."
+          }
+        }
+      }
+    },
     "Quit the app before cleaning these files.": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
             "value": "Quittez l’app avant de nettoyer ces fichiers."
+          }
+        }
+      }
+    },
+    "Reminders": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rappels"
+          }
+        }
+      }
+    },
+    "Removable Volumes": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volumes amovibles"
           }
         }
       }
@@ -1032,6 +2556,26 @@
         }
       }
     },
+    "Remove %@?": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Supprimer %@ ?"
+          }
+        }
+      }
+    },
+    "Remove (needs administrator rights)": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Supprimer (droits administrateur requis)"
+          }
+        }
+      }
+    },
     "Remove Safely": {
       "localizations": {
         "fr": {
@@ -1042,12 +2586,32 @@
         }
       }
     },
+    "Remove apps and every file they left behind.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Supprimez les apps et tous les fichiers qu’elles laissent."
+          }
+        }
+      }
+    },
     "Remove apps completely, keep them up to date and get rid of their leftovers.": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
             "value": "Supprimez complètement les apps, gardez-les à jour et débarrassez-vous de leurs restes."
+          }
+        }
+      }
+    },
+    "Reset": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Réinitialiser"
           }
         }
       }
@@ -1072,6 +2636,26 @@
         }
       }
     },
+    "Review Threats": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Voir les menaces"
+          }
+        }
+      }
+    },
+    "Review before uninstalling": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vérifier avant de désinstaller"
+          }
+        }
+      }
+    },
     "Review what will be removed or click Clean. Items go to the Trash first.": {
       "localizations": {
         "fr": {
@@ -1092,12 +2676,72 @@
         }
       }
     },
+    "Running": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En cours"
+          }
+        }
+      }
+    },
+    "Runs a fixed list of maintenance tasks with administrator rights, so they don't ask for your password each time.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exécute une liste fixe de tâches de maintenance avec les droits administrateur, sans demander votre mot de passe à chaque fois."
+          }
+        }
+      }
+    },
+    "Runs while Lucent is open and only notifies you. Nothing is removed without you.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fonctionne quand Lucent est ouvert et vous avertit seulement. Rien n’est supprimé sans vous."
+          }
+        }
+      }
+    },
+    "Saved Wi-Fi Networks": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Réseaux Wi-Fi enregistrés"
+          }
+        }
+      }
+    },
     "Scan": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
             "value": "Analyser"
+          }
+        }
+      }
+    },
+    "Scan Again": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Analyser à nouveau"
+          }
+        }
+      }
+    },
+    "Scan for junk automatically": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rechercher les fichiers inutiles automatiquement"
           }
         }
       }
@@ -1118,6 +2762,66 @@
           "stringUnit": {
             "state": "translated",
             "value": "Les analyses et nettoyages fonctionnent normalement, mais rien n’est supprimé. Pratique pour voir ce que ferait Lucent."
+          }
+        }
+      }
+    },
+    "Screen Recording": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enregistrement de l’écran"
+          }
+        }
+      }
+    },
+    "Screenshots": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Captures d’écran"
+          }
+        }
+      }
+    },
+    "Screenshots from your Desktop, Downloads and Pictures, oldest first.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Captures d’écran du Bureau, de Téléchargements et d’Images, les plus anciennes d’abord."
+          }
+        }
+      }
+    },
+    "Screenshots piling up on your Desktop.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Captures d’écran qui s’accumulent sur votre Bureau."
+          }
+        }
+      }
+    },
+    "Scripts that fix common slowdowns.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scripts qui corrigent les ralentissements courants."
+          }
+        }
+      }
+    },
+    "Search": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rechercher"
           }
         }
       }
@@ -1152,6 +2856,16 @@
         }
       }
     },
+    "Select All": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tout sélectionner"
+          }
+        }
+      }
+    },
     "Settings": {
       "localizations": {
         "fr": {
@@ -1162,12 +2876,32 @@
         }
       }
     },
+    "Show Login Items": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Afficher les éléments d’ouverture"
+          }
+        }
+      }
+    },
     "Show in Finder": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
             "value": "Afficher dans le Finder"
+          }
+        }
+      }
+    },
+    "Show the monitor in the menu bar": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Afficher le moniteur dans la barre des menus"
           }
         }
       }
@@ -1222,6 +2956,46 @@
         }
       }
     },
+    "Simulation: %@ of local copies would be freed.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Simulation : %@ de copies locales seraient libérés."
+          }
+        }
+      }
+    },
+    "Simulation: %@ would be forgotten.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Simulation : %@ serait oublié."
+          }
+        }
+      }
+    },
+    "Simulation: the permission would be reset.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Simulation : l’autorisation serait réinitialisée."
+          }
+        }
+      }
+    },
+    "Size": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Taille"
+          }
+        }
+      }
+    },
     "Smaller items": {
       "localizations": {
         "fr": {
@@ -1258,6 +3032,16 @@
         }
       }
     },
+    "Speech Recognition": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reconnaissance vocale"
+          }
+        }
+      }
+    },
     "Start Over": {
       "localizations": {
         "fr": {
@@ -1278,6 +3062,16 @@
         }
       }
     },
+    "Stopped": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arrêté"
+          }
+        }
+      }
+    },
     "Storage": {
       "localizations": {
         "fr": {
@@ -1294,6 +3088,46 @@
           "stringUnit": {
             "state": "translated",
             "value": "Carte du stockage"
+          }
+        }
+      }
+    },
+    "Support files of apps that are no longer installed. Check each one: some tools keep data without an app.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fichiers d’apps qui ne sont plus installées. Vérifiez chacun : certains outils gardent des données sans app."
+          }
+        }
+      }
+    },
+    "Suspicious items are not always malicious: check where they come from before removing them.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un élément suspect n’est pas toujours malveillant : vérifiez sa provenance avant de le supprimer."
+          }
+        }
+      }
+    },
+    "Suspicious: %@": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suspect : %@"
+          }
+        }
+      }
+    },
+    "System": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Système"
           }
         }
       }
@@ -1338,12 +3172,52 @@
         }
       }
     },
+    "Tasks with a lock ask for your password": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les tâches avec un cadenas demandent votre mot de passe"
+          }
+        }
+      }
+    },
+    "These are your own files. You can restore them from the Trash until you empty it.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce sont vos propres fichiers. Vous pourrez les restaurer tant que la Corbeille n’est pas vidée."
+          }
+        }
+      }
+    },
     "These files are deleted for good.": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
             "value": "Ces fichiers sont supprimés définitivement."
+          }
+        }
+      }
+    },
+    "These files have a twin with the same name and size in your cloud storage. The local one goes to the Trash.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ces fichiers ont un jumeau de même nom et même taille dans votre cloud. La copie locale va à la Corbeille."
+          }
+        }
+      }
+    },
+    "They take %@. %lld haven't been opened in 3 months.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elles occupent %1$@. %2$lld n’ont pas été ouvertes depuis 3 mois."
           }
         }
       }
@@ -1358,12 +3232,72 @@
         }
       }
     },
+    "Threat": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Menace"
+          }
+        }
+      }
+    },
+    "Threats and suspicious startup items.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Menaces et éléments de démarrage suspects."
+          }
+        }
+      }
+    },
+    "Time for a cleanup": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "C’est l’heure d’un nettoyage"
+          }
+        }
+      }
+    },
+    "To turn a login item off, use the switch next to it in System Settings › General › Login Items.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pour désactiver un élément, utilisez son interrupteur dans Réglages Système › Général › Ouverture."
+          }
+        }
+      }
+    },
     "Trash Bins": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
             "value": "Corbeilles"
+          }
+        }
+      }
+    },
+    "Tune up: %@": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Optimiser : %@"
+          }
+        }
+      }
+    },
+    "Turn On %@": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activer %@"
           }
         }
       }
@@ -1378,6 +3312,26 @@
         }
       }
     },
+    "Unavailable in this build": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Indisponible dans cette version"
+          }
+        }
+      }
+    },
+    "Uninstall": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Désinstaller"
+          }
+        }
+      }
+    },
     "Uninstaller": {
       "localizations": {
         "fr": {
@@ -1388,12 +3342,52 @@
         }
       }
     },
+    "Unused": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inutilisées"
+          }
+        }
+      }
+    },
+    "Update": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mettre à jour"
+          }
+        }
+      }
+    },
     "Updater": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
             "value": "Mises à jour"
+          }
+        }
+      }
+    },
+    "Waiting for your approval in System Settings": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En attente de votre accord dans Réglages Système"
+          }
+        }
+      }
+    },
+    "You": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vous"
           }
         }
       }
@@ -1428,12 +3422,72 @@
         }
       }
     },
+    "Your Mac is safe": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Votre Mac est sûr"
+          }
+        }
+      }
+    },
+    "Your Mac joins these networks automatically. Forget the public ones you no longer use: an attacker can imitate them.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Votre Mac rejoint ces réseaux automatiquement. Oubliez les réseaux publics inutilisés : un attaquant peut les imiter."
+          }
+        }
+      }
+    },
     "Your Mac needs attention": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
             "value": "Votre Mac a besoin d’attention"
+          }
+        }
+      }
+    },
+    "Your Mac's performance": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les performances de votre Mac"
+          }
+        }
+      }
+    },
+    "app update available": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "mise à jour disponible"
+          }
+        }
+      }
+    },
+    "app updates available": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "mises à jour disponibles"
+          }
+        }
+      }
+    },
+    "apps up to date": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "apps à jour"
           }
         }
       }
@@ -1458,6 +3512,26 @@
         }
       }
     },
+    "built-in protections on, no malware": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "protections intégrées actives, aucun malware"
+          }
+        }
+      }
+    },
+    "free": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "libres"
+          }
+        }
+      }
+    },
     "freed. Items you moved to the Trash can still be restored until you empty it.": {
       "localizations": {
         "fr": {
@@ -1471,12 +3545,52 @@
     "iCloud Drive": {
       "shouldTranslate": false
     },
+    "iCloud Drive is protected by macOS. Grant Full Disk Access so Lucent can measure it.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "iCloud Drive est protégé par macOS. Autorisez l’accès complet au disque pour que Lucent puisse le mesurer."
+          }
+        }
+      }
+    },
     "macOS hides Mail, Safari, the Trash and other app data from apps by default. With Full Disk Access, Lucent can find junk there too. It never sends anything off your Mac.": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
             "value": "Par défaut, macOS cache aux apps les données de Mail, de Safari, de la Corbeille et d’autres apps. Avec l’accès complet au disque, Lucent peut aussi y trouver des fichiers inutiles. Rien ne quitte jamais votre Mac."
+          }
+        }
+      }
+    },
+    "macOS keeps the list of login items in a protected database.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS garde la liste des éléments d’ouverture dans une base protégée."
+          }
+        }
+      }
+    },
+    "macOS refused to reset this permission.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS a refusé de réinitialiser cette autorisation."
+          }
+        }
+      }
+    },
+    "macOS will ask the app for permission again.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "macOS redemandera l’autorisation à l’app."
           }
         }
       }
@@ -1501,12 +3615,42 @@
         }
       }
     },
+    "of memory in use": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "de mémoire utilisée"
+          }
+        }
+      }
+    },
     "selected": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
             "value": "sélectionnés"
+          }
+        }
+      }
+    },
+    "threat found": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "menace trouvée"
+          }
+        }
+      }
+    },
+    "threats found": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "menaces trouvées"
           }
         }
       }
@@ -1520,6 +3664,12 @@
           }
         }
       }
+    },
+    "↑ %@": {
+      "shouldTranslate": false
+    },
+    "↓ %@   ↑ %@": {
+      "shouldTranslate": false
     }
   },
   "version": "1.0"

@@ -75,8 +75,11 @@ final class AutoScanScheduler {
     }
 
     func runScan() async {
-        let scanner = CleanupScanner(rules: (try? RuleCatalog.bundled()) ?? [], safetyGuard: SafetyGuard())
-        guard let result = try? await Task.detached(priority: .utility, operation: { try await scanner.scan() }).value else { return }
+        var scanner = CleanupScanner(rules: (try? RuleCatalog.bundled()) ?? [], safetyGuard: SafetyGuard())
+        // Nobody is there to answer a permission prompt during a background scan.
+        scanner.avoidsPrivacyPrompts = !SystemStatus.hasFullDiskAccess()
+        let configured = scanner
+        guard let result = try? await Task.detached(priority: .utility, operation: { try await configured.scan() }).value else { return }
         lastRun = .now
         let junk = result.recommendedSize
         guard junk >= Int64(thresholdGB) * 1_000_000_000 else { return }
