@@ -4,7 +4,7 @@ import Foundation
 /// Compiled YARA rules, ready to scan files.
 ///
 /// The default rule set is Apple's own XProtect signatures, already installed and kept up to date
-/// on every Mac. Lucent reads them in place: it ships no malware database of its own.
+/// on every Mac. Revive reads them in place: it ships no malware database of its own.
 public final class YaraRules: @unchecked Sendable {
     public static let xprotectFolder = URL(filePath: "/Library/Apple/System/Library/CoreServices/XProtect.bundle/Contents/Resources")
 

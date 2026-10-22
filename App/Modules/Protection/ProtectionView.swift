@@ -1,4 +1,4 @@
-import LucentKit
+import ReviveKit
 import SwiftUI
 
 struct ProtectionView: View {
@@ -324,7 +324,7 @@ private struct PermissionsScreen: View {
             if model.permissionsUnreadable {
                 VStack(spacing: 14) {
                     Image(systemName: "lock.fill").font(.system(size: 38)).foregroundStyle(.white.opacity(0.7))
-                    Text("Lucent needs Full Disk Access to read which apps you gave permissions to.")
+                    Text("Revive needs Full Disk Access to read which apps you gave permissions to.")
                         .foregroundStyle(.white.opacity(0.8)).multilineTextAlignment(.center)
                     PillButton(title: "Grant Full Disk Access", symbol: "lock.open.fill", prominent: true) { app.showsAccessGuide = true }
                 }

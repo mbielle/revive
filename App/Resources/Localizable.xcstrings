@@ -97,12 +97,12 @@
         }
       }
     },
-    "%@ of junk piled up on your Mac. Open Lucent to review it.": {
+    "%@ of junk piled up on your Mac. Open Revive to review it.": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ de fichiers inutiles se sont accumulés sur votre Mac. Ouvrez Lucent pour les vérifier."
+            "value": "%@ de fichiers inutiles se sont accumulés sur votre Mac. Ouvrez Revive pour les vérifier."
           }
         }
       }
@@ -113,16 +113,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ sélectionnés dans %2$@"
-          }
-        }
-      }
-    },
-    "%@ used of %@": {
-      "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%1$@ utilisés sur %2$@"
           }
         }
       }
@@ -149,9 +139,6 @@
           }
         }
       }
-    },
-    "%@ — %@": {
-      "shouldTranslate": false
     },
     "%@ → %@": {
       "shouldTranslate": false
@@ -249,16 +236,6 @@
         }
       }
     },
-    "%lld recommended": {
-      "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld recommandées"
-          }
-        }
-      }
-    },
     "%lld selected · %@": {
       "localizations": {
         "fr": {
@@ -270,9 +247,6 @@
       }
     },
     "%lld%%": {
-      "shouldTranslate": false
-    },
-    "%lld/%lld": {
       "shouldTranslate": false
     },
     "1 file with identical copies.": {
@@ -345,12 +319,32 @@
         }
       }
     },
-    "Administrator Helper": {
+    "Administrator helper installed": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Outil d’aide administrateur"
+            "value": "Outil d’aide administrateur installé"
+          }
+        }
+      }
+    },
+    "Administrator helper not installed": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Outil d’aide administrateur non installé"
+          }
+        }
+      }
+    },
+    "Administrator helper unavailable in this build": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Outil d’aide administrateur indisponible dans cette version"
           }
         }
       }
@@ -405,38 +399,18 @@
         }
       }
     },
-    "Allow Lucent's helper in System Settings": {
+    "Allow Revive's helper in System Settings": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Autorisez l’outil d’aide de Lucent dans Réglages Système"
-          }
-        }
-      }
-    },
-    "Analyzing storage": {
-      "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Analyse du stockage"
+            "value": "Autorisez l’outil d’aide de Revive dans Réglages Système"
           }
         }
       }
     },
     "App Store": {
       "shouldTranslate": false
-    },
-    "Apple XProtect definitions %@": {
-      "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Définitions XProtect d’Apple %@"
-          }
-        }
-      }
     },
     "Apple's XProtect signatures could not be loaded; only startup items were checked.": {
       "localizations": {
@@ -538,16 +512,6 @@
         }
       }
     },
-    "Battery": {
-      "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Batterie"
-          }
-        }
-      }
-    },
     "Best": {
       "localizations": {
         "fr": {
@@ -630,6 +594,16 @@
     },
     "CPU": {
       "shouldTranslate": false
+    },
+    "CPU, GPU and memory at a glance, with quick actions.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CPU, GPU et mémoire en un coup d’œil, avec des actions rapides."
+          }
+        }
+      }
     },
     "Caches and downloads of AI apps and tools.": {
       "localizations": {
@@ -781,16 +755,6 @@
         }
       }
     },
-    "Checking startup items…": {
-      "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vérification des éléments de démarrage…"
-          }
-        }
-      }
-    },
     "Choose": {
       "localizations": {
         "fr": {
@@ -801,12 +765,22 @@
         }
       }
     },
-    "Choose…": {
+    "Choose a Folder…": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Choisir…"
+            "value": "Choisir un dossier…"
+          }
+        }
+      }
+    },
+    "Choose how Revive works for you.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choisissez comment Revive fonctionne pour vous."
           }
         }
       }
@@ -911,22 +885,12 @@
         }
       }
     },
-    "Come back here: Lucent detects the change automatically.": {
+    "Come back here: Revive detects the change automatically.": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Revenez ici : Lucent détecte le changement automatiquement."
-          }
-        }
-      }
-    },
-    "Coming in version %@": {
-      "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Prévu dans la version %@"
+            "value": "Revenez ici : Revive détecte le changement automatiquement."
           }
         }
       }
@@ -1221,16 +1185,6 @@
         }
       }
     },
-    "Fix": {
-      "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Corriger"
-          }
-        }
-      }
-    },
     "Flush DNS Cache": {
       "localizations": {
         "fr": {
@@ -1291,12 +1245,32 @@
         }
       }
     },
+    "Full Disk Access is off": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L’accès complet au disque est désactivé"
+          }
+        }
+      }
+    },
     "Full Disk Access is on": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
             "value": "L’accès complet au disque est activé"
+          }
+        }
+      }
+    },
+    "GPU": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "GPU"
           }
         }
       }
@@ -1324,12 +1298,12 @@
         }
       }
     },
-    "Give Lucent access to your files": {
+    "Give Revive access to your files": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Donnez à Lucent l’accès à vos fichiers"
+            "value": "Donnez à Revive l’accès à vos fichiers"
           }
         }
       }
@@ -1354,22 +1328,22 @@
         }
       }
     },
+    "Grant Access": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Autoriser"
+          }
+        }
+      }
+    },
     "Grant Full Disk Access": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
             "value": "Autoriser l’accès complet"
-          }
-        }
-      }
-    },
-    "Granted": {
-      "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Autorisé"
           }
         }
       }
@@ -1400,16 +1374,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Assistants installés par les apps pour tourner en arrière-plan. En supprimer un l’arrête définitivement ; l’app peut demander à le réinstaller."
-          }
-        }
-      }
-    },
-    "Here is what Smart Care found. Review any card, then click Run.": {
-      "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Voici ce que Smart Care a trouvé. Vérifiez une carte, puis cliquez sur Lancer."
           }
         }
       }
@@ -1483,16 +1447,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Fichiers d’installation"
-          }
-        }
-      }
-    },
-    "Installed": {
-      "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Installé"
           }
         }
       }
@@ -1637,16 +1591,6 @@
         }
       }
     },
-    "Listing apps and downloads to check…": {
-      "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Recensement des apps et téléchargements à vérifier…"
-          }
-        }
-      }
-    },
     "Loading Apple's malware signatures…": {
       "localizations": {
         "fr": {
@@ -1733,59 +1677,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Recherche des fichiers inutiles…"
-          }
-        }
-      }
-    },
-    "Lucent": {
-      "shouldTranslate": false
-    },
-    "Lucent checks each app's own update feed, the Mac App Store and Homebrew. Nothing else is sent.": {
-      "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Lucent consulte le flux de mise à jour de chaque app, le Mac App Store et Homebrew. Rien d’autre n’est envoyé."
-          }
-        }
-      }
-    },
-    "Lucent looks at iCloud Drive and at Google Drive, OneDrive, Dropbox and Box folders in Finder.": {
-      "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Lucent regarde iCloud Drive et les dossiers Google Drive, OneDrive, Dropbox et Box du Finder."
-          }
-        }
-      }
-    },
-    "Lucent needs Full Disk Access to read which apps you gave permissions to.": {
-      "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Lucent a besoin de l’accès complet au disque pour lire les autorisations données aux apps."
-          }
-        }
-      }
-    },
-    "Lucent needs administrator rights for this task.": {
-      "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Lucent a besoin des droits administrateur pour cette tâche."
-          }
-        }
-      }
-    },
-    "Lucent never scans or removes anything inside these folders.": {
-      "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Lucent n’analyse ni ne supprime jamais rien dans ces dossiers."
           }
         }
       }
@@ -1996,22 +1887,22 @@
         }
       }
     },
+    "Needed to clean Mail, Safari, the Trash and other app data.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nécessaire pour nettoyer Mail, Safari, la Corbeille et les données d’autres apps."
+          }
+        }
+      }
+    },
     "Needs administrator rights": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
             "value": "Nécessite les droits administrateur"
-          }
-        }
-      }
-    },
-    "Network": {
-      "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Réseau"
           }
         }
       }
@@ -2036,7 +1927,7 @@
         }
       }
     },
-    "Never touch": {
+    "Never Touch": {
       "localizations": {
         "fr": {
           "stringUnit": {
@@ -2126,16 +2017,6 @@
         }
       }
     },
-    "No excluded folders": {
-      "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Aucun dossier exclu"
-          }
-        }
-      }
-    },
     "No local duplicates.": {
       "localizations": {
         "fr": {
@@ -2192,26 +2073,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Plus tard"
-          }
-        }
-      }
-    },
-    "Not granted": {
-      "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Non autorisé"
-          }
-        }
-      }
-    },
-    "Not installed": {
-      "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Non installé"
           }
         }
       }
@@ -2336,12 +2197,12 @@
         }
       }
     },
-    "Open Lucent at login": {
+    "Open Revive at login": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ouvrir Lucent à la connexion"
+            "value": "Ouvrir Revive à la connexion"
           }
         }
       }
@@ -2352,16 +2213,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ouvrir les réglages"
-          }
-        }
-      }
-    },
-    "Open Space Lens": {
-      "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ouvrir Space Lens"
           }
         }
       }
@@ -2412,6 +2263,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Performances"
+          }
+        }
+      }
+    },
+    "Permissions": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Autorisations"
           }
         }
       }
@@ -2486,12 +2347,12 @@
         }
       }
     },
-    "Protected by Lucent": {
+    "Protected by Revive": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Protégé par Lucent"
+            "value": "Protégé par Revive"
           }
         }
       }
@@ -2716,6 +2577,59 @@
         }
       }
     },
+    "Revive": {
+      "shouldTranslate": false
+    },
+    "Revive checks each app's own update feed, the Mac App Store and Homebrew. Nothing else is sent.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revive consulte le flux de mise à jour de chaque app, le Mac App Store et Homebrew. Rien d’autre n’est envoyé."
+          }
+        }
+      }
+    },
+    "Revive looks at iCloud Drive and at Google Drive, OneDrive, Dropbox and Box folders in Finder.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revive regarde iCloud Drive et les dossiers Google Drive, OneDrive, Dropbox et Box du Finder."
+          }
+        }
+      }
+    },
+    "Revive needs Full Disk Access to read which apps you gave permissions to.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revive a besoin de l’accès complet au disque pour lire les autorisations données aux apps."
+          }
+        }
+      }
+    },
+    "Revive needs administrator rights for this task.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revive a besoin des droits administrateur pour cette tâche."
+          }
+        }
+      }
+    },
+    "Revive never scans or removes anything inside these folders.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revive n’analyse ni ne supprime jamais rien dans ces dossiers."
+          }
+        }
+      }
+    },
     "Run": {
       "localizations": {
         "fr": {
@@ -2746,12 +2660,22 @@
         }
       }
     },
-    "Runs while Lucent is open and only notifies you. Nothing is removed without you.": {
+    "Runs while Revive is open and only notifies you. Nothing is removed without you.": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Fonctionne quand Lucent est ouvert et vous avertit seulement. Rien n’est supprimé sans vous."
+            "value": "Fonctionne quand Revive est ouvert et vous avertit seulement. Rien n’est supprimé sans vous."
+          }
+        }
+      }
+    },
+    "Safety": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sécurité"
           }
         }
       }
@@ -2806,12 +2730,12 @@
         }
       }
     },
-    "Scans and cleanups run normally, but nothing is deleted. Useful to see what Lucent would do.": {
+    "Scans and cleanups run normally, but nothing is deleted. Useful to see what Revive would do.": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Les analyses et nettoyages fonctionnent normalement, mais rien n’est supprimé. Pratique pour voir ce que ferait Lucent."
+            "value": "Les analyses et nettoyages fonctionnent normalement, mais rien n’est supprimé. Pratique pour voir ce que ferait Revive."
           }
         }
       }
@@ -2856,12 +2780,12 @@
         }
       }
     },
-    "Scripts that fix common slowdowns.": {
+    "Scripts that fix common slowdowns, %lld recommended.": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Scripts qui corrigent les ralentissements courants."
+            "value": "Scripts qui corrigent les ralentissements courants, %lld recommandés."
           }
         }
       }
@@ -2922,6 +2846,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Réglages"
+          }
+        }
+      }
+    },
+    "Settings…": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Réglages…"
           }
         }
       }
@@ -3122,16 +3056,6 @@
         }
       }
     },
-    "Storage": {
-      "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Stockage"
-          }
-        }
-      }
-    },
     "Storage Map": {
       "localizations": {
         "fr": {
@@ -3272,16 +3196,6 @@
         }
       }
     },
-    "This module is being built in the open. Follow the progress on GitHub.": {
-      "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ce module est développé en open source. Suivez son avancement sur GitHub."
-          }
-        }
-      }
-    },
     "Threat": {
       "localizations": {
         "fr": {
@@ -3352,22 +3266,12 @@
         }
       }
     },
-    "Turn on Lucent in the Full Disk Access list. If it is missing, click + and pick Lucent in Applications.": {
+    "Turn on Revive in the Full Disk Access list. If it is missing, click + and pick Revive in Applications.": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Activez Lucent dans la liste Accès complet au disque. S’il n’y est pas, cliquez sur + et choisissez Lucent dans Applications."
-          }
-        }
-      }
-    },
-    "Unavailable in this build": {
-      "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Indisponible dans cette version"
+            "value": "Activez Revive dans la liste Accès complet au disque. S’il n’y est pas, cliquez sur + et choisissez Revive dans Applications."
           }
         }
       }
@@ -3542,42 +3446,12 @@
         }
       }
     },
-    "available on %@": {
-      "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "disponibles sur %@"
-          }
-        }
-      }
-    },
-    "built-in protections on": {
-      "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "protections intégrées actives"
-          }
-        }
-      }
-    },
     "built-in protections on, no malware": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
             "value": "protections intégrées actives, aucun malware"
-          }
-        }
-      }
-    },
-    "free": {
-      "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "libres"
           }
         }
       }
@@ -3595,22 +3469,22 @@
     "iCloud Drive": {
       "shouldTranslate": false
     },
-    "iCloud Drive is protected by macOS. Grant Full Disk Access so Lucent can measure it.": {
+    "iCloud Drive is protected by macOS. Grant Full Disk Access so Revive can measure it.": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "iCloud Drive est protégé par macOS. Autorisez l’accès complet au disque pour que Lucent puisse le mesurer."
+            "value": "iCloud Drive est protégé par macOS. Autorisez l’accès complet au disque pour que Revive puisse le mesurer."
           }
         }
       }
     },
-    "macOS hides Mail, Safari, the Trash and other app data from apps by default. With Full Disk Access, Lucent can find junk there too. It never sends anything off your Mac.": {
+    "macOS hides Mail, Safari, the Trash and other app data from apps by default. With Full Disk Access, Revive can find junk there too. It never sends anything off your Mac.": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Par défaut, macOS cache aux apps les données de Mail, de Safari, de la Corbeille et d’autres apps. Avec l’accès complet au disque, Lucent peut aussi y trouver des fichiers inutiles. Rien ne quitte jamais votre Mac."
+            "value": "Par défaut, macOS cache aux apps les données de Mail, de Safari, de la Corbeille et d’autres apps. Avec l’accès complet au disque, Revive peut aussi y trouver des fichiers inutiles. Rien ne quitte jamais votre Mac."
           }
         }
       }
@@ -3714,9 +3588,6 @@
           }
         }
       }
-    },
-    "↑ %@": {
-      "shouldTranslate": false
     },
     "↓ %@   ↑ %@": {
       "shouldTranslate": false

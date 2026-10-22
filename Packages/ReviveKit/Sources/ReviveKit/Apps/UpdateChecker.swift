@@ -127,7 +127,7 @@ public struct UpdateChecker: Sendable {
 
     private func fetch(_ url: URL) async -> Data? {
         var request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 12)
-        request.setValue("Lucent (macOS update check)", forHTTPHeaderField: "User-Agent")
+        request.setValue("Revive (macOS update check)", forHTTPHeaderField: "User-Agent")
         guard let (data, response) = try? await session.data(for: request),
               (response as? HTTPURLResponse)?.statusCode == 200 else { return nil }
         return data

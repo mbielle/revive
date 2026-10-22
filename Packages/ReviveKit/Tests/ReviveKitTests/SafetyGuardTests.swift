@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import LucentKit
+@testable import ReviveKit
 
 @Suite struct SafetyGuardTests {
     let home = URL(filePath: "/Users/tester")

@@ -1,4 +1,4 @@
-import LucentKit
+import ReviveKit
 import SwiftUI
 
 struct SpaceLensView: View {
@@ -32,13 +32,18 @@ private struct TargetPicker: View {
     @Bindable var model: SpaceLensModel
 
     var body: some View {
-        HStack(spacing: 8) {
-            choice(.home, title: "Home Folder", symbol: "house.fill")
-            choice(.startupDisk, title: "Macintosh HD", symbol: "internaldrive.fill")
-            if case let .folder(url) = model.target {
-                choice(model.target, title: "\(url.lastPathComponent)", symbol: "folder.fill")
+        VStack(alignment: .leading, spacing: 10) {
+            HStack(spacing: 4) {
+                choice(.home, title: "Home Folder", symbol: "house.fill")
+                choice(.startupDisk, title: "Macintosh HD", symbol: "internaldrive.fill")
+                if case let .folder(url) = model.target {
+                    choice(model.target, title: "\(url.lastPathComponent)", symbol: "folder.fill")
+                }
             }
-            PillButton(title: "Choose…", symbol: "folder.badge.plus") { model.chooseFolder() }
+            .padding(4)
+            .background(Capsule().fill(.white.opacity(0.12)))
+            .fixedSize()
+            PillButton(title: "Choose a Folder…", symbol: "folder.badge.plus") { model.chooseFolder() }
         }
     }
 
@@ -47,11 +52,13 @@ private struct TargetPicker: View {
         return Button {
             model.target = target
         } label: {
-            Label { Text(title) } icon: { Image(systemName: symbol) }
+            Label { Text(title).lineLimit(1) } icon: { Image(systemName: symbol) }
                 .font(.system(size: 13, weight: .semibold))
                 .foregroundStyle(selected ? .black.opacity(0.8) : .white)
-                .padding(.horizontal, 14).padding(.vertical, 8)
-                .background(Capsule().fill(selected ? AnyShapeStyle(.white) : AnyShapeStyle(.white.opacity(0.15))))
+                .padding(.horizontal, 14).padding(.vertical, 7)
+                .background(Capsule().fill(selected ? AnyShapeStyle(.white) : AnyShapeStyle(.clear)))
+                .contentShape(Capsule())
+                .fixedSize()
         }
         .buttonStyle(PressableStyle())
     }
@@ -187,7 +194,7 @@ private struct NodeRow: View {
             CheckBox(state: model.selection.contains(node.id) ? .on : .off) { model.toggle(node) }
                 .disabled(!removable)
                 .opacity(removable ? 1 : 0.3)
-                .help(removable ? Text("Select") : Text("Protected by Lucent"))
+                .help(removable ? Text("Select") : Text("Protected by Revive"))
             Image(nsImage: NSWorkspace.shared.icon(forFile: node.url.path(percentEncoded: false)))
                 .resizable()
                 .frame(width: 22, height: 22)

@@ -32,7 +32,7 @@ public actor ActivityLog {
 
     public init(fileURL: URL? = nil) {
         self.fileURL = fileURL ?? URL.applicationSupportDirectory
-            .appending(path: "Lucent", directoryHint: .isDirectory)
+            .appending(path: "Revive", directoryHint: .isDirectory)
             .appending(path: "activity.json")
     }
 

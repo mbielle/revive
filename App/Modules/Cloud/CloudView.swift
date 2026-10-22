@@ -1,4 +1,4 @@
-import LucentKit
+import ReviveKit
 import SwiftUI
 
 @MainActor @Observable
@@ -114,8 +114,8 @@ struct CloudView: View {
                 HeroIllustration(style: .cloud, symbol: "icloud.slash.fill", theme: module.theme, size: 260)
                 Text("No cloud storage found").screenTitle()
                 Text(model.result.iCloudUnreadable
-                     ? "iCloud Drive is protected by macOS. Grant Full Disk Access so Lucent can measure it."
-                     : "Lucent looks at iCloud Drive and at Google Drive, OneDrive, Dropbox and Box folders in Finder.")
+                     ? "iCloud Drive is protected by macOS. Grant Full Disk Access so Revive can measure it."
+                     : "Revive looks at iCloud Drive and at Google Drive, OneDrive, Dropbox and Box folders in Finder.")
                     .screenSubtitle().multilineTextAlignment(.center).frame(maxWidth: 520)
                 HStack {
                     if model.result.iCloudUnreadable {

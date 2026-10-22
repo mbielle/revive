@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Engine tests
-        working-directory: Packages/LucentKit
+        working-directory: Packages/ReviveKit
         run: swift test
 
       - name: Generate project
@@ -21,5 +21,5 @@ jobs:
 
       - name: Build app
         run: |
-          xcodebuild -project Lucent.xcodeproj -scheme Lucent -configuration Release \
+          xcodebuild -project Revive.xcodeproj -scheme Revive -configuration Release \
             -derivedDataPath build CODE_SIGNING_ALLOWED=NO build

@@ -2,9 +2,9 @@ import Foundation
 import Security
 import SystemConfiguration
 
-/// The object the privileged helper exports over XPC. Lives in LucentKit so it can be tested
+/// The object the privileged helper exports over XPC. Lives in ReviveKit so it can be tested
 /// with an in-process listener; the helper executable only wires it to launchd.
-public final class HelperService: NSObject, LucentHelperProtocol, Sendable {
+public final class HelperService: NSObject, ReviveHelperProtocol, Sendable {
     public static let version = "1"
 
     /// Home folder whose SafetyGuard validates paths. Defaults to the console user's home.
@@ -46,9 +46,9 @@ public final class HelperService: NSObject, LucentHelperProtocol, Sendable {
     }
 }
 
-/// Accepts connections from the Lucent app only, and exports a `HelperService` to each.
+/// Accepts connections from the Revive app only, and exports a `HelperService` to each.
 public final class HelperListenerDelegate: NSObject, NSXPCListenerDelegate, Sendable {
-    public static let clientIdentifier = "io.github.mbielle.Lucent"
+    public static let clientIdentifier = "io.github.mbielle.Revive"
 
     private let requirement: String?
     private let makeService: @Sendable () -> HelperService
@@ -62,7 +62,7 @@ public final class HelperListenerDelegate: NSObject, NSXPCListenerDelegate, Send
     public func listener(_ listener: NSXPCListener, shouldAcceptNewConnection connection: NSXPCConnection) -> Bool {
         guard let requirement else { return false }
         if !requirement.isEmpty { connection.setCodeSigningRequirement(requirement) }
-        connection.exportedInterface = NSXPCInterface(with: LucentHelperProtocol.self)
+        connection.exportedInterface = NSXPCInterface(with: ReviveHelperProtocol.self)
         connection.exportedObject = makeService()
         connection.resume()
         return true

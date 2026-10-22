@@ -1,5 +1,5 @@
 import AppKit
-import LucentKit
+import ReviveKit
 import SwiftUI
 
 /// App-wide state: navigation, settings and the long-lived model of each module.
@@ -43,10 +43,11 @@ final class AppModel {
     }
 
     init() {
-        // Simulation can be forced from the command line: `open Lucent.app --args -dryRun YES`.
+        // Simulation can be forced from the command line: `open Revive.app --args -dryRun YES`.
         dryRun = UserDefaults.standard.bool(forKey: Keys.dryRun)
         exclusions = UserDefaults.standard.stringArray(forKey: Keys.exclusions) ?? []
         showsMenuBar = UserDefaults.standard.object(forKey: "showsMenuBar") as? Bool ?? true
+        watchFullDiskAccess()
         #if DEBUG
         if UserDefaults.standard.bool(forKey: "helperSelfTest") {
             Task { await Self.runHelperSelfTest() }
@@ -153,7 +154,21 @@ final class AppModel {
     }
 
     func refreshAccess() {
-        hasFullDiskAccess = SystemStatus.hasFullDiskAccess()
+        let granted = SystemStatus.hasFullDiskAccess()
+        if granted != hasFullDiskAccess {
+            withAnimation(.spring(duration: 0.4)) { hasFullDiskAccess = granted }
+        }
+    }
+
+    /// Checks every two seconds until access is granted, so the "Grant Full Disk Access" button
+    /// disappears as soon as the switch is turned on in System Settings.
+    private func watchFullDiskAccess() {
+        Task { [weak self] in
+            while let self, !self.hasFullDiskAccess {
+                try? await Task.sleep(for: .seconds(2))
+                self.refreshAccess()
+            }
+        }
     }
 
     func openFullDiskAccessSettings() {

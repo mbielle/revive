@@ -49,6 +49,7 @@ struct RootView: View {
         case .cloudCleanup: CloudView(model: app.cloud)
         case .myTools: ToolsView(model: app.tools)
         case .myActivity: ActivityView(model: app.activity)
+        case .settings: SettingsView()
         }
     }
 }
@@ -56,7 +57,6 @@ struct RootView: View {
 /// Top-right corner: access warning, simulation badge and settings.
 struct TopBar: View {
     @Environment(AppModel.self) private var app
-    @Environment(\.openSettings) private var openSettings
 
     var body: some View {
         HStack(spacing: 10) {
@@ -74,13 +74,13 @@ struct TopBar: View {
                 }
             }
             Button {
-                openSettings()
+                app.selection = app.selection == .settings ? .smartCare : .settings
             } label: {
                 Image(systemName: "gearshape.fill")
                     .font(.system(size: 14, weight: .semibold))
                     .foregroundStyle(.white)
                     .frame(width: 34, height: 34)
-                    .background(Circle().fill(.white.opacity(0.14)))
+                    .background(Circle().fill(.white.opacity(app.selection == .settings ? 0.3 : 0.14)))
             }
             .buttonStyle(PressableStyle())
             .help("Settings")

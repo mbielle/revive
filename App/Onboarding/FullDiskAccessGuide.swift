@@ -11,9 +11,9 @@ struct FullDiskAccessGuide: View {
             HeroIllustration(style: .squircle, symbol: "lock.open.fill", theme: theme, size: 150, animated: false)
                 .padding(.top, 10)
             VStack(spacing: 8) {
-                Text("Give Lucent access to your files")
+                Text("Give Revive access to your files")
                     .font(.system(size: 24, weight: .semibold))
-                Text("macOS hides Mail, Safari, the Trash and other app data from apps by default. With Full Disk Access, Lucent can find junk there too. It never sends anything off your Mac.")
+                Text("macOS hides Mail, Safari, the Trash and other app data from apps by default. With Full Disk Access, Revive can find junk there too. It never sends anything off your Mac.")
                     .font(.system(size: 14))
                     .foregroundStyle(.white.opacity(0.75))
                     .multilineTextAlignment(.center)
@@ -21,8 +21,8 @@ struct FullDiskAccessGuide: View {
             }
             VStack(alignment: .leading, spacing: 12) {
                 step(1, "Click Open System Settings below.")
-                step(2, "Turn on Lucent in the Full Disk Access list. If it is missing, click + and pick Lucent in Applications.")
-                step(3, "Come back here: Lucent detects the change automatically.")
+                step(2, "Turn on Revive in the Full Disk Access list. If it is missing, click + and pick Revive in Applications.")
+                step(3, "Come back here: Revive detects the change automatically.")
             }
             .padding(18)
             .glassPanel(cornerRadius: 16)

@@ -1,106 +1,144 @@
 import SwiftUI
 
+/// Settings, shown inside the main window with the same look as the modules.
 struct SettingsView: View {
     @Environment(AppModel.self) private var app
+    private let module = AppModule.settings
 
     var body: some View {
         @Bindable var app = app
         @Bindable var scheduler = app.scheduler
-        Form {
-            Section {
-                Toggle(isOn: $app.dryRun) {
-                    Text("Simulation mode")
-                    Text("Scans and cleanups run normally, but nothing is deleted. Useful to see what Lucent would do.")
-                }
+        VStack(alignment: .leading, spacing: 20) {
+            VStack(alignment: .leading, spacing: 8) {
+                Text(module.title).screenTitle()
+                Text(module.subtitle).screenSubtitle()
             }
+            .padding(.top, 64)
 
-            Section("General") {
-                Toggle("Show the monitor in the menu bar", isOn: $app.showsMenuBar)
-                Toggle("Open Lucent at login", isOn: .init(get: { app.scheduler.opensAtLogin }, set: { app.scheduler.opensAtLogin = $0 }))
-            }
-
-            Section {
-                Picker("Scan for junk automatically", selection: $scheduler.frequency) {
-                    Text("Never").tag(AutoScanScheduler.Frequency.never)
-                    Text("Every day").tag(AutoScanScheduler.Frequency.daily)
-                    Text("Every week").tag(AutoScanScheduler.Frequency.weekly)
-                }
-                if scheduler.frequency != .never {
-                    Stepper("Notify me above \(scheduler.thresholdGB) GB", value: $scheduler.thresholdGB, in: 1...50)
-                }
-            } header: {
-                Text("Automatic Scan")
-            } footer: {
-                Text("Runs while Lucent is open and only notifies you. Nothing is removed without you.")
-            }
-
-            Section {
-                LabeledContent {
-                    switch app.privileged.helperState {
-                    case .enabled:
-                        Button("Uninstall") { Task { await app.privileged.uninstallHelper() } }
-                    case .needsApproval:
-                        Button("Open Login Items") { app.privileged.installHelper() }
-                    default:
-                        Button("Install") { app.privileged.installHelper() }
-                    }
-                } label: {
-                    Label(helperStatus, systemImage: app.privileged.helperState == .enabled ? "checkmark.circle.fill" : "key.fill")
-                }
-                if let error = app.privileged.lastError {
-                    Text(error).font(.caption).foregroundStyle(.secondary)
-                }
-            } header: {
-                Text("Administrator Helper")
-            } footer: {
-                Text("Runs a fixed list of maintenance tasks with administrator rights, so they don't ask for your password each time.")
-            }
-
-            Section("Full Disk Access") {
-                LabeledContent {
-                    Button("Open System Settings") { app.openFullDiskAccessSettings() }
-                } label: {
-                    Label(app.hasFullDiskAccess ? "Granted" : "Not granted",
-                          systemImage: app.hasFullDiskAccess ? "checkmark.circle.fill" : "exclamationmark.triangle.fill")
-                }
-            }
-
-            Section {
-                if app.exclusions.isEmpty {
-                    Text("No excluded folders").foregroundStyle(.secondary)
-                }
-                ForEach(app.exclusions, id: \.self) { path in
-                    HStack {
-                        Image(nsImage: NSWorkspace.shared.icon(forFile: path)).resizable().frame(width: 18, height: 18)
-                        Text(path.replacingOccurrences(of: NSHomeDirectory(), with: "~"))
-                            .lineLimit(1).truncationMode(.middle)
-                        Spacer()
-                        Button(role: .destructive) {
-                            app.exclusions.removeAll { $0 == path }
-                        } label: {
-                            Image(systemName: "minus.circle.fill")
+            ScrollView {
+                VStack(alignment: .leading, spacing: 18) {
+                    section("Safety", symbol: "checkmark.shield.fill") {
+                        row("Simulation mode",
+                            detail: "Scans and cleanups run normally, but nothing is deleted. Useful to see what Revive would do.") {
+                            SettingsSwitch(isOn: $app.dryRun, theme: module.theme)
                         }
-                        .buttonStyle(.borderless)
+                    }
+
+                    section("General", symbol: "slider.horizontal.3") {
+                        row("Show the monitor in the menu bar", detail: "CPU, GPU and memory at a glance, with quick actions.") {
+                            SettingsSwitch(isOn: $app.showsMenuBar, theme: module.theme)
+                        }
+                        Divider().overlay(.white.opacity(0.1))
+                        row("Open Revive at login", detail: nil) {
+                            SettingsSwitch(isOn: .init(get: { scheduler.opensAtLogin }, set: { scheduler.opensAtLogin = $0 }), theme: module.theme)
+                        }
+                    }
+
+                    section("Automatic Scan", symbol: "clock.arrow.circlepath") {
+                        row("Scan for junk automatically",
+                            detail: "Runs while Revive is open and only notifies you. Nothing is removed without you.") {
+                            PillPicker(options: [
+                                (.never, String(localized: "Never")), (.daily, String(localized: "Every day")), (.weekly, String(localized: "Every week")),
+                            ], selection: $scheduler.frequency)
+                        }
+                        if scheduler.frequency != .never {
+                            Divider().overlay(.white.opacity(0.1))
+                            row("Notify me above \(scheduler.thresholdGB) GB", detail: nil) {
+                                HStack(spacing: 6) {
+                                    RoundIconButton(symbol: "minus") { scheduler.thresholdGB = max(1, scheduler.thresholdGB - 1) }
+                                    RoundIconButton(symbol: "plus") { scheduler.thresholdGB = min(50, scheduler.thresholdGB + 1) }
+                                }
+                            }
+                        }
+                    }
+
+                    section("Permissions", symbol: "lock.fill") {
+                        row(app.hasFullDiskAccess ? "Full Disk Access is on" : "Full Disk Access is off",
+                            detail: "Needed to clean Mail, Safari, the Trash and other app data.") {
+                            if app.hasFullDiskAccess {
+                                StatusDot(on: true)
+                            } else {
+                                PillButton(title: "Grant Access", symbol: "lock.open.fill", prominent: true) { app.showsAccessGuide = true }
+                            }
+                        }
+                        Divider().overlay(.white.opacity(0.1))
+                        row(helperTitle,
+                            detail: "Runs a fixed list of maintenance tasks with administrator rights, so they don't ask for your password each time.") {
+                            switch app.privileged.helperState {
+                            case .enabled:
+                                PillButton(title: "Uninstall", symbol: "trash") { Task { await app.privileged.uninstallHelper() } }
+                            case .needsApproval:
+                                PillButton(title: "Open Login Items", symbol: "gearshape.fill") { app.privileged.installHelper() }
+                            case .notInstalled:
+                                PillButton(title: "Install", symbol: "key.fill") { app.privileged.installHelper() }
+                            case .unavailable:
+                                EmptyView()
+                            }
+                        }
+                        if let error = app.privileged.lastError {
+                            Text(error).font(.system(size: 11)).foregroundStyle(Color(hex: 0xFFD43B))
+                        }
+                    }
+
+                    section("Never Touch", symbol: "hand.raised.fill") {
+                        Text("Revive never scans or removes anything inside these folders.")
+                            .font(.system(size: 12)).foregroundStyle(.white.opacity(0.65))
+                        ForEach(app.exclusions, id: \.self) { path in
+                            HStack(spacing: 10) {
+                                Image(nsImage: NSWorkspace.shared.icon(forFile: path)).resizable().frame(width: 20, height: 20)
+                                Text(path.replacingOccurrences(of: NSHomeDirectory(), with: "~"))
+                                    .font(.system(size: 13)).foregroundStyle(.white)
+                                    .lineLimit(1).truncationMode(.middle)
+                                Spacer()
+                                RoundIconButton(symbol: "xmark") {
+                                    withAnimation { app.exclusions.removeAll { $0 == path } }
+                                }
+                            }
+                        }
+                        PillButton(title: "Add Folder…", symbol: "folder.badge.plus") { addExclusion() }
                     }
                 }
-                Button("Add Folder…") { addExclusion() }
-            } header: {
-                Text("Never touch")
-            } footer: {
-                Text("Lucent never scans or removes anything inside these folders.")
+                .padding(.bottom, 30)
             }
+            .scrollIndicators(.never)
         }
-        .formStyle(.grouped)
-        .frame(width: 540, height: 640)
+        .padding(.horizontal, 44)
         .onAppear { app.privileged.refresh() }
     }
 
-    private var helperStatus: LocalizedStringResource {
+    private var helperTitle: LocalizedStringResource {
         switch app.privileged.helperState {
-        case .enabled: "Installed"
+        case .enabled: "Administrator helper installed"
         case .needsApproval: "Waiting for your approval in System Settings"
-        case .notInstalled: "Not installed"
-        case .unavailable: "Unavailable in this build"
+        case .notInstalled: "Administrator helper not installed"
+        case .unavailable: "Administrator helper unavailable in this build"
+        }
+    }
+
+    private func section<Content: View>(_ title: LocalizedStringResource, symbol: String, @ViewBuilder content: () -> Content) -> some View {
+        VStack(alignment: .leading, spacing: 14) {
+            HStack(spacing: 10) {
+                FeatureBadge(symbol: symbol, theme: module.theme, size: 28)
+                Text(title).font(.system(size: 15, weight: .semibold)).foregroundStyle(.white)
+            }
+            content()
+        }
+        .padding(20)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .glassPanel(cornerRadius: 20)
+    }
+
+    private func row<Control: View>(_ title: LocalizedStringResource, detail: LocalizedStringResource?, @ViewBuilder control: () -> Control) -> some View {
+        HStack(alignment: .center, spacing: 16) {
+            VStack(alignment: .leading, spacing: 3) {
+                Text(title).font(.system(size: 14, weight: .medium)).foregroundStyle(.white)
+                if let detail {
+                    Text(detail).font(.system(size: 12)).foregroundStyle(.white.opacity(0.6))
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+            }
+            Spacer(minLength: 12)
+            control()
         }
     }
 
@@ -111,7 +149,46 @@ struct SettingsView: View {
         panel.allowsMultipleSelection = true
         if panel.runModal() == .OK {
             let paths = panel.urls.map { $0.path(percentEncoded: false) }
-            app.exclusions.append(contentsOf: paths.filter { !app.exclusions.contains($0) })
+            withAnimation { app.exclusions.append(contentsOf: paths.filter { !app.exclusions.contains($0) }) }
         }
+    }
+}
+
+/// Switch in the app's colors.
+struct SettingsSwitch: View {
+    @Binding var isOn: Bool
+    let theme: ModuleTheme
+
+    var body: some View {
+        Toggle("", isOn: $isOn)
+            .toggleStyle(.switch)
+            .labelsHidden()
+            .tint(theme.button)
+    }
+}
+
+struct RoundIconButton: View {
+    let symbol: String
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            Image(systemName: symbol)
+                .font(.system(size: 11, weight: .bold))
+                .foregroundStyle(.white)
+                .frame(width: 28, height: 28)
+                .background(Circle().fill(.white.opacity(0.15)))
+        }
+        .buttonStyle(PressableStyle())
+    }
+}
+
+struct StatusDot: View {
+    let on: Bool
+
+    var body: some View {
+        Image(systemName: on ? "checkmark.circle.fill" : "exclamationmark.triangle.fill")
+            .font(.system(size: 20))
+            .foregroundStyle(on ? .white : Color(hex: 0xFFD43B))
     }
 }

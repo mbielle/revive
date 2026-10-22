@@ -1,14 +1,14 @@
-// Builds a fake home folder full of realistic clutter, to try Lucent without touching your files.
+// Builds a fake home folder full of realistic clutter, to try Revive without touching your files.
 //
-//   swift scripts/make-demo-home.swift /tmp/LucentDemo
-//   open build/.../Lucent.app --args -home /tmp/LucentDemo -dryRun YES
+//   swift scripts/make-demo-home.swift /tmp/ReviveDemo
+//   open build/.../Revive.app --args -home /tmp/ReviveDemo -dryRun YES
 //
 // Debug builds read `-home` and scan that folder instead of yours.
 
 import AppKit
 import Foundation
 
-let root = URL(filePath: CommandLine.arguments.count > 1 ? CommandLine.arguments[1] : "/tmp/LucentDemo")
+let root = URL(filePath: CommandLine.arguments.count > 1 ? CommandLine.arguments[1] : "/tmp/ReviveDemo")
 let fm = FileManager.default
 try? fm.removeItem(at: root)
 

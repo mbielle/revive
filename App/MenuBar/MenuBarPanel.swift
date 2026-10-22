@@ -1,10 +1,11 @@
-import LucentKit
+import ReviveKit
 import SwiftUI
 
 /// Live numbers for the menu bar panel, sampled only while the panel is open.
 @MainActor @Observable
 final class MenuBarMonitor {
     private(set) var cpu: Double = 0
+    private(set) var gpu: Double?
     private(set) var memory: MemoryUsage?
     private(set) var disk: DiskSpace?
     private(set) var battery: BatteryStatus?
@@ -36,6 +37,7 @@ final class MenuBarMonitor {
             lastTicks = ticks
         }
         memory = SystemMetrics.memory()
+        gpu = SystemMetrics.gpuUsage()
         disk = SystemStatus.startupDisk()
         battery = SystemMetrics.battery()
         let network = SystemMetrics.networkBytes()
@@ -58,12 +60,12 @@ struct MenuBarPanel: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
-            HStack {
-                Image(systemName: "sparkles").font(.system(size: 16, weight: .semibold))
-                Text("Lucent").font(.system(size: 15, weight: .semibold))
+            HStack(spacing: 8) {
+                Image(systemName: "infinity").font(.system(size: 16, weight: .bold))
+                Text("Revive").font(.system(size: 15, weight: .semibold))
                 Spacer()
                 Button {
-                    open(.smartCare)
+                    open(.smartCare, start: false)
                 } label: {
                     Text("Open").font(.system(size: 12, weight: .semibold))
                 }
@@ -73,29 +75,30 @@ struct MenuBarPanel: View {
             }
 
             LazyVGrid(columns: [GridItem(.flexible(), spacing: 10), GridItem(.flexible(), spacing: 10)], spacing: 10) {
-                metric("CPU", value: "\(Int(monitor.cpu * 100))%", fraction: monitor.cpu, symbol: "cpu")
-                metric("Memory", value: "\(Int((monitor.memory?.usedFraction ?? 0) * 100))%", fraction: monitor.memory?.usedFraction ?? 0, symbol: "memorychip")
+                metric("CPU", value: percent(monitor.cpu), fraction: monitor.cpu, symbol: "cpu")
+                metric("GPU", value: monitor.gpu.map(percent) ?? "—", fraction: monitor.gpu, symbol: "rectangle.3.group")
+                metric("Memory", value: percent(monitor.memory?.usedFraction ?? 0), fraction: monitor.memory?.usedFraction ?? 0, symbol: "memorychip",
+                       caption: monitor.memory.map { "\(formatBytes(Int64($0.used)))" })
                 metric("Disk", value: monitor.disk.map { formatBytes($0.available) } ?? "—", fraction: monitor.disk?.usedFraction ?? 0,
                        symbol: "internaldrive", caption: "free")
-                if let battery = monitor.battery {
-                    metric("Battery", value: "\(Int(battery.level * 100))%", fraction: battery.level,
-                           symbol: battery.isCharging ? "battery.100percent.bolt" : "battery.75percent")
-                } else {
-                    metric("Network", value: "↓ \(rate(monitor.download))", fraction: nil, symbol: "network", caption: "↑ \(rate(monitor.upload))")
-                }
-            }
-            if monitor.battery != nil {
-                HStack(spacing: 8) {
-                    Image(systemName: "network")
-                    Text("↓ \(rate(monitor.download))   ↑ \(rate(monitor.upload))").font(.system(size: 12, design: .rounded))
-                    Spacer()
-                }
-                .foregroundStyle(.white.opacity(0.85))
-                .padding(10)
-                .background(RoundedRectangle(cornerRadius: 12).fill(.white.opacity(0.1)))
             }
 
+            HStack(spacing: 14) {
+                Label("↓ \(rate(monitor.download))   ↑ \(rate(monitor.upload))", systemImage: "network")
+                Spacer()
+                if let battery = monitor.battery {
+                    Label("\(Int(battery.level * 100))%", systemImage: battery.isCharging ? "battery.100percent.bolt" : "battery.75percent")
+                }
+            }
+            .font(.system(size: 12, design: .rounded))
+            .monospacedDigit()
+            .foregroundStyle(.white.opacity(0.85))
+            .padding(10)
+            .background(RoundedRectangle(cornerRadius: 12).fill(.white.opacity(0.1)))
+
             HStack(spacing: 8) {
+                action("Smart Care", symbol: "sparkles") { open(.smartCare, start: true) }
+                action("Protection", symbol: "checkmark.shield.fill") { open(.protection, start: true) }
                 action("Free Up RAM", symbol: "memorychip", busy: freeing) {
                     freeing = true
                     Task {
@@ -103,26 +106,35 @@ struct MenuBarPanel: View {
                         freeing = false
                     }
                 }
-                action("Smart Care", symbol: "sparkles") { open(.smartCare) }
-                action("Cleanup", symbol: "bubbles.and.sparkles.fill") { open(.cleanup) }
             }
         }
         .foregroundStyle(.white)
         .padding(16)
-        .frame(width: 320)
+        .frame(width: 330)
         .background { ModuleBackground(theme: theme) }
         .environment(\.colorScheme, .dark)
         .onAppear { monitor.start() }
         .onDisappear { monitor.stop() }
     }
 
-    private func open(_ module: AppModule) {
+    private func percent(_ fraction: Double) -> String {
+        "\(Int((fraction * 100).rounded()))%"
+    }
+
+    /// Brings the main window forward on a module, optionally starting its scan.
+    private func open(_ module: AppModule, start: Bool) {
         app.selection = module
         openWindow(id: "main")
         NSApp.activate(ignoringOtherApps: true)
+        guard start else { return }
+        switch module {
+        case .smartCare where app.smartCare.phase == .idle: app.smartCare.scan()
+        case .protection where app.protection.phase == .idle: app.protection.scan()
+        default: break
+        }
     }
 
-    private func metric(_ title: LocalizedStringResource, value: String, fraction: Double?, symbol: String, caption: LocalizedStringResource? = nil) -> some View {
+    private func metric(_ title: LocalizedStringResource, value: String, fraction: Double?, symbol: String, caption: String? = nil) -> some View {
         VStack(alignment: .leading, spacing: 6) {
             HStack(spacing: 6) {
                 Image(systemName: symbol).font(.system(size: 11, weight: .semibold))
@@ -130,8 +142,8 @@ struct MenuBarPanel: View {
             }
             .foregroundStyle(.white.opacity(0.7))
             HStack(alignment: .firstTextBaseline, spacing: 4) {
-                Text(value).font(.system(size: 18, weight: .semibold, design: .rounded)).contentTransition(.numericText())
-                if let caption { Text(caption).font(.system(size: 11)).foregroundStyle(.white.opacity(0.6)) }
+                Text(value).font(.system(size: 18, weight: .semibold, design: .rounded)).monospacedDigit().contentTransition(.numericText())
+                if let caption { Text(LocalizedStringKey(caption)).font(.system(size: 11)).foregroundStyle(.white.opacity(0.6)).lineLimit(1) }
             }
             if let fraction {
                 GeometryReader { proxy in

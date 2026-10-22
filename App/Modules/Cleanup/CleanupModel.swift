@@ -1,4 +1,4 @@
-import LucentKit
+import ReviveKit
 import SwiftUI
 
 /// Drives the scan → review → clean flow. Also used by Smart Care for its junk step.

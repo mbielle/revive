@@ -2,11 +2,11 @@
 import PackageDescription
 
 let package = Package(
-    name: "LucentKit",
+    name: "ReviveKit",
     defaultLocalization: "en",
     platforms: [.macOS(.v14)],
     products: [
-        .library(name: "LucentKit", targets: ["LucentKit"]),
+        .library(name: "ReviveKit", targets: ["ReviveKit"]),
     ],
     targets: [
         // YARA 4.5.4 (BSD-3-Clause, github.com/VirusTotal/yara), vendored to read Apple's
@@ -28,13 +28,13 @@ let package = Package(
             ]
         ),
         .target(
-            name: "LucentKit",
+            name: "ReviveKit",
             dependencies: ["CYara"],
             resources: [.copy("Resources/Rules")]
         ),
         .testTarget(
-            name: "LucentKitTests",
-            dependencies: ["LucentKit"]
+            name: "ReviveKitTests",
+            dependencies: ["ReviveKit"]
         ),
     ]
 )

@@ -1,4 +1,4 @@
-import LucentKit
+import ReviveKit
 import SwiftUI
 
 /// Detailed review of one category: rules on the left, their items on the right.

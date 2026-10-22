@@ -57,7 +57,7 @@ struct PressableStyle: ButtonStyle {
     }
 }
 
-/// A rounded translucent pill button used for secondary actions.
+/// A rounded transrevive pill button used for secondary actions.
 struct PillButton: View {
     let title: LocalizedStringResource
     var symbol: String?
@@ -70,8 +70,9 @@ struct PillButton: View {
         Button(action: action) {
             HStack(spacing: 6) {
                 if let symbol { Image(systemName: symbol) }
-                Text(title)
+                Text(title).lineLimit(1)
             }
+            .fixedSize()
             .font(.system(size: 13, weight: .semibold))
             .foregroundStyle(prominent ? Color.black.opacity(0.85) : .white)
             .padding(.horizontal, 14)
@@ -110,7 +111,7 @@ struct FeatureBadge: View {
     }
 }
 
-/// Translucent card. Uses Liquid Glass on macOS 26 and later.
+/// Transrevive card. Uses Liquid Glass on macOS 26 and later.
 struct GlassCard<Content: View>: View {
     var cornerRadius: CGFloat = 22
     var padding: CGFloat = 20

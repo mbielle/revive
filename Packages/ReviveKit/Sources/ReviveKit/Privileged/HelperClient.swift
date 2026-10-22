@@ -11,13 +11,13 @@ public enum HelperClient {
     /// so callers can fall back to the password prompt.
     public static func run(_ command: PrivilegedCommand, connection: NSXPCConnection) async -> PrivilegedResult? {
         guard let payload = try? JSONEncoder().encode(command) else { return nil }
-        connection.remoteObjectInterface = NSXPCInterface(with: LucentHelperProtocol.self)
+        connection.remoteObjectInterface = NSXPCInterface(with: ReviveHelperProtocol.self)
         connection.resume()
         defer { connection.invalidate() }
 
         return await withCheckedContinuation { continuation in
             let once = Once(continuation)
-            let proxy = connection.remoteObjectProxyWithErrorHandler { _ in once.resume(nil) } as? LucentHelperProtocol
+            let proxy = connection.remoteObjectProxyWithErrorHandler { _ in once.resume(nil) } as? ReviveHelperProtocol
             guard let proxy else { return once.resume(nil) }
             proxy.run(payload) { data in
                 once.resume(try? JSONDecoder().decode(PrivilegedResult.self, from: data))

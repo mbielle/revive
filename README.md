@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="App/Resources/Assets.xcassets/AppIcon.appiconset/icon_256x256@2x.png" width="128" alt="Lucent icon">
+  <img src="App/Resources/Assets.xcassets/AppIcon.appiconset/icon_256x256@2x.png" width="128" alt="Revive icon">
 </p>
 
-<h1 align="center">Lucent</h1>
+<h1 align="center">Revive</h1>
 
 <p align="center">
   A free and open source Mac cleaner, optimizer and malware scanner, built natively in SwiftUI.<br>
@@ -11,7 +11,7 @@
 
 ---
 
-Lucent keeps your Mac clean, safe and fast, with a polished interface and no subscription. Tools like this are useful to everyone, so they should be free for everyone.
+Revive keeps your Mac clean, safe and fast, with a polished interface and no subscription. Tools like this are useful to everyone, so they should be free for everyone.
 
 > **Status: preview (0.4).** Every module works. It has not yet been tested widely: keep **Simulation mode** on (Settings) until you trust it, and report anything odd.
 
@@ -36,7 +36,7 @@ English and French.
 
 ## Safety first
 
-A cleaner touches your files, so Lucent is careful by design:
+A cleaner touches your files, so Revive is careful by design:
 
 - **Nothing is removed without a review.** Every scan ends on a summary you can inspect item by item.
 - **Everything goes to the Trash**, except what is already in a Trash when you choose to empty it.
@@ -50,8 +50,8 @@ A cleaner touches your files, so Lucent is careful by design:
 
 | Need | Approach |
 |---|---|
-| Malware signatures | Apple ships its XProtect YARA rules on every Mac and keeps them up to date. Lucent compiles them with a vendored [YARA](https://github.com/VirusTotal/yara) 4.5.4 and scans startup programs, apps, Downloads and Desktop (deep scan: more folders) |
-| Administrator tasks | A small privileged helper (SMAppService launch daemon, XPC) runs a closed list of commands, only for a Lucent app signed by the same team. Unsigned builds can't prove who is calling, so their helper refuses every connection and macOS asks for your password instead |
+| Malware signatures | Apple ships its XProtect YARA rules on every Mac and keeps them up to date. Revive compiles them with a vendored [YARA](https://github.com/VirusTotal/yara) 4.5.4 and scans startup programs, apps, Downloads and Desktop (deep scan: more folders) |
+| Administrator tasks | A small privileged helper (SMAppService launch daemon, XPC) runs a closed list of commands, only for a Revive app signed by the same team. Unsigned builds can't prove who is calling, so their helper refuses every connection and macOS asks for your password instead |
 | Junk rules | Declarative JSON files: adding a rule needs no Swift code |
 | Similar photos | Apple Vision feature prints compared between neighboring shots |
 
@@ -62,16 +62,16 @@ A cleaner touches your files, so Lucent is careful by design:
 
 ## Install
 
-Download the latest DMG from [Releases](https://github.com/mbielle/lucent/releases), open it and drag Lucent to Applications. Then give Lucent **Full Disk Access** when it asks (System Settings › Privacy & Security): without it, macOS hides Mail, Safari, the Trash and app data.
+Download the latest DMG from [Releases](https://github.com/mbielle/revive/releases), open it and drag Revive to Applications. Then give Revive **Full Disk Access** when it asks (System Settings › Privacy & Security): without it, macOS hides Mail, Safari, the Trash and app data.
 
 ## Build from source
 
 ```bash
 brew install xcodegen
-git clone https://github.com/mbielle/lucent.git
-cd lucent
+git clone https://github.com/mbielle/revive.git
+cd revive
 xcodegen generate
-open Lucent.xcodeproj
+open Revive.xcodeproj
 ```
 
 Press ⌘R. To package a DMG: `scripts/make-dmg.sh` (see the script for signing and notarization).
@@ -79,8 +79,8 @@ Press ⌘R. To package a DMG: `scripts/make-dmg.sh` (see the script for signing 
 ### Try it on fake data
 
 ```bash
-swift scripts/make-demo-home.swift /tmp/LucentDemo
-open build/DerivedData/Build/Products/Debug/Lucent.app --args -home /tmp/LucentDemo -dryRun YES
+swift scripts/make-demo-home.swift /tmp/ReviveDemo
+open build/DerivedData/Build/Products/Debug/Revive.app --args -home /tmp/ReviveDemo -dryRun YES
 ```
 
 Debug builds then scan a generated folder full of junk, duplicates, similar photos, a fake cloud drive and a suspicious startup item, instead of your home folder.
@@ -90,8 +90,8 @@ Debug builds then scan a generated folder full of junk, duplicates, similar phot
 ```
 App/                      SwiftUI app: design system, one folder per module, menu bar, settings
 Helper/                   Privileged helper (launch daemon) and its launchd plist
-Packages/LucentKit/       Engine, testable without UI
-  Sources/LucentKit/
+Packages/ReviveKit/       Engine, testable without UI
+  Sources/ReviveKit/
     Core/                 SafetyGuard, Remover, WorkspaceRemover, ActivityLog
     Rules/ Resources/     Cleanup rules (JSON) and their glob engine
     Cleanup/ SpaceLens/ Apps/ Performance/ Protection/ Clutter/ Cloud/ System/ Privileged/
@@ -104,7 +104,7 @@ project.yml               XcodeGen spec (the .xcodeproj is generated)
 
 ### Adding a cleanup rule
 
-Rules live in `Packages/LucentKit/Sources/LucentKit/Resources/Rules/`:
+Rules live in `Packages/ReviveKit/Sources/ReviveKit/Resources/Rules/`:
 
 ```json
 {
@@ -119,7 +119,7 @@ Rules live in `Packages/LucentKit/Sources/LucentKit/Resources/Rules/`:
 }
 ```
 
-Then run `swift test` in `Packages/LucentKit`: the suite checks that every rule only reaches locations the safety guard allows.
+Then run `swift test` in `Packages/ReviveKit`: the suite checks that every rule only reaches locations the safety guard allows.
 
 ## Contributing
 
@@ -127,6 +127,6 @@ Contributions are welcome, especially cleanup rules and translations. See [CONTR
 
 ## License
 
-Lucent is free software, licensed under the [GNU General Public License v3.0](LICENSE). Credits are in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+Revive is free software, licensed under the [GNU General Public License v3.0](LICENSE). Credits are in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
-Lucent is an independent project, not affiliated with MacPaw or CleanMyMac.
+Revive is an independent project, not affiliated with MacPaw or CleanMyMac.

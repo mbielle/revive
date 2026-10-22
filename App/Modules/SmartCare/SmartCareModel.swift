@@ -1,4 +1,4 @@
-import LucentKit
+import ReviveKit
 import SwiftUI
 
 /// One-click checkup: junk, protections, performance and app updates, then one Run button.

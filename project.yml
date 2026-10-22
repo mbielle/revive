@@ -1,4 +1,4 @@
-name: Lucent
+name: Revive
 options:
   bundleIdPrefix: io.github.mbielle
   deploymentTarget:
@@ -22,23 +22,23 @@ settings:
     DEVELOPMENT_TEAM: ""
 
 packages:
-  LucentKit:
-    path: Packages/LucentKit
+  ReviveKit:
+    path: Packages/ReviveKit
 
 targets:
-  Lucent:
+  Revive:
     type: application
     platform: macOS
     sources:
       - path: App
-      - path: Helper/io.github.mbielle.Lucent.Helper.plist
+      - path: Helper/io.github.mbielle.Revive.Helper.plist
         buildPhase:
           copyFiles:
             destination: wrapper
             subpath: Contents/Library/LaunchDaemons
     dependencies:
-      - package: LucentKit
-      - target: LucentHelper
+      - package: ReviveKit
+      - target: ReviveHelper
         embed: true
         codeSign: true
         copy:
@@ -46,8 +46,8 @@ targets:
     info:
       path: App/Info.plist
       properties:
-        CFBundleDisplayName: Lucent
-        CFBundleName: Lucent
+        CFBundleDisplayName: Revive
+        CFBundleName: Revive
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         CFBundleDevelopmentRegion: en
@@ -56,45 +56,45 @@ targets:
         LSMinimumSystemVersion: $(MACOSX_DEPLOYMENT_TARGET)
         NSHumanReadableCopyright: "Free and open source software, licensed under the GPL-3.0."
     entitlements:
-      path: App/Lucent.entitlements
+      path: App/Revive.entitlements
       properties:
         # A cleaner must reach caches of every app: it cannot run in the App Sandbox.
         com.apple.security.app-sandbox: false
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: io.github.mbielle.Lucent
-        PRODUCT_NAME: Lucent
+        PRODUCT_BUNDLE_IDENTIFIER: io.github.mbielle.Revive
+        PRODUCT_NAME: Revive
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         COMBINE_HIDPI_IMAGES: YES
 
-  LucentHelper:
+  ReviveHelper:
     type: tool
     platform: macOS
     sources:
       - path: Helper
         excludes: ["*.plist"]
     dependencies:
-      - package: LucentKit
+      - package: ReviveKit
     settings:
       base:
-        PRODUCT_NAME: LucentHelper
-        PRODUCT_BUNDLE_IDENTIFIER: io.github.mbielle.Lucent.Helper
+        PRODUCT_NAME: ReviveHelper
+        PRODUCT_BUNDLE_IDENTIFIER: io.github.mbielle.Revive.Helper
         SKIP_INSTALL: YES
-        # Embeds an Info.plist so the helper is signed as io.github.mbielle.Lucent.Helper.
+        # Embeds an Info.plist so the helper is signed as io.github.mbielle.Revive.Helper.
         GENERATE_INFOPLIST_FILE: YES
         CREATE_INFOPLIST_SECTION_IN_BINARY: YES
 
 schemes:
-  Lucent:
+  Revive:
     build:
       targets:
-        Lucent: all
+        Revive: all
     run:
       config: Debug
     test:
       config: Debug
       targets:
-        - package: LucentKit/LucentKitTests
+        - package: ReviveKit/ReviveKitTests
     archive:
       config: Release

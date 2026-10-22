@@ -1,4 +1,4 @@
-import LucentKit
+import ReviveKit
 import SwiftUI
 
 /// Summary screen after a scan: title, subtitle and a grid of tiles that open detail screens.
@@ -49,6 +49,7 @@ struct OverviewTile: View {
                 VStack(alignment: .leading, spacing: 4) {
                     HStack(spacing: 6) {
                         Text(title).font(.system(size: 16, weight: .semibold)).foregroundStyle(.white)
+                            .lineLimit(1).minimumScaleFactor(0.85)
                         if let badge {
                             Text(badge)
                                 .font(.system(size: 10, weight: .bold))
@@ -66,9 +67,14 @@ struct OverviewTile: View {
                 VStack(alignment: .trailing, spacing: 4) {
                     Text(value)
                         .font(.system(size: 20, weight: .semibold, design: .rounded))
+                        .monospacedDigit()
                         .foregroundStyle(.white)
                         .contentTransition(.numericText())
+                        .lineLimit(1)
+                        .fixedSize()
                     Text("Review \(Image(systemName: "chevron.right"))")
+                        .lineLimit(1)
+                        .fixedSize()
                         .font(.system(size: 12, weight: .medium))
                         .foregroundStyle(.white.opacity(hovering ? 1 : 0.7))
                 }

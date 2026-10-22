@@ -1,17 +1,17 @@
-# Contributing to Lucent
+# Contributing to Revive
 
-Thanks for helping! Lucent touches people's files, so safety comes before features.
+Thanks for helping! Revive touches people's files, so safety comes before features.
 
 ## Getting started
 
 ```bash
 brew install xcodegen
 xcodegen generate
-open Lucent.xcodeproj
+open Revive.xcodeproj
 ```
 
 - The `.xcodeproj` is generated: edit `project.yml`, never the project file.
-- Engine code lives in `Packages/LucentKit` and must be covered by tests: `cd Packages/LucentKit && swift test`.
+- Engine code lives in `Packages/ReviveKit` and must be covered by tests: `cd Packages/ReviveKit && swift test`.
 - Tests run on throwaway fake home folders. Never write a test that touches the real home folder, except opt-in ones guarded by an environment variable.
 
 ## Debug helpers
@@ -19,7 +19,7 @@ open Lucent.xcodeproj
 Debug builds accept launch arguments:
 
 ```bash
-open build/DerivedData/Build/Products/Debug/Lucent.app --args -dryRun YES -module cleanup -autoScan YES
+open build/DerivedData/Build/Products/Debug/Revive.app --args -dryRun YES -module cleanup -autoScan YES
 ```
 
 - `-dryRun YES`: simulation mode, nothing is deleted
@@ -30,7 +30,7 @@ open build/DerivedData/Build/Products/Debug/Lucent.app --args -dryRun YES -modul
 - `-previewMenuBar YES`: shows the menu bar panel in a window
 - `-AppleLanguages "(fr)"`: runs the app in French
 
-Without Full Disk Access, macOS asks for permission (and blocks) the first time Lucent opens Desktop,
+Without Full Disk Access, macOS asks for permission (and blocks) the first time Revive opens Desktop,
 Documents or Downloads. Use `-home` with the demo folder to test without those prompts.
 
 ## Real removal tests
@@ -38,7 +38,7 @@ Documents or Downloads. Use `-home` with the demo folder to test without those p
 Three opt-in tests move a tiny probe file to your real Trash to check the end-to-end path:
 
 ```bash
-cd Packages/LucentKit && LUCENT_TRASH_TEST=1 swift test --filter "RealTrash|RealWorkspace|Osascript"
+cd Packages/ReviveKit && REVIVE_TRASH_TEST=1 swift test --filter "RealTrash|RealWorkspace|Osascript"
 ```
 
 ## Testing the privileged helper without root
@@ -47,19 +47,19 @@ The real helper can run in your user launchd domain (no administrator rights) to
 XPC and the code signature check with the Debug app:
 
 ```bash
-APP="$PWD/build/DerivedData/Build/Products/Debug/Lucent.app"
+APP="$PWD/build/DerivedData/Build/Products/Debug/Revive.app"
 cat > /tmp/helper-selftest.plist <<PLIST
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0"><dict>
-<key>Label</key><string>io.github.mbielle.Lucent.Helper.selftest</string>
-<key>Program</key><string>$APP/Contents/MacOS/LucentHelper</string>
-<key>MachServices</key><dict><key>io.github.mbielle.Lucent.Helper</key><true/></dict>
+<key>Label</key><string>io.github.mbielle.Revive.Helper.selftest</string>
+<key>Program</key><string>$APP/Contents/MacOS/ReviveHelper</string>
+<key>MachServices</key><dict><key>io.github.mbielle.Revive.Helper</key><true/></dict>
 </dict></plist>
 PLIST
 launchctl bootstrap gui/$(id -u) /tmp/helper-selftest.plist
-"$APP/Contents/MacOS/Lucent" -dryRun YES -helperSelfTest YES   # look for HELPER-SELFTEST lines
-launchctl bootout gui/$(id -u)/io.github.mbielle.Lucent.Helper.selftest
+"$APP/Contents/MacOS/Revive" -dryRun YES -helperSelfTest YES   # look for HELPER-SELFTEST lines
+launchctl bootout gui/$(id -u)/io.github.mbielle.Revive.Helper.selftest
 ```
 
 Commands that need root fail with "Operation not permitted"; dangerous ones are refused with exit -2.
@@ -67,7 +67,7 @@ Installing the real daemon needs a build signed with a Developer ID (see `script
 
 ## Cleanup rules
 
-1. Add the rule to the JSON file of its category in `Packages/LucentKit/Sources/LucentKit/Resources/Rules/`.
+1. Add the rule to the JSON file of its category in `Packages/ReviveKit/Sources/ReviveKit/Resources/Rules/`.
 2. Explain in `detail` what the files are and what happens after removal.
 3. If removing the data costs the user anything (re-downloads, lost settings), set `"selectedByDefault": false`.
 4. List the app's bundle ids in `appBundleIDs` so its items stay unchecked while it runs.

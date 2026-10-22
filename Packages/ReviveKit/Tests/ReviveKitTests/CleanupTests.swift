@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import LucentKit
+@testable import ReviveKit
 
 @Suite struct RuleCatalogTests {
     @Test func bundledRulesLoadAndAreUnique() throws {
@@ -176,13 +176,13 @@ import Testing
 }
 
 /// Moves a real file to the user's Trash; opt-in because it leaves the probe file there.
-/// Run with `LUCENT_TRASH_TEST=1 swift test --filter realTrash`.
+/// Run with `REVIVE_TRASH_TEST=1 swift test --filter realTrash`.
 @Suite struct RealTrashTests {
-    @Test(.enabled(if: ProcessInfo.processInfo.environment["LUCENT_TRASH_TEST"] == "1"))
+    @Test(.enabled(if: ProcessInfo.processInfo.environment["REVIVE_TRASH_TEST"] == "1"))
     func realTrashMovesItemToTheTrash() async throws {
         let fixture = try Fixture()
         defer { fixture.cleanUp() }
-        let name = "LucentTrashProbe-\(UUID().uuidString.prefix(8))"
+        let name = "ReviveTrashProbe-\(UUID().uuidString.prefix(8))"
         let file = try fixture.file("Library/Caches/\(name)/probe.bin")
 
         let item = CleanupItem(url: file.deletingLastPathComponent(), ruleID: "user-caches", size: 50_000)
@@ -201,12 +201,12 @@ import Testing
 
 /// Same as RealTrashTests, through NSWorkspace (used for apps and user files).
 @Suite struct RealWorkspaceTrashTests {
-    @Test(.enabled(if: ProcessInfo.processInfo.environment["LUCENT_TRASH_TEST"] == "1"))
+    @Test(.enabled(if: ProcessInfo.processInfo.environment["REVIVE_TRASH_TEST"] == "1"))
     @MainActor
     func workspaceRecycleMovesItemToTheTrash() async throws {
         let fixture = try Fixture()
         defer { fixture.cleanUp() }
-        let file = try fixture.file("Documents/LucentWorkspaceProbe-\(UUID().uuidString.prefix(8)).txt", size: 1000)
+        let file = try fixture.file("Documents/ReviveWorkspaceProbe-\(UUID().uuidString.prefix(8)).txt", size: 1000)
         let item = CleanupItem(url: file, ruleID: "probe", size: 1000)
 
         let blocked = await WorkspaceRemover.recycle([item], policy: .automatic, safetyGuard: fixture.safetyGuard, dryRun: false)

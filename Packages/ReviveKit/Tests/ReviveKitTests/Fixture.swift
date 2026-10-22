@@ -1,5 +1,5 @@
 import Foundation
-@testable import LucentKit
+@testable import ReviveKit
 
 /// A throwaway fake home folder in the temporary directory.
 struct Fixture {
@@ -8,7 +8,7 @@ struct Fixture {
     init() throws {
         // Resolve /var → /private/var so paths match what the SafetyGuard sees.
         let root = FileManager.default.temporaryDirectory.resolvingSymlinksInPath()
-            .appending(path: "LucentTests-\(UUID().uuidString)", directoryHint: .isDirectory)
+            .appending(path: "ReviveTests-\(UUID().uuidString)", directoryHint: .isDirectory)
         try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
         home = root
     }

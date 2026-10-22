@@ -1,5 +1,5 @@
 import AppKit
-import LucentKit
+import ReviveKit
 import ServiceManagement
 
 /// Runs administrator commands through the privileged helper when it is installed, or by
@@ -35,7 +35,7 @@ final class PrivilegedRunner {
         @unknown default: .unavailable
         }
         #if DEBUG
-        NSLog("Lucent helper state: %@", String(describing: helperState))
+        NSLog("Revive helper state: %@", String(describing: helperState))
         #endif
     }
 
@@ -93,7 +93,7 @@ final class PrivilegedRunner {
                 return PrivilegedResult(exitCode: -2, output: "Refused: \(problem)")
             }
         }
-        let script = PrivilegedExecution.appleScript(for: commands, prompt: String(localized: "Lucent needs administrator rights for this task."))
+        let script = PrivilegedExecution.appleScript(for: commands, prompt: String(localized: "Revive needs administrator rights for this task."))
 
         return await Task.detached {
             let process = Process()

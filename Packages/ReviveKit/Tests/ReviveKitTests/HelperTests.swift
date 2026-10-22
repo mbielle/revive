@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import LucentKit
+@testable import ReviveKit
 
 /// Exercises the helper's real XPC code path with an in-process anonymous listener.
 /// Commands are recorded instead of executed, so nothing runs as root.
@@ -57,10 +57,10 @@ import Testing
         #expect(recorder.all.isEmpty)
     }
 
-    @Test func rejectsClientsThatAreNotLucent() async throws {
+    @Test func rejectsClientsThatAreNotRevive() async throws {
         let recorder = Recorder()
-        // The test runner is not signed as io.github.mbielle.Lucent: the connection must fail.
-        let (listener, delegate) = makeListener(requirement: "identifier \"io.github.mbielle.Lucent\"", recorder: recorder)
+        // The test runner is not signed as io.github.mbielle.Revive: the connection must fail.
+        let (listener, delegate) = makeListener(requirement: "identifier \"io.github.mbielle.Revive\"", recorder: recorder)
         defer { listener.invalidate(); _ = delegate }
 
         let result = await HelperClient.run(.freeMemory, connection: NSXPCConnection(listenerEndpoint: listener.endpoint))
@@ -80,7 +80,7 @@ import Testing
     @Test func releaseHelperWithoutTeamAcceptsNobody() {
         // Test binaries are ad-hoc signed (no team): a release helper would refuse all clients.
         #expect(HelperListenerDelegate.requirement(allowsAdHoc: false) == nil)
-        #expect(HelperListenerDelegate.requirement(allowsAdHoc: true) == "identifier \"io.github.mbielle.Lucent\"")
+        #expect(HelperListenerDelegate.requirement(allowsAdHoc: true) == "identifier \"io.github.mbielle.Revive\"")
     }
 }
 
@@ -91,7 +91,7 @@ import Testing
             .moveToTrash(paths: [#"/Library/Application Support/Weird "Name" \ App"#], uid: 501),
             .forgetWiFiNetwork(name: #"Café "Wi-Fi" $(reboot) 'x'"#, interface: "en0"),
         ]
-        let source = PrivilegedExecution.appleScript(for: commands, prompt: "Lucent a besoin des droits « administrateur ».")
+        let source = PrivilegedExecution.appleScript(for: commands, prompt: "Revive a besoin des droits « administrateur ».")
         var error: NSDictionary?
         let script = NSAppleScript(source: source)
         #expect(script?.compileAndReturnError(&error) == true, "\(error ?? [:])")
@@ -132,11 +132,11 @@ import Testing
         return (process.terminationStatus, String(decoding: pipe.fileHandleForReading.readDataToEndOfFile(), as: UTF8.self))
     }
 
-    @Test(.enabled(if: ProcessInfo.processInfo.environment["LUCENT_TRASH_TEST"] == "1"))
+    @Test(.enabled(if: ProcessInfo.processInfo.environment["REVIVE_TRASH_TEST"] == "1"))
     func executesAndReportsResults() throws {
         let fixture = try Fixture()
         defer { fixture.cleanUp() }
-        let probe = try fixture.file("LucentOsascriptProbe-\(UUID().uuidString.prefix(8)).txt", size: 100)
+        let probe = try fixture.file("ReviveOsascriptProbe-\(UUID().uuidString.prefix(8)).txt", size: 100)
 
         // Success: the file is moved to the user's Trash by the generated shell command.
         let (ok, _) = try runWithoutAdmin([.moveToTrash(paths: [probe.path(percentEncoded: false)], uid: getuid())])

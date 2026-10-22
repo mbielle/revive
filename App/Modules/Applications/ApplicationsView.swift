@@ -1,4 +1,4 @@
-import LucentKit
+import ReviveKit
 import SwiftUI
 
 struct ApplicationsView: View {
@@ -263,7 +263,7 @@ private struct UpdaterScreen: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .glassPanel(cornerRadius: 20)
         } bottom: {
-            Text("Lucent checks each app's own update feed, the Mac App Store and Homebrew. Nothing else is sent.")
+            Text("Revive checks each app's own update feed, the Mac App Store and Homebrew. Nothing else is sent.")
                 .font(.system(size: 11)).foregroundStyle(.white.opacity(0.55))
         }
     }

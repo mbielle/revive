@@ -4,6 +4,8 @@ import SwiftUI
 enum AppModule: String, CaseIterable, Identifiable {
     case smartCare, cleanup, protection, performance, applications, myClutter, spaceLens, cloudCleanup
     case myTools, myActivity
+    /// Not in the sidebar: opened from the gear button and ⌘,.
+    case settings
 
     var id: String { rawValue }
 
@@ -28,6 +30,7 @@ enum AppModule: String, CaseIterable, Identifiable {
         case .cloudCleanup: "Cloud Cleanup"
         case .myTools: "My Tools"
         case .myActivity: "My Activity"
+        case .settings: "Settings"
         }
     }
 
@@ -51,6 +54,7 @@ enum AppModule: String, CaseIterable, Identifiable {
         case .cloudCleanup: "See what fills your cloud storage and free up local copies."
         case .myTools: "Pin the tools you use the most and launch them in one click."
         case .myActivity: "Everything your Mac got rid of, in one place."
+        case .settings: "Choose how Revive works for you."
         }
     }
 
@@ -66,6 +70,7 @@ enum AppModule: String, CaseIterable, Identifiable {
         case .cloudCleanup: "cloud.fill"
         case .myTools: "square.grid.2x2.fill"
         case .myActivity: "chart.line.uptrend.xyaxis"
+        case .settings: "gearshape.fill"
         }
     }
 
@@ -112,7 +117,7 @@ enum AppModule: String, CaseIterable, Identifiable {
             .init(symbol: "externaldrive.fill.badge.icloud", title: "Google Drive & OneDrive"),
             .init(symbol: "arrow.down.circle.fill", title: "Local Copies"),
         ]
-        case .myTools, .myActivity: []
+        case .myTools, .myActivity, .settings: []
         }
     }
 
@@ -127,7 +132,7 @@ enum AppModule: String, CaseIterable, Identifiable {
         case .spaceLens: .lens
         case .cloudCleanup: .cloud
         case .myTools: .squircle
-        case .myActivity: .disc
+        case .myActivity, .settings: .disc
         }
     }
 
@@ -143,6 +148,7 @@ enum AppModule: String, CaseIterable, Identifiable {
         case .cloudCleanup: .init(light: 0x2C9DEB, dark: 0x0B3A6E, glow: 0x7FD0FF, button: 0x1E8FE6)
         case .myTools: .init(light: 0xD23A6E, dark: 0x4A0C2C, glow: 0xFF7FA6, button: 0xE0457A)
         case .myActivity: .init(light: 0x4C5B7A, dark: 0x141B2D, glow: 0x8EA2CC, button: 0x5B6E96)
+        case .settings: .init(light: 0x3A3F5C, dark: 0x101225, glow: 0x9AA4FF, button: 0x6B74E8)
         }
     }
 }

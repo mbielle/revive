@@ -1,7 +1,7 @@
 import Foundation
 
 /// Mach service name of the privileged helper; also its launchd label.
-public let helperServiceName = "io.github.mbielle.Lucent.Helper"
+public let helperServiceName = "io.github.mbielle.Revive.Helper"
 
 /// The closed list of things the privileged helper is allowed to do.
 ///
@@ -90,7 +90,7 @@ public struct PrivilegedResult: Codable, Sendable {
 }
 
 /// XPC interface of the helper. Commands and results travel as JSON to keep the interface tiny.
-@objc public protocol LucentHelperProtocol {
+@objc public protocol ReviveHelperProtocol {
     func run(_ command: Data, withReply reply: @escaping @Sendable (Data) -> Void)
     func version(withReply reply: @escaping @Sendable (String) -> Void)
 }

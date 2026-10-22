@@ -1,9 +1,9 @@
 import Foundation
-import LucentKit
+import ReviveKit
 import ServiceManagement
 import UserNotifications
 
-/// Runs a silent junk scan on a schedule while Lucent is open, and notifies when junk piles up.
+/// Runs a silent junk scan on a schedule while Revive is open, and notifies when junk piles up.
 /// Nothing is ever removed automatically.
 @MainActor @Observable
 final class AutoScanScheduler {
@@ -60,7 +60,7 @@ final class AutoScanScheduler {
         scheduler?.invalidate()
         scheduler = nil
         guard let interval = frequency.interval else { return }
-        let activity = NSBackgroundActivityScheduler(identifier: "io.github.mbielle.Lucent.autoscan")
+        let activity = NSBackgroundActivityScheduler(identifier: "io.github.mbielle.Revive.autoscan")
         activity.repeats = true
         activity.interval = interval
         activity.tolerance = interval / 10
@@ -85,7 +85,7 @@ final class AutoScanScheduler {
         guard junk >= Int64(thresholdGB) * 1_000_000_000 else { return }
         let content = UNMutableNotificationContent()
         content.title = String(localized: "Time for a cleanup")
-        content.body = String(localized: "\(ByteCountFormatter.string(fromByteCount: junk, countStyle: .file)) of junk piled up on your Mac. Open Lucent to review it.")
+        content.body = String(localized: "\(ByteCountFormatter.string(fromByteCount: junk, countStyle: .file)) of junk piled up on your Mac. Open Revive to review it.")
         content.sound = .default
         try? await UNUserNotificationCenter.current().add(UNNotificationRequest(identifier: "autoscan", content: content, trigger: nil))
     }

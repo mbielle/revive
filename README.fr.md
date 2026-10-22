@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="App/Resources/Assets.xcassets/AppIcon.appiconset/icon_256x256@2x.png" width="128" alt="Icône de Lucent">
+  <img src="App/Resources/Assets.xcassets/AppIcon.appiconset/icon_256x256@2x.png" width="128" alt="Icône de Revive">
 </p>
 
-<h1 align="center">Lucent</h1>
+<h1 align="center">Revive</h1>
 
 <p align="center">
   Un nettoyeur, optimiseur et antimalware pour Mac, gratuit et open source, développé nativement en SwiftUI.<br>
@@ -11,7 +11,7 @@
 
 ---
 
-Lucent garde votre Mac propre, sûr et rapide, avec une interface soignée et sans abonnement. Ce genre d'outil est utile à tout le monde : il devrait être gratuit pour tout le monde.
+Revive garde votre Mac propre, sûr et rapide, avec une interface soignée et sans abonnement. Ce genre d'outil est utile à tout le monde : il devrait être gratuit pour tout le monde.
 
 > **État : préversion (0.4).** Tous les modules fonctionnent, mais ils n'ont pas encore été testés à grande échelle. Laissez le **mode simulation** activé (Réglages) tant que vous n'avez pas confiance, et signalez tout comportement étrange.
 
@@ -39,19 +39,19 @@ Lucent garde votre Mac propre, sûr et rapide, avec une interface soignée et sa
 
 ## Installer
 
-Téléchargez le DMG dans [Releases](https://github.com/mbielle/lucent/releases), puis glissez Lucent dans Applications. Donnez ensuite à Lucent l'**accès complet au disque** quand il le demande.
+Téléchargez le DMG dans [Releases](https://github.com/mbielle/revive/releases), puis glissez Revive dans Applications. Donnez ensuite à Revive l'**accès complet au disque** quand il le demande.
 
 ## Compiler
 
 ```bash
 brew install xcodegen
-git clone https://github.com/mbielle/lucent.git
-cd lucent
+git clone https://github.com/mbielle/revive.git
+cd revive
 xcodegen generate
-open Lucent.xcodeproj
+open Revive.xcodeproj
 ```
 
-Pour tester sans toucher à vos fichiers : `swift scripts/make-demo-home.swift /tmp/LucentDemo`, puis lancez l'app de debug avec `--args -home /tmp/LucentDemo -dryRun YES`.
+Pour tester sans toucher à vos fichiers : `swift scripts/make-demo-home.swift /tmp/ReviveDemo`, puis lancez l'app de debug avec `--args -home /tmp/ReviveDemo -dryRun YES`.
 
 ## Licence
 

@@ -1,4 +1,4 @@
-import LucentKit
+import ReviveKit
 import SwiftUI
 
 struct PerformanceView: View {
@@ -35,8 +35,8 @@ struct PerformanceView: View {
             subtitle: String(localized: "Memory in use: \(Int((model.memory?.usedFraction ?? 0) * 100))%. Pick what to tune up.")
         ) {
             OverviewTile(symbol: "wrench.and.screwdriver.fill", title: "Maintenance Tasks",
-                         subtitle: String(localized: "Scripts that fix common slowdowns."),
-                         value: String(localized: "\(recommended) recommended"), theme: module.theme) { model.section = .maintenance }
+                         subtitle: String(localized: "Scripts that fix common slowdowns, \(recommended) recommended."),
+                         value: "\(MaintenanceTask.allCases.count)", theme: module.theme) { model.section = .maintenance }
             OverviewTile(symbol: "power", title: "Login Items", subtitle: String(localized: "Apps that open when you log in."),
                          value: model.loginItems.map { "\($0.count)" } ?? "—", theme: module.theme) { model.section = .loginItems }
             OverviewTile(symbol: "gearshape.2.fill", title: "Background Items",
@@ -130,7 +130,7 @@ struct HelperBanner: View {
             HStack(spacing: 12) {
                 Image(systemName: "key.fill").foregroundStyle(.white)
                 VStack(alignment: .leading, spacing: 2) {
-                    Text(runner.helperState == .needsApproval ? "Allow Lucent's helper in System Settings" : "Tasks with a lock ask for your password")
+                    Text(runner.helperState == .needsApproval ? "Allow Revive's helper in System Settings" : "Tasks with a lock ask for your password")
                         .font(.system(size: 13, weight: .semibold)).foregroundStyle(.white)
                     Text("Install the helper once to run them without a password prompt.")
                         .font(.system(size: 11)).foregroundStyle(.white.opacity(0.65))

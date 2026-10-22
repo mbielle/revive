@@ -1,4 +1,4 @@
-import LucentKit
+import ReviveKit
 import SwiftUI
 
 /// Shortcuts the user pins to the My Tools screen.

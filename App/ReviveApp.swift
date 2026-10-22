@@ -1,12 +1,12 @@
 import SwiftUI
 
 @main
-struct LucentApp: App {
+struct ReviveApp: App {
     @State private var app = AppModel()
     @AppStorage("didShowAccessGuide") private var didShowAccessGuide = false
 
     var body: some Scene {
-        Window("Lucent", id: "main") {
+        Window("Revive", id: "main") {
             RootView()
                 .environment(app)
                 .frame(minWidth: 1040, minHeight: 680)
@@ -25,6 +25,10 @@ struct LucentApp: App {
         .defaultSize(width: 1160, height: 740)
         .commands {
             CommandGroup(replacing: .newItem) {}
+            CommandGroup(replacing: .appSettings) {
+                Button("Settings…") { app.selection = .settings }
+                    .keyboardShortcut(",", modifiers: .command)
+            }
             CommandMenu("Go") {
                 ForEach(Array((AppModule.mainModules + AppModule.footerModules).enumerated()), id: \.element) { index, module in
                     Button(String(localized: module.title)) { app.selection = module }
@@ -33,10 +37,6 @@ struct LucentApp: App {
             }
         }
 
-        Settings {
-            SettingsView()
-                .environment(app)
-        }
 
         #if DEBUG
         // `-previewMenuBar YES` shows the menu bar panel in a window, for screenshots.
@@ -46,7 +46,7 @@ struct LucentApp: App {
         .windowResizability(.contentSize)
         #endif
 
-        MenuBarExtra("Lucent", systemImage: "sparkles", isInserted: $app.showsMenuBar) {
+        MenuBarExtra("Revive", systemImage: "infinity", isInserted: $app.showsMenuBar) {
             MenuBarPanel()
                 .environment(app)
         }

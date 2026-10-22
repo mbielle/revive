@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>Label</key>
-	<string>io.github.mbielle.Lucent.Helper</string>
+	<string>io.github.mbielle.Revive.Helper</string>
 	<key>BundleProgram</key>
-	<string>Contents/MacOS/LucentHelper</string>
+	<string>Contents/MacOS/ReviveHelper</string>
 	<key>MachServices</key>
 	<dict>
-		<key>io.github.mbielle.Lucent.Helper</key>
+		<key>io.github.mbielle.Revive.Helper</key>
 		<true/>
 	</dict>
 	<key>AssociatedBundleIdentifiers</key>
 	<array>
-		<string>io.github.mbielle.Lucent</string>
+		<string>io.github.mbielle.Revive</string>
 	</array>
 </dict>
 </plist>

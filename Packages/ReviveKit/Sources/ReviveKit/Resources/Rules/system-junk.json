@@ -19,7 +19,7 @@
       "~/Library/Caches/tealdeer",
       "~/Library/Caches/com.apple.containermanagerd",
       "~/Library/Caches/com.apple.ap.adprivacyd",
-      "~/Library/Caches/io.github.mbielle.Lucent"
+      "~/Library/Caches/io.github.mbielle.Revive"
     ]
   },
   {
@@ -67,7 +67,7 @@
       "fr": "Journaux d'activité et rapports de plantage écrits par les apps. Utiles uniquement pour diagnostiquer un problème."
     },
     "paths": ["~/Library/Logs/*"],
-    "exclude": ["~/Library/Logs/io.github.mbielle.Lucent"]
+    "exclude": ["~/Library/Logs/io.github.mbielle.Revive"]
   },
   {
     "id": "saved-app-state",

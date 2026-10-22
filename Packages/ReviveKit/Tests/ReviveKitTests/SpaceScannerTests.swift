@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import LucentKit
+@testable import ReviveKit
 
 @Suite struct SpaceScannerTests {
     @Test func measuresTreeAndFoldsSmallItems() async throws {

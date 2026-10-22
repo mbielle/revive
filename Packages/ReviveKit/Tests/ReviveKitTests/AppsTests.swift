@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import LucentKit
+@testable import ReviveKit
 
 @Suite struct AppRemovalPolicyTests {
     let safety = SafetyGuard(home: URL(filePath: "/Users/tester"))
@@ -227,5 +227,17 @@ import Testing
         let command = PrivilegedCommand.moveToTrash(paths: ["/Library/Caches/com.x"], uid: 501)
         let decoded = try JSONDecoder().decode(PrivilegedCommand.self, from: JSONEncoder().encode(command))
         #expect(decoded == command)
+    }
+}
+
+@Suite struct MetricsTests {
+    @Test func memoryMatchesActivityMonitorDefinition() throws {
+        let memory = try #require(SystemMetrics.memory())
+        #expect(memory.used > memory.wired)
+        #expect(memory.used < memory.total)
+    }
+
+    @Test func gpuUsageIsAFraction() {
+        if let gpu = SystemMetrics.gpuUsage() { #expect((0...1).contains(gpu)) }
     }
 }

@@ -1,5 +1,5 @@
 import AppKit
-import LucentKit
+import ReviveKit
 import SwiftUI
 
 @MainActor @Observable

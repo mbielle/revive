@@ -1,5 +1,6 @@
 import Darwin
 import Foundation
+import IOKit
 import IOKit.ps
 
 /// Live system numbers for Performance and the menu bar monitor.
@@ -35,13 +36,14 @@ public enum SystemMetrics {
             }
         }
         guard result == KERN_SUCCESS else { return nil }
+        // Same definition as Activity Monitor's "Memory Used": app memory + wired + compressed,
+        // where app memory is anonymous (internal) pages minus purgeable ones.
         let page = UInt64(getpagesize())
-        let active = UInt64(stats.active_count) * page
+        let anonymous = UInt64(stats.internal_page_count) * page
+        let purgeable = UInt64(stats.purgeable_count) * page
         let wired = UInt64(stats.wire_count) * page
         let compressed = UInt64(stats.compressor_page_count) * page
-        let speculative = UInt64(stats.speculative_count) * page
-        let purgeable = UInt64(stats.purgeable_count) * page
-        let used = active + wired + compressed - min(active, speculative + purgeable)
+        let used = (anonymous - min(anonymous, purgeable)) + wired + compressed
         return MemoryUsage(total: ProcessInfo.processInfo.physicalMemory, used: used, wired: wired, compressed: compressed)
     }
 
@@ -76,6 +78,24 @@ public enum SystemMetrics {
         let total = new.total &- old.total
         guard total > 0 else { return 0 }
         return Double(new.busy &- old.busy) / Double(total)
+    }
+
+    /// GPU utilization 0...1, as reported by the graphics driver (Apple silicon and most Intel/AMD GPUs).
+    public static func gpuUsage() -> Double? {
+        var iterator: io_iterator_t = 0
+        guard IOServiceGetMatchingServices(kIOMainPortDefault, IOServiceMatching("IOAccelerator"), &iterator) == KERN_SUCCESS else { return nil }
+        defer { IOObjectRelease(iterator) }
+        var best: Double?
+        while case let service = IOIteratorNext(iterator), service != 0 {
+            defer { IOObjectRelease(service) }
+            var properties: Unmanaged<CFMutableDictionary>?
+            guard IORegistryEntryCreateCFProperties(service, &properties, kCFAllocatorDefault, 0) == KERN_SUCCESS,
+                  let dict = properties?.takeRetainedValue() as? [String: Any],
+                  let stats = dict["PerformanceStatistics"] as? [String: Any],
+                  let utilization = (stats["Device Utilization %"] ?? stats["GPU Activity(%)"]) as? Int else { continue }
+            best = max(best ?? 0, Double(utilization) / 100)
+        }
+        return best
     }
 
     /// Bytes received and sent on all physical interfaces since boot.

@@ -1,20 +1,20 @@
 import Foundation
 import Testing
-@testable import LucentKit
+@testable import ReviveKit
 
 @Suite struct YaraTests {
     @Test func compilesAndMatchesCustomRules() throws {
         let rules = try YaraRules(sources: [("test", """
-        rule LucentTestMarker { strings: $a = "LUCENT-TEST-MARKER-0042" condition: $a }
+        rule ReviveTestMarker { strings: $a = "REVIVE-TEST-MARKER-0042" condition: $a }
         rule NeverMatches { strings: $b = "this string is not in the file" condition: $b }
         """)])
         let fixture = try Fixture()
         defer { fixture.cleanUp() }
         let infected = fixture.home.appending(path: "infected.bin")
-        try Data("header LUCENT-TEST-MARKER-0042 footer".utf8).write(to: infected)
+        try Data("header REVIVE-TEST-MARKER-0042 footer".utf8).write(to: infected)
         let clean = try fixture.file("clean.bin", size: 1000)
 
-        #expect(rules.scan(infected) == ["LucentTestMarker"])
+        #expect(rules.scan(infected) == ["ReviveTestMarker"])
         #expect(rules.scan(clean).isEmpty)
     }
 
@@ -38,7 +38,7 @@ import Testing
         let fixture = try Fixture()
         defer { fixture.cleanUp() }
         let program = try fixture.file("bin/payload", size: 100)
-        let shared = URL(filePath: "/tmp/lucent-test-\(UUID().uuidString)")
+        let shared = URL(filePath: "/tmp/revive-test-\(UUID().uuidString)")
         try FileManager.default.copyItem(at: program, to: shared)
         defer { try? FileManager.default.removeItem(at: shared) }
 
