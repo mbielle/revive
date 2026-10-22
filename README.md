@@ -19,16 +19,16 @@ Revive keeps your Mac clean, safe and fast, with a polished interface and no sub
 
 | Module | What it does |
 |---|---|
-| **Smart Care** | One click: junk, built-in protections (SIP, Gatekeeper, FileVault, firewall), malware quick scan, memory and app updates, with a health score and one Run button |
+| **Checkup** | One click: junk, built-in protections (SIP, Gatekeeper, FileVault, firewall), malware quick scan, memory and app updates, with a health score and one Run button |
 | **Cleanup** | System junk (caches, logs, Xcode, browsers, package managers), AI clutter (AI app caches, ML package caches, downloaded models), Mail attachments, Trash bins |
-| **Protection** | Malware scan with **Apple's own XProtect signatures** (YARA), suspicious startup items, browser history and cookies, browser extensions, saved Wi-Fi networks, app permissions (camera, microphone, screen, files…) |
-| **Performance** | Maintenance tasks (free RAM, flush DNS, repair "Open With", reset Quick Look, reindex Spotlight, thin Time Machine snapshots), login items, background agents and daemons, heavy CPU and memory consumers |
-| **Applications** | Complete uninstaller with leftover review and app reset, files of apps already deleted, installer files, updates from Sparkle feeds, the Mac App Store and Homebrew |
-| **My Clutter** | Duplicates (SHA-256), similar photos (Apple Vision), large and old files, screenshots |
-| **Space Lens** | Navigable bubble map of any folder or of the whole disk |
-| **Cloud Cleanup** | iCloud Drive, Google Drive, OneDrive, Dropbox: free local copies without deleting anything from the cloud, find local duplicates of cloud files |
-| **My Tools** | Pin your favorite tools |
-| **My Activity** | History of everything that was removed |
+| **Security** | Malware scan with **Apple's own XProtect signatures** (YARA), suspicious startup items, browser history and cookies, browser extensions, saved Wi-Fi networks, app permissions (camera, microphone, screen, files…) |
+| **Optimization** | Maintenance tasks (free RAM, flush DNS, repair "Open With", reset Quick Look, reindex Spotlight, thin Time Machine snapshots), login items, background agents and daemons, heavy CPU and memory consumers |
+| **Apps** | Complete uninstaller with leftover review and app reset, files of apps already deleted, installer files, updates from Sparkle feeds, the Mac App Store and Homebrew |
+| **Declutter** | Duplicates (SHA-256), similar photos (Apple Vision), large and old files, screenshots |
+| **Storage Map** | Navigable bubble map of any folder or of the whole disk |
+| **Cloud Storage** | iCloud Drive, Google Drive, OneDrive, Dropbox: free local copies without deleting anything from the cloud, find local duplicates of cloud files |
+| **Shortcuts** | Pin your favorite tools |
+| **History** | History of everything that was removed |
 | **Menu bar** | Live CPU, memory, disk, battery and network, one-click RAM release |
 | **Automatic scans** | Daily or weekly junk check that only notifies you |
 
@@ -44,7 +44,7 @@ A cleaner touches your files, so Revive is careful by design:
 - **Running apps** keep their caches: those items start unchecked. Apps are quit before being uninstalled.
 - **Uninstalling is strict**: only files named exactly after the app's bundle identifier or name are proposed.
 - **Simulation mode** runs every flow without changing anything. **Exclusions** protect the folders you choose.
-- **Your data stays on your Mac.** The only network requests are update checks (each app's own update feed, Apple's App Store lookup), made when you open the Updater or run Smart Care.
+- **Your data stays on your Mac.** The only network requests are update checks (each app's own update feed, Apple's App Store lookup), made when you open the Updater or run Checkup.
 
 ## How it works
 

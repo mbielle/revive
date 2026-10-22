@@ -20,16 +20,16 @@ enum AppModule: String, CaseIterable, Identifiable {
 
     var title: LocalizedStringResource {
         switch self {
-        case .smartCare: "Smart Care"
+        case .smartCare: "Checkup"
         case .cleanup: "Cleanup"
-        case .protection: "Protection"
-        case .performance: "Performance"
-        case .applications: "Applications"
-        case .myClutter: "My Clutter"
-        case .spaceLens: "Space Lens"
-        case .cloudCleanup: "Cloud Cleanup"
-        case .myTools: "My Tools"
-        case .myActivity: "My Activity"
+        case .protection: "Security"
+        case .performance: "Optimization"
+        case .applications: "Apps"
+        case .myClutter: "Declutter"
+        case .spaceLens: "Storage Map"
+        case .cloudCleanup: "Cloud Storage"
+        case .myTools: "Shortcuts"
+        case .myActivity: "History"
         case .settings: "Settings"
         }
     }
@@ -37,17 +37,17 @@ enum AppModule: String, CaseIterable, Identifiable {
     /// Big title of the landing screen, when it differs from the sidebar label.
     var headline: LocalizedStringResource {
         switch self {
-        case .cleanup: "Junk Cleanup"
+        case .cleanup: "System Cleanup"
         default: title
         }
     }
 
     var subtitle: LocalizedStringResource {
         switch self {
-        case .smartCare: "Quick maintenance that takes care of the essentials."
-        case .cleanup: "Clean your system to achieve maximum performance and reclaim more free space."
-        case .protection: "Check your Mac for all kinds of threats and vulnerabilities."
-        case .performance: "Keep your Mac in top shape with recommended maintenance."
+        case .smartCare: "One scan for junk, security, speed and app updates, then one click to fix it all."
+        case .cleanup: "Remove the caches, logs and leftovers your Mac no longer needs, and get your space back."
+        case .protection: "Look for malware, risky startup items and the traces your browsing leaves behind."
+        case .performance: "Run proven maintenance scripts and keep an eye on what starts with your Mac."
         case .applications: "Remove apps completely, keep them up to date and get rid of their leftovers."
         case .myClutter: "Find duplicates, similar photos and large forgotten files."
         case .spaceLens: "Get a visual map of your storage and decide what deserves the space."
@@ -77,20 +77,20 @@ enum AppModule: String, CaseIterable, Identifiable {
     var features: [Feature] {
         switch self {
         case .smartCare: [
-            .init(symbol: "clock.arrow.circlepath", title: "Quick Scan"),
-            .init(symbol: "gearshape.fill", title: "System Tune-up"),
-            .init(symbol: "checkmark.shield.fill", title: "Security Check"),
+            .init(symbol: "clock.arrow.circlepath", title: "Junk Scan"),
+            .init(symbol: "gearshape.fill", title: "Tune-up"),
+            .init(symbol: "checkmark.shield.fill", title: "Safety Check"),
         ]
         case .cleanup: [
             .init(symbol: "xmark.bin.fill", title: "System Junk"),
-            .init(symbol: "sparkles", title: "AI Clutter"),
+            .init(symbol: "sparkles", title: "AI Caches & Models"),
             .init(symbol: "envelope.fill", title: "Mail Attachments"),
             .init(symbol: "trash.fill", title: "Trash Bins"),
         ]
         case .protection: [
-            .init(symbol: "ladybug.fill", title: "Malware Removal"),
-            .init(symbol: "lock.shield.fill", title: "Privacy Check"),
-            .init(symbol: "lock.open.fill", title: "Application Permissions"),
+            .init(symbol: "ladybug.fill", title: "Malware Scan"),
+            .init(symbol: "lock.shield.fill", title: "Privacy"),
+            .init(symbol: "lock.open.fill", title: "App Permissions"),
         ]
         case .performance: [
             .init(symbol: "wrench.and.screwdriver.fill", title: "Maintenance Tasks"),

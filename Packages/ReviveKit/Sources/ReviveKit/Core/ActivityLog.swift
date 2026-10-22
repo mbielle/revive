@@ -1,6 +1,6 @@
 import Foundation
 
-/// One entry of the "My Activity" history.
+/// One entry of the "History" history.
 public struct ActivityEntry: Codable, Identifiable, Hashable, Sendable {
     public var id: UUID
     public var date: Date

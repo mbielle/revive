@@ -78,7 +78,7 @@ struct HeroIllustration: View {
         .shadow(color: theme.dark.opacity(0.55), radius: size * 0.08, y: size * 0.06)
     }
 
-    // MARK: - Monitor (Smart Care)
+    // MARK: - Monitor (Checkup)
 
     private var monitor: some View {
         let screen = RoundedRectangle(cornerRadius: size * 0.07, style: .continuous)

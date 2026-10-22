@@ -1,7 +1,7 @@
 import ReviveKit
 import SwiftUI
 
-/// Shortcuts the user pins to the My Tools screen.
+/// Shortcuts the user pins to the Shortcuts screen.
 enum Tool: String, CaseIterable, Identifiable {
     case smartCare, systemJunk, trashBins, freeUpRAM, flushDNS, uninstaller, updater, leftovers
     case spaceLens, duplicates, similarPhotos, largeFiles, malwareScan, privacy, permissions
@@ -13,7 +13,7 @@ enum Tool: String, CaseIterable, Identifiable {
 
     var title: LocalizedStringResource {
         switch self {
-        case .smartCare: "Smart Care"
+        case .smartCare: "Checkup"
         case .systemJunk: "System Junk"
         case .trashBins: "Trash Bins"
         case .freeUpRAM: "Free Up RAM"
@@ -21,16 +21,16 @@ enum Tool: String, CaseIterable, Identifiable {
         case .uninstaller: "Uninstaller"
         case .updater: "Updater"
         case .leftovers: "Leftovers"
-        case .spaceLens: "Space Lens"
+        case .spaceLens: "Storage Map"
         case .duplicates: "Duplicates"
         case .similarPhotos: "Similar Photos"
         case .largeFiles: "Large & Old Files"
-        case .malwareScan: "Malware Removal"
-        case .privacy: "Privacy Check"
-        case .permissions: "Application Permissions"
+        case .malwareScan: "Malware Scan"
+        case .privacy: "Privacy"
+        case .permissions: "App Permissions"
         case .backgroundItems: "Background Items"
         case .heavyConsumers: "Heavy Consumers"
-        case .cloud: "Cloud Cleanup"
+        case .cloud: "Cloud Storage"
         }
     }
 

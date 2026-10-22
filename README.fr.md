@@ -19,15 +19,15 @@ Revive garde votre Mac propre, sûr et rapide, avec une interface soignée et sa
 
 | Module | Ce qu'il fait |
 |---|---|
-| **Smart Care** | En un clic : fichiers inutiles, protections intégrées (SIP, Gatekeeper, FileVault, pare-feu), recherche rapide de malwares, mémoire et mises à jour d'apps, avec un score de santé |
+| **Checkup** | En un clic : fichiers inutiles, protections intégrées (SIP, Gatekeeper, FileVault, pare-feu), recherche rapide de malwares, mémoire et mises à jour d'apps, avec un score de santé |
 | **Nettoyage** | Fichiers système inutiles, encombrement IA, pièces jointes Mail, corbeilles |
-| **Protection** | Malwares détectés avec **les signatures XProtect d'Apple** (YARA), éléments de démarrage suspects, historique et cookies, extensions, réseaux Wi-Fi, autorisations des apps |
-| **Performances** | Tâches de maintenance, éléments d'ouverture, agents et daemons, gros consommateurs de CPU et de mémoire |
-| **Applications** | Désinstallation complète avec revue des restes, réinitialisation, restes d'apps supprimées, installeurs, mises à jour (Sparkle, App Store, Homebrew) |
-| **Encombrement** | Doublons (SHA-256), photos similaires (Vision d'Apple), gros fichiers anciens, captures d'écran |
-| **Space Lens** | Carte en bulles navigable d'un dossier ou du disque |
-| **Nettoyage cloud** | iCloud Drive, Google Drive, OneDrive, Dropbox : libérer les copies locales sans rien supprimer du cloud |
-| **Mes outils / Mon activité / barre des menus / analyses automatiques** | Outils épinglés, historique, moniteur en direct, alertes quand les fichiers inutiles s'accumulent |
+| **Security** | Malwares détectés avec **les signatures XProtect d'Apple** (YARA), éléments de démarrage suspects, historique et cookies, extensions, réseaux Wi-Fi, autorisations des apps |
+| **Optimisation** | Tâches de maintenance, éléments d'ouverture, agents et daemons, gros consommateurs de CPU et de mémoire |
+| **Apps** | Désinstallation complète avec revue des restes, réinitialisation, restes d'apps supprimées, installeurs, mises à jour (Sparkle, App Store, Homebrew) |
+| **Désencombrer** | Doublons (SHA-256), photos similaires (Vision d'Apple), gros fichiers anciens, captures d'écran |
+| **Storage Map** | Carte en bulles navigable d'un dossier ou du disque |
+| **Stockage cloud** | iCloud Drive, Google Drive, OneDrive, Dropbox : libérer les copies locales sans rien supprimer du cloud |
+| **Raccourcis / Historique / barre des menus / analyses automatiques** | Outils épinglés, historique, moniteur en direct, alertes quand les fichiers inutiles s'accumulent |
 
 ## La sécurité d'abord
 

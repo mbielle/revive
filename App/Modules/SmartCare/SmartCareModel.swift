@@ -41,7 +41,7 @@ final class SmartCareModel {
         cleanup = CleanupModel(app: app, categories: Set(CleanupCategory.allCases), module: .smartCare)
     }
 
-    /// Maintenance run by Smart Care: no password prompt unless the helper is installed.
+    /// Maintenance run by Checkup: no password prompt unless the helper is installed.
     var tuneUpTasks: [MaintenanceTask] {
         app.privileged.helperState == .enabled ? [.freeMemory, .flushDNS, .resetQuickLook] : [.resetQuickLook]
     }

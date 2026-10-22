@@ -34,7 +34,7 @@ final class ProtectionModel {
         self.app = app
     }
 
-    /// Opens a section, scanning first if needed (used by My Tools).
+    /// Opens a section, scanning first if needed (used by Shortcuts).
     func open(_ section: Section) {
         self.section = section
         if phase == .idle { scan() }
@@ -54,7 +54,7 @@ final class ProtectionModel {
         }
     }
 
-    /// Fast pass used by Smart Care: persistence and the most exposed files.
+    /// Fast pass used by Checkup: persistence and the most exposed files.
     func quickThreatScan() async -> [Threat] {
         let rules = await loadRules()
         let home = app.safetyGuard.home

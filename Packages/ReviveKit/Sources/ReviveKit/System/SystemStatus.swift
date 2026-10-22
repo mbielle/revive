@@ -1,6 +1,6 @@
 import Foundation
 
-/// Read-only checks of the Mac's built-in protections, used by Smart Care's security check.
+/// Read-only checks of the Mac's built-in protections, used by Checkup's security check.
 public enum SecurityCheck: String, CaseIterable, Sendable, Identifiable {
     case systemIntegrityProtection
     case gatekeeper

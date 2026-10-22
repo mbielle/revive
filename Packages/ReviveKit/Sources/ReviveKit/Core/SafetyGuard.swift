@@ -10,7 +10,7 @@ public struct SafetyGuard: Sendable {
     public enum Policy: Sendable {
         /// Items picked by a scanner rule. Strictest: user content folders are off-limits.
         case automatic
-        /// Items the user picked by hand (Space Lens...). User files are allowed.
+        /// Items the user picked by hand (Storage Map...). User files are allowed.
         case userInitiated
         /// Uninstalling an app: its bundle, preferences, containers and launch agents, in the home
         /// folder and in the system-wide Library. Apple's own apps and data are never allowed.

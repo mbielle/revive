@@ -1,7 +1,7 @@
 import Foundation
 import os
 
-/// One folder or file in the Space Lens map. Immutable once built.
+/// One folder or file in the Storage Map map. Immutable once built.
 public final class FileNode: Identifiable, Sendable, Hashable {
     public var id: String { url.normalizedPath }
     public let url: URL
@@ -52,7 +52,7 @@ public final class FileNode: Identifiable, Sendable, Hashable {
     public func hash(into hasher: inout Hasher) { hasher.combine(ObjectIdentifier(self)) }
 }
 
-/// Measures a folder tree for Space Lens.
+/// Measures a folder tree for Storage Map.
 public struct SpaceScanner: Sendable {
     /// Entries smaller than this are not listed individually.
     public var minimumListedSize: Int64 = 1_000_000

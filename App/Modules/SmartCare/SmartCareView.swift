@@ -133,7 +133,7 @@ private struct SmartCareResultsView: View {
                 PillButton(title: "Start Over", symbol: "arrow.counterclockwise") { model.reset() }
                 ScanButton(title: "Run", theme: module.theme) { model.run() }
                     .disabled(model.cleanup.selection.isEmpty && !model.includeTuneUp)
-                PillButton(title: "Space Lens", symbol: "circle.hexagongrid.fill") { app.selection = .spaceLens }
+                PillButton(title: "Storage Map", symbol: "circle.hexagongrid.fill") { app.selection = .spaceLens }
             }
             .padding(.bottom, 28)
         }
@@ -159,7 +159,7 @@ private struct SmartCareResultsView: View {
     private var protectionCard: some View {
         let enabled = model.security.filter { $0.state == .enabled }.count
         let malware = model.threats.filter(\.isMalware).count
-        return ResultCard(title: "Protection", symbol: "checkmark.shield.fill", theme: module.theme) {
+        return ResultCard(title: "Security", symbol: "checkmark.shield.fill", theme: module.theme) {
             if malware > 0 {
                 BigValue(value: "\(malware)", caption: malware == 1 ? "threat found" : "threats found", alert: true)
             } else {
@@ -192,7 +192,7 @@ private struct SmartCareResultsView: View {
     }
 
     private var performanceCard: some View {
-        ResultCard(title: "Performance", symbol: "bolt.fill", theme: module.theme) {
+        ResultCard(title: "Optimization", symbol: "bolt.fill", theme: module.theme) {
             BigValue(value: "\(Int((model.memory?.usedFraction ?? 0) * 100))%", caption: "of memory in use")
             Toggle(isOn: $model.includeTuneUp) {
                 Text("Tune up: \(model.tuneUpTasks.map { $0.title.resolved }.joined(separator: ", "))")
@@ -206,7 +206,7 @@ private struct SmartCareResultsView: View {
     }
 
     private var updatesCard: some View {
-        ResultCard(title: "Applications", symbol: "arrow.down.app.fill", theme: module.theme) {
+        ResultCard(title: "Apps", symbol: "arrow.down.app.fill", theme: module.theme) {
             BigValue(value: "\(model.updates.count)", caption: model.updates.isEmpty ? "apps up to date"
                      : model.updates.count == 1 ? "app update available" : "app updates available")
             Text(model.updates.prefix(3).map(\.app.name).joined(separator: ", "))

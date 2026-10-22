@@ -45,14 +45,14 @@ struct ProtectionView: View {
                 ? String(localized: "Checked against \(model.ruleCount) of Apple's XProtect malware signatures.")
                 : String(localized: "Apple's XProtect signatures could not be loaded; only startup items were checked.")
         ) {
-            OverviewTile(symbol: "ladybug.fill", title: "Malware Removal",
+            OverviewTile(symbol: "ladybug.fill", title: "Malware Scan",
                          subtitle: malware > 0 ? String(localized: "Malware found. Remove it now.") : String(localized: "Threats and suspicious startup items."),
                          value: "\(model.threats.count)", theme: module.theme, badge: malware > 0 ? String(localized: "Threat") : nil) { model.section = .malware }
-            OverviewTile(symbol: "lock.shield.fill", title: "Privacy Check", subtitle: String(localized: "Browsing history, cookies and recent items."),
+            OverviewTile(symbol: "lock.shield.fill", title: "Privacy", subtitle: String(localized: "Browsing history, cookies and recent items."),
                          value: formatBytes(privacySize), theme: module.theme) { model.section = .privacy }
             OverviewTile(symbol: "puzzlepiece.extension.fill", title: "Browser Extensions", subtitle: String(localized: "Add-ons that can read the pages you visit."),
                          value: "\(model.extensions.count)", theme: module.theme) { model.section = .extensions }
-            OverviewTile(symbol: "lock.open.fill", title: "Application Permissions", subtitle: String(localized: "Apps allowed to use your camera, files, screen…"),
+            OverviewTile(symbol: "lock.open.fill", title: "App Permissions", subtitle: String(localized: "Apps allowed to use your camera, files, screen…"),
                          value: model.permissionsUnreadable ? "—" : "\(appsWithPermissions)", theme: module.theme) { model.section = .permissions }
         } footer: {
             HStack(spacing: 14) {
@@ -70,7 +70,7 @@ private struct MalwareScreen: View {
     private let theme = AppModule.protection.theme
 
     var body: some View {
-        DetailScreen(title: "Malware Removal", symbol: "ladybug.fill", theme: theme, onBack: { model.section = nil }) {
+        DetailScreen(title: "Malware Scan", symbol: "ladybug.fill", theme: theme, onBack: { model.section = nil }) {
             EmptyView()
         } content: {
             if model.threats.isEmpty {
@@ -153,7 +153,7 @@ private struct PrivacyScreen: View {
 
     var body: some View {
         let owners = Array(Set(model.privacyItems.map(\.owner))).sorted()
-        DetailScreen(title: "Privacy Check", symbol: "lock.shield.fill", theme: theme, onBack: { model.section = nil }) {
+        DetailScreen(title: "Privacy", symbol: "lock.shield.fill", theme: theme, onBack: { model.section = nil }) {
             EmptyView()
         } content: {
             Text("Clear the traces your browsing leaves on this Mac. Saved passwords and bookmarks are never touched.")
@@ -316,7 +316,7 @@ private struct PermissionsScreen: View {
     private let theme = AppModule.protection.theme
 
     var body: some View {
-        DetailScreen(title: "Application Permissions", symbol: "lock.open.fill", theme: theme, onBack: { model.section = nil }) {
+        DetailScreen(title: "App Permissions", symbol: "lock.open.fill", theme: theme, onBack: { model.section = nil }) {
             PillButton(title: "Privacy Settings", symbol: "gearshape.fill") {
                 NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy")!)
             }

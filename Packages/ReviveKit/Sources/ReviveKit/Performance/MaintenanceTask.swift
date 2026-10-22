@@ -56,7 +56,7 @@ public enum MaintenanceTask: String, CaseIterable, Sendable, Identifiable, Codab
         }
     }
 
-    /// Part of the recommended set run by Smart Care and pre-checked in Performance.
+    /// Part of the recommended set run by Checkup and pre-checked in Performance.
     public var isRecommended: Bool {
         switch self {
         case .freeMemory, .flushDNS, .rebuildLaunchServices, .resetQuickLook: true

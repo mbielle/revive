@@ -3,7 +3,7 @@ import CoreGraphics
 /// Packs circles whose areas are proportional to sizes, biggest in the middle.
 ///
 /// Greedy placement: each new circle is put tangent to an already placed one, at the
-/// free position closest to the center. Good enough for the few dozen bubbles Space Lens shows.
+/// free position closest to the center. Good enough for the few dozen bubbles Storage Map shows.
 enum BubbleLayout {
     struct Bubble {
         let index: Int

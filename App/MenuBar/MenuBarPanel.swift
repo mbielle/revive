@@ -97,8 +97,8 @@ struct MenuBarPanel: View {
             .background(RoundedRectangle(cornerRadius: 12).fill(.white.opacity(0.1)))
 
             HStack(spacing: 8) {
-                action("Smart Care", symbol: "sparkles") { open(.smartCare, start: true) }
-                action("Protection", symbol: "checkmark.shield.fill") { open(.protection, start: true) }
+                action("Checkup", symbol: "sparkles") { open(.smartCare, start: true) }
+                action("Security", symbol: "checkmark.shield.fill") { open(.protection, start: true) }
                 action("Free Up RAM", symbol: "memorychip", busy: freeing) {
                     freeing = true
                     Task {

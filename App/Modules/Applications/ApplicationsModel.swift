@@ -59,13 +59,13 @@ final class ApplicationsModel {
         }
     }
 
-    /// Opens a section, scanning first if needed (used by My Tools).
+    /// Opens a section, scanning first if needed (used by Shortcuts).
     func open(_ section: Section) {
         self.section = section
         if phase == .idle { scan() }
     }
 
-    /// Opens the updater, scanning first if needed (used from Smart Care).
+    /// Opens the updater, scanning first if needed (used from Checkup).
     func openUpdater() {
         section = .updater
         if phase == .idle { scan() }

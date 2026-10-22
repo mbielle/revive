@@ -279,6 +279,16 @@
         }
       }
     },
+    "AI Caches & Models": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Caches et modèles d’IA"
+          }
+        }
+      }
+    },
     "AI Clutter": {
       "localizations": {
         "fr": {
@@ -409,6 +419,16 @@
         }
       }
     },
+    "App Permissions": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Autorisations des apps"
+          }
+        }
+      }
+    },
     "App Store": {
       "shouldTranslate": false
     },
@@ -438,6 +458,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Applications"
+          }
+        }
+      }
+    },
+    "Apps": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apps"
           }
         }
       }
@@ -755,6 +785,16 @@
         }
       }
     },
+    "Checkup": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bilan"
+          }
+        }
+      }
+    },
     "Choose": {
       "localizations": {
         "fr": {
@@ -885,6 +925,16 @@
         }
       }
     },
+    "Cloud Storage": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stockage cloud"
+          }
+        }
+      }
+    },
     "Come back here: Revive detects the change automatically.": {
       "localizations": {
         "fr": {
@@ -911,6 +961,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Personnaliser"
+          }
+        }
+      }
+    },
+    "Declutter": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Désencombrer"
           }
         }
       }
@@ -1378,6 +1438,16 @@
         }
       }
     },
+    "History": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Historique"
+          }
+        }
+      }
+    },
     "Home Folder": {
       "localizations": {
         "fr": {
@@ -1497,6 +1567,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nettoyage des fichiers inutiles"
+          }
+        }
+      }
+    },
+    "Junk Scan": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fichiers inutiles"
           }
         }
       }
@@ -1631,6 +1711,16 @@
         }
       }
     },
+    "Look for malware, risky startup items and the traces your browsing leaves behind.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recherchez les malwares, les éléments de démarrage à risque et les traces laissées par votre navigation."
+          }
+        }
+      }
+    },
     "Looking at your apps…": {
       "localizations": {
         "fr": {
@@ -1710,6 +1800,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Suppression des malwares"
+          }
+        }
+      }
+    },
+    "Malware Scan": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recherche de malwares"
           }
         }
       }
@@ -2127,6 +2227,16 @@
         }
       }
     },
+    "Nothing yet. Run a checkup or a cleanup and it will show up here.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rien pour l’instant. Lancez un bilan ou un nettoyage pour le voir apparaître ici."
+          }
+        }
+      }
+    },
     "Notify me above %lld GB": {
       "localizations": {
         "fr": {
@@ -2153,6 +2263,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Activé"
+          }
+        }
+      }
+    },
+    "One scan for junk, security, speed and app updates, then one click to fix it all.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une seule analyse pour les fichiers inutiles, la sécurité, la vitesse et les mises à jour, puis un clic pour tout régler."
           }
         }
       }
@@ -2247,6 +2367,16 @@
         }
       }
     },
+    "Optimization": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Optimisation"
+          }
+        }
+      }
+    },
     "Original · %@": {
       "localizations": {
         "fr": {
@@ -2323,6 +2453,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Plus %1$lld gros fichiers oubliés et %2$lld captures d’écran à regarder."
+          }
+        }
+      }
+    },
+    "Privacy": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Confidentialité"
           }
         }
       }
@@ -2517,6 +2657,16 @@
         }
       }
     },
+    "Remove the caches, logs and leftovers your Mac no longer needs, and get your space back.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Supprimez les caches, journaux et restes dont votre Mac n’a plus besoin, et récupérez de l’espace."
+          }
+        }
+      }
+    },
     "Reset": {
       "localizations": {
         "fr": {
@@ -2640,6 +2790,16 @@
         }
       }
     },
+    "Run proven maintenance scripts and keep an eye on what starts with your Mac.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lancez des scripts de maintenance éprouvés et gardez un œil sur ce qui démarre avec votre Mac."
+          }
+        }
+      }
+    },
     "Running": {
       "localizations": {
         "fr": {
@@ -2676,6 +2836,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sécurité"
+          }
+        }
+      }
+    },
+    "Safety Check": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contrôle de sécurité"
           }
         }
       }
@@ -2800,6 +2970,16 @@
         }
       }
     },
+    "Security": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sécurité"
+          }
+        }
+      }
+    },
     "Security Check": {
       "localizations": {
         "fr": {
@@ -2856,6 +3036,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Réglages…"
+          }
+        }
+      }
+    },
+    "Shortcuts": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Raccourcis"
           }
         }
       }
@@ -3106,6 +3296,16 @@
         }
       }
     },
+    "System Cleanup": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nettoyage du système"
+          }
+        }
+      }
+    },
     "System Integrity Protection": {
       "localizations": {
         "fr": {
@@ -3252,6 +3452,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Optimiser : %@"
+          }
+        }
+      }
+    },
+    "Tune-up": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Optimisation"
           }
         }
       }

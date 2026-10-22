@@ -1,7 +1,7 @@
 import ReviveKit
 import SwiftUI
 
-/// Drives the scan → review → clean flow. Also used by Smart Care for its junk step.
+/// Drives the scan → review → clean flow. Also used by Checkup for its junk step.
 @MainActor @Observable
 final class CleanupModel {
     enum Phase: Equatable {
@@ -16,7 +16,7 @@ final class CleanupModel {
     var selection: Set<String> = []
     /// Category opened in the review screen, nil when showing the summary.
     var reviewing: CleanupCategory?
-    /// Category to open once the running scan finishes (from My Tools).
+    /// Category to open once the running scan finishes (from Shortcuts).
     var pendingReview: CleanupCategory?
 
     let categories: Set<CleanupCategory>
@@ -42,7 +42,7 @@ final class CleanupModel {
         task = Task { await runScan() }
     }
 
-    /// Scans and waits for the result; used by Smart Care to chain its steps.
+    /// Scans and waits for the result; used by Checkup to chain its steps.
     func runScan() async {
         phase = .scanning
         let scanner = CleanupScanner(rules: (try? RuleCatalog.bundled()) ?? [], safetyGuard: app.safetyGuard, runningApps: app.runningApps())
@@ -106,7 +106,7 @@ final class CleanupModel {
         phase = .done
     }
 
-    /// Ends a run where nothing was selected for removal (Smart Care with only a tune-up).
+    /// Ends a run where nothing was selected for removal (Checkup with only a tune-up).
     func markNothingToClean(simulated: Bool) {
         var report = RemovalReport()
         report.wasSimulated = simulated
@@ -151,7 +151,7 @@ extension CleanupCategory {
     var title: LocalizedStringResource {
         switch self {
         case .systemJunk: "System Junk"
-        case .aiClutter: "AI Clutter"
+        case .aiClutter: "AI Caches & Models"
         case .mailAttachments: "Mail Attachments"
         case .trashBins: "Trash Bins"
         }

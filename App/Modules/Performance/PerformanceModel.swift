@@ -36,7 +36,7 @@ final class PerformanceModel {
         self.app = app
     }
 
-    /// Opens a section, scanning first if needed (used by My Tools).
+    /// Opens a section, scanning first if needed (used by Shortcuts).
     func open(_ section: Section) {
         self.section = section
         if phase == .idle { scan() }

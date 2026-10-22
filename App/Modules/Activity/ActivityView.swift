@@ -46,7 +46,7 @@ struct ActivityView: View {
             if model.entries.isEmpty {
                 VStack(spacing: 12) {
                     Image(systemName: "clock.arrow.circlepath").font(.system(size: 40)).foregroundStyle(.white.opacity(0.6))
-                    Text("Nothing yet. Run Smart Care or a cleanup and it will show up here.")
+                    Text("Nothing yet. Run a checkup or a cleanup and it will show up here.")
                         .font(.system(size: 15)).foregroundStyle(.white.opacity(0.7))
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
