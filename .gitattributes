@@ -1,0 +1,2 @@
+# Vendored third-party code: keep it out of the language statistics.
+Packages/ReviveKit/Sources/CYara/** linguist-vendored
