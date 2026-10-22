@@ -13,3 +13,6 @@ Packages/ReviveKit/.swiftpm/
 .DS_Store
 *.xcuserstate
 xcuserdata/
+
+# Personal signing settings
+Config/Local.xcconfig

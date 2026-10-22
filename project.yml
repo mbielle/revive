@@ -7,6 +7,10 @@ options:
   knownRegions: [en, fr, Base]
   createIntermediateGroups: true
 
+configFiles:
+  Debug: Config/Signing.xcconfig
+  Release: Config/Signing.xcconfig
+
 settings:
   base:
     SWIFT_VERSION: "6.0"
@@ -16,10 +20,6 @@ settings:
     SWIFT_EMIT_LOC_STRINGS: YES
     LOCALIZATION_PREFERS_STRING_CATALOGS: YES
     DEAD_CODE_STRIPPING: YES
-    # Ad-hoc signing for local builds. Release signing is configured when publishing.
-    CODE_SIGN_IDENTITY: "-"
-    CODE_SIGN_STYLE: Manual
-    DEVELOPMENT_TEAM: ""
 
 packages:
   ReviveKit:

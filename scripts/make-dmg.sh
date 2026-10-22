@@ -16,7 +16,8 @@ DMG="build/Revive-$VERSION.dmg"
 command -v xcodegen >/dev/null || { echo "Install XcodeGen first: brew install xcodegen"; exit 1; }
 xcodegen generate --quiet
 
-SIGNING=(CODE_SIGN_IDENTITY="-")
+# Ad-hoc unless a Developer ID is given, whatever Config/Local.xcconfig says.
+SIGNING=(CODE_SIGN_IDENTITY="-" DEVELOPMENT_TEAM="")
 if [[ -n "${DEVELOPER_ID:-}" ]]; then
   TEAM=$(echo "$DEVELOPER_ID" | sed -E 's/.*\(([A-Z0-9]+)\).*/\1/')
   SIGNING=(CODE_SIGN_IDENTITY="$DEVELOPER_ID" DEVELOPMENT_TEAM="$TEAM" OTHER_CODE_SIGN_FLAGS="--timestamp")

@@ -1,0 +1,3 @@
+// Copy to Config/Local.xcconfig (not committed) to sign local builds with your certificate.
+CODE_SIGN_IDENTITY = Apple Development
+DEVELOPMENT_TEAM = YOUR_TEAM_ID

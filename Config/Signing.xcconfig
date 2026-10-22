@@ -1,0 +1,8 @@
+// Signing defaults: ad-hoc, so anyone can build without an Apple account.
+// To sign local builds with your own certificate (keeps Full Disk Access across rebuilds),
+// copy Local.xcconfig.example to Local.xcconfig (ignored by git) and fill in your team.
+CODE_SIGN_IDENTITY = -
+CODE_SIGN_STYLE = Manual
+DEVELOPMENT_TEAM =
+
+#include? "Local.xcconfig"
