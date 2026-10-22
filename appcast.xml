@@ -6,6 +6,22 @@
     <description>Updates for Revive, the free and open source Mac cleaner.</description>
     <language>en</language>
     <item>
+      <title>Revive 0.4.2</title>
+      <pubDate>Thu, 22 Oct 2026 14:49:43 +0000</pubDate>
+      <sparkle:version>3</sparkle:version>
+      <sparkle:shortVersionString>0.4.2</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+      <description><![CDATA[<h3>What&#x27;s new</h3>
+<ul>
+<li><b>Checkup Run does it all</b>: maintenance tasks, confirmed malware removal, Homebrew app updates and cleanup, each with its own checkbox, then a summary of what worked and what didn&#x27;t.</li>
+<li><b>Storage Map</b>: hovering now follows the pointer bubble by bubble; the hovered bubble grows and its neighbors move aside.</li>
+<li><b>Clear errors everywhere</b>: Security, Apps, Declutter, Cloud Storage and login items show what could not be removed, and keep those items in the list.</li>
+<li><b>Move to Applications</b>: opened from the disk image, Revive offers to move itself to Applications, so macOS asks for approval only once.</li>
+<li><b>Full Disk Access stays on</b>: development builds no longer reset the installed app&#x27;s permission.</li>
+</ul>]]></description>
+      <enclosure url="https://github.com/mbielle/revive/releases/download/v0.4.2/Revive-0.4.2.dmg" sparkle:edSignature="9TWoNYGOAE8IoaCn+o7fZmNZfmXk7YGwwyLUay6iXSCwVwCjfPEfL5xRap9y1ZLX4A2oH6a7gnmgrPKg/EXeCQ==" length="7120130" type="application/octet-stream"/>
+    </item>
+    <item>
       <title>Revive 0.4.1</title>
       <pubDate>Thu, 22 Oct 2026 12:05:45 +0000</pubDate>
       <sparkle:version>2</sparkle:version>
