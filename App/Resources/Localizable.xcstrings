@@ -97,12 +97,32 @@
         }
       }
     },
+    "%@ of junk moved to the Trash": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ de fichiers inutiles placés dans la Corbeille"
+          }
+        }
+      }
+    },
     "%@ of junk piled up on your Mac. Open Revive to review it.": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
             "value": "%@ de fichiers inutiles se sont accumulés sur votre Mac. Ouvrez Revive pour les vérifier."
+          }
+        }
+      }
+    },
+    "%@ of junk would be removed": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ de fichiers inutiles seraient supprimés"
           }
         }
       }
@@ -152,6 +172,46 @@
           "stringUnit": {
             "state": "translated",
             "value": "%lld apps installées"
+          }
+        }
+      }
+    },
+    "%lld apps updated": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld app updated"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld apps updated"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld app mise à jour"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld apps mises à jour"
+                }
+              }
+            }
           }
         }
       }
@@ -236,12 +296,62 @@
         }
       }
     },
+    "%lld of %lld maintenance tasks done": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld tâches de maintenance sur %2$lld effectuées"
+          }
+        }
+      }
+    },
     "%lld selected · %@": {
       "localizations": {
         "fr": {
           "stringUnit": {
             "state": "translated",
             "value": "%lld sélectionnés · %@"
+          }
+        }
+      }
+    },
+    "%lld threat files moved to the Trash": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld threat file moved to the Trash"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld threat files moved to the Trash"
+                }
+              }
+            }
+          }
+        },
+        "fr": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld fichier malveillant placé dans la Corbeille"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld fichiers malveillants placés dans la Corbeille"
+                }
+              }
+            }
           }
         }
       }
@@ -1125,6 +1235,16 @@
         }
       }
     },
+    "Drag Revive to the Applications folder in the Finder, then open it from there.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Glissez Revive dans le dossier Applications depuis le Finder, puis ouvrez-le depuis là."
+          }
+        }
+      }
+    },
     "Duplicates": {
       "localizations": {
         "fr": {
@@ -1511,6 +1631,26 @@
     "Homebrew": {
       "shouldTranslate": false
     },
+    "Homebrew could not update this app.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Homebrew n’a pas pu mettre à jour cette app."
+          }
+        }
+      }
+    },
+    "Homebrew is not installed.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Homebrew n’est pas installé."
+          }
+        }
+      }
+    },
     "Identical files, byte for byte. The oldest copy of each is kept unchecked.": {
       "localizations": {
         "fr": {
@@ -1547,6 +1687,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Installer l’outil d’aide"
+          }
+        }
+      }
+    },
+    "Install Homebrew updates, open the others": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Installer les mises à jour Homebrew, ouvrir les autres"
           }
         }
       }
@@ -1987,6 +2137,36 @@
         }
       }
     },
+    "Move Revive to the Applications folder?": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Déplacer Revive dans le dossier Applications ?"
+          }
+        }
+      }
+    },
+    "Move the threats to the Trash": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Placer les menaces dans la Corbeille"
+          }
+        }
+      }
+    },
+    "Move to Applications": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Déplacer dans Applications"
+          }
+        }
+      }
+    },
     "Move to Trash": {
       "localizations": {
         "fr": {
@@ -2173,6 +2353,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Aucun stockage cloud trouvé"
+          }
+        }
+      }
+    },
+    "No junk was selected": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun fichier inutile sélectionné"
           }
         }
       }
@@ -2427,6 +2617,16 @@
         }
       }
     },
+    "Open the apps that update themselves": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvrir les apps qui se mettent à jour seules"
+          }
+        }
+      }
+    },
     "Open to Update": {
       "localizations": {
         "fr": {
@@ -2647,6 +2847,16 @@
         }
       }
     },
+    "Reinstall Helper": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Réinstaller l’assistant"
+          }
+        }
+      }
+    },
     "Reminders": {
       "localizations": {
         "fr": {
@@ -2737,6 +2947,26 @@
         }
       }
     },
+    "Removing junk…": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suppression des fichiers inutiles…"
+          }
+        }
+      }
+    },
+    "Removing threats…": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suppression des menaces…"
+          }
+        }
+      }
+    },
     "Reset": {
       "localizations": {
         "fr": {
@@ -2809,6 +3039,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Revive consulte le flux de mise à jour de chaque app, le Mac App Store et Homebrew. Rien d’autre n’est envoyé."
+          }
+        }
+      }
+    },
+    "Revive could not be moved to Applications.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revive n’a pas pu être déplacé dans Applications."
+          }
+        }
+      }
+    },
+    "Revive is running from a disk image or the Downloads folder. In Applications, macOS keeps its permissions and Revive can update itself.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revive est ouvert depuis une image disque ou le dossier Téléchargements. Dans Applications, macOS conserve ses autorisations et Revive peut se mettre à jour."
           }
         }
       }
@@ -2889,6 +3139,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "En cours"
+          }
+        }
+      }
+    },
+    "Running maintenance tasks…": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tâches de maintenance en cours…"
           }
         }
       }
@@ -3439,6 +3699,26 @@
         }
       }
     },
+    "The helper did not answer. Reinstall it from Settings.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L’assistant n’a pas répondu. Réinstallez-le depuis les Réglages."
+          }
+        }
+      }
+    },
+    "These apps update themselves:": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ces apps se mettent à jour seules :"
+          }
+        }
+      }
+    },
     "These are your own files. You can restore them from the Trash until you empty it.": {
       "localizations": {
         "fr": {
@@ -3495,6 +3775,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Menaces et éléments de démarrage suspects."
+          }
+        }
+      }
+    },
+    "Threats would be moved to the Trash": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les menaces seraient placées dans la Corbeille"
           }
         }
       }
@@ -3635,6 +3925,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Les mises à jour s’installent quand vous quittez Revive, ou quand vous les acceptez."
+          }
+        }
+      }
+    },
+    "Updating apps…": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mise à jour des apps…"
           }
         }
       }

@@ -221,7 +221,7 @@ Un nettoyeur touche à vos fichiers : Revive est prudent à chaque étape.
 ## Installer
 
 1. Téléchargez **[le dernier DMG](https://github.com/mbielle/revive/releases/latest)**, ouvrez-le et glissez **Revive** dans **Applications**.
-2. **Premier lancement :** Revive n’est pas encore signé avec un Developer ID d’Apple, donc macOS le bloque la première fois. Ouvrez-le une fois, puis allez dans **Réglages Système › Confidentialité et sécurité** et cliquez sur **Ouvrir quand même**. C’est à faire une seule fois.
+2. **Premier lancement :** Revive n’est pas encore signé avec un Developer ID d’Apple, donc macOS le bloque la première fois. Ouvrez-le une fois, puis allez dans **Réglages Système › Confidentialité et sécurité** et cliquez sur **Ouvrir quand même**. Faites-le pour la copie placée dans Applications (Revive propose de s’y déplacer si vous l’ouvrez depuis l’image disque) : macOS redemande pour chaque nouvelle copie, mais jamais après une mise à jour.
 3. Donnez à Revive l’**accès complet au disque** quand il le demande : sans lui, macOS cache Mail, Safari, la Corbeille et les données des apps.
 
 Ensuite, **Revive se met à jour tout seul** : il cherche une nouvelle version au lancement puis toutes les heures, et l’installe en un clic (Réglages › Mises à jour, ou **Revive › Check for Updates…**). Les mises à jour sont vérifiées avec la clé de signature du projet, et macOS conserve les autorisations de Revive d’une version à l’autre.

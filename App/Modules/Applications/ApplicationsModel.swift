@@ -16,6 +16,8 @@ final class ApplicationsModel {
     private(set) var installers: [CleanupItem] = []
     private(set) var checkingUpdates = false
     private(set) var upgrading: Set<String> = []
+    /// Why an update failed, by update id.
+    private(set) var updateErrors: [String: String] = [:]
     private(set) var lastReport: RemovalReport?
 
     var section: Section?
@@ -180,21 +182,13 @@ final class ApplicationsModel {
     // MARK: Updates
 
     func update(_ update: AppUpdate) {
-        if let token = update.app.homebrewToken, let brew = UpdateChecker.brewExecutable {
+        if update.app.homebrewToken != nil {
             upgrading.insert(update.id)
+            updateErrors[update.id] = nil
             Task {
-                let status = await Task.detached {
-                    let process = Process()
-                    process.executableURL = brew
-                    process.arguments = ["upgrade", "--cask", token]
-                    process.standardOutput = FileHandle.nullDevice
-                    process.standardError = FileHandle.nullDevice
-                    guard (try? process.run()) != nil else { return Int32(-1) }
-                    process.waitUntilExit()
-                    return process.terminationStatus
-                }.value
+                let error = await upgrade(update)
                 upgrading.remove(update.id)
-                if status == 0 { updates.removeAll { $0.id == update.id } }
+                updateErrors[update.id] = error
             }
         } else if update.app.source == .appStore, let link = update.link {
             NSWorkspace.shared.open(link)
@@ -202,5 +196,38 @@ final class ApplicationsModel {
             // Sparkle apps update themselves: open the app, it offers the new version.
             NSWorkspace.shared.openApplication(at: update.app.url, configuration: .init())
         }
+    }
+
+    /// Runs `brew upgrade --cask`; returns nil on success, or the error Homebrew printed.
+    func upgrade(_ update: AppUpdate) async -> String? {
+        guard let token = update.app.homebrewToken, let brew = UpdateChecker.brewExecutable else {
+            return String(localized: "Homebrew is not installed.")
+        }
+        if app.dryRun {
+            try? await Task.sleep(for: .milliseconds(500))
+            return nil
+        }
+        let (status, output) = await Task.detached { () -> (Int32, String) in
+            let process = Process()
+            process.executableURL = brew
+            process.arguments = ["upgrade", "--cask", token]
+            var environment = ProcessInfo.processInfo.environment
+            environment["PATH"] = brew.deletingLastPathComponent().path(percentEncoded: false) + ":/usr/bin:/bin:/usr/sbin:/sbin"
+            environment["HOMEBREW_NO_AUTO_UPDATE"] = "1"
+            process.environment = environment
+            let pipe = Pipe()
+            process.standardOutput = pipe
+            process.standardError = pipe
+            do { try process.run() } catch { return (-1, error.localizedDescription) }
+            let output = String(decoding: pipe.fileHandleForReading.readDataToEndOfFile(), as: UTF8.self)
+            process.waitUntilExit()
+            return (process.terminationStatus, output)
+        }.value
+        guard status != 0 else {
+            updates.removeAll { $0.id == update.id }
+            return nil
+        }
+        let lines = output.split(separator: "\n").map(String.init)
+        return lines.last { $0.hasPrefix("Error") } ?? lines.last ?? String(localized: "Homebrew could not update this app.")
     }
 }

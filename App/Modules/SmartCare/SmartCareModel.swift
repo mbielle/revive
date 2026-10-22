@@ -28,9 +28,26 @@ final class SmartCareModel {
     private(set) var memory: MemoryUsage?
     private(set) var updates: [AppUpdate] = []
     private(set) var threats: [Threat] = []
-    /// Run the tune-up tasks together with the cleanup.
+    /// What Run does, card by card.
     var includeTuneUp = true
-    private(set) var tuneUpResult: PrivilegedResult?
+    var includeThreats = true
+    var includeUpdates = true
+    /// What the last Run did, shown on the done screen.
+    private(set) var summary = RunSummary()
+    /// The part of Run in progress, shown while it works.
+    private(set) var runningStep: LocalizedStringResource = "Taking care of your Mac…"
+    private(set) var scanError: String?
+
+    struct RunSummary {
+        var cleanup: RemovalReport?
+        var tasks: [(task: MaintenanceTask, error: String?)] = []
+        var threats: RemovalReport?
+        var updated: [String] = []
+        var updateFailures: [(name: String, error: String)] = []
+        /// App Store and Sparkle apps: Revive opens them, they update themselves.
+        var manualUpdates: [AppUpdate] = []
+        var simulated = false
+    }
 
     let cleanup: CleanupModel
     @ObservationIgnored unowned let app: AppModel
@@ -41,18 +58,25 @@ final class SmartCareModel {
         cleanup = CleanupModel(app: app, categories: Set(CleanupCategory.allCases), module: .smartCare)
     }
 
-    /// Maintenance run by Checkup: no password prompt unless the helper is installed.
-    var tuneUpTasks: [MaintenanceTask] {
-        app.privileged.helperState == .enabled ? [.freeMemory, .flushDNS, .resetQuickLook] : [.resetQuickLook]
+    /// Maintenance run by Checkup. Administrator tasks share one password prompt without the helper.
+    var tuneUpTasks: [MaintenanceTask] { MaintenanceTask.allCases.filter(\.isRecommended) }
+
+    /// Updates Run installs itself (Homebrew casks); the others are opened afterwards.
+    var automaticUpdates: [AppUpdate] { updates.filter { $0.app.homebrewToken != nil } }
+
+    var canRun: Bool {
+        !cleanup.selection.isEmpty || includeTuneUp || (includeThreats && threats.contains(where: \.isMalware)) || (includeUpdates && !updates.isEmpty)
     }
 
     func scan() {
         task?.cancel()
         phase = .scanning
+        scanError = nil
         task = Task {
             currentStep = .junk
             await cleanup.runScan()
             guard !Task.isCancelled else { return }
+            scanError = cleanup.errorMessage
 
             currentStep = .security
             async let checks = SystemStatus.securityChecks()
@@ -78,6 +102,10 @@ final class SmartCareModel {
             }.value
             guard !Task.isCancelled else { return }
             phase = .results
+            #if DEBUG
+            // `-autoRun YES` clicks Run once the scan is done, to test the whole flow.
+            if UserDefaults.standard.bool(forKey: "autoRun") { run() }
+            #endif
         }
     }
 
@@ -89,27 +117,61 @@ final class SmartCareModel {
 
     func run() {
         phase = .running
+        summary = RunSummary(simulated: app.dryRun)
         task = Task {
-            if includeTuneUp && !app.dryRun {
+            if includeTuneUp {
+                runningStep = "Running maintenance tasks…"
                 let tasks = tuneUpTasks
-                let admin = tasks.compactMap(\.privilegedCommand)
-                if !admin.isEmpty { tuneUpResult = await app.privileged.run(admin) }
-                for task in tasks where task.privilegedCommand == nil {
-                    _ = await Task.detached { task.runAsUser() }.value
+                await app.performance.runTasks(tasks)
+                summary.tasks = tasks.map { task in
+                    if case .failed(let reason) = app.performance.taskStates[task] { return (task, reason) }
+                    return (task, nil)
                 }
             }
+            let malware = threats.filter(\.isMalware)
+            if includeThreats && !malware.isEmpty {
+                runningStep = "Removing threats…"
+                // Only confirmed malware; other findings are left for review in Security.
+                let report = await app.protection.remove(malware)
+                app.record(report, module: .protection)
+                summary.threats = report
+                if !report.wasSimulated { threats = app.protection.remaining(of: threats) }
+            }
+            if includeUpdates && !updates.isEmpty {
+                runningStep = "Updating apps…"
+                for update in automaticUpdates {
+                    if let error = await app.applications.upgrade(update) {
+                        summary.updateFailures.append((update.app.name, error))
+                    } else {
+                        summary.updated.append(update.app.name)
+                        updates.removeAll { $0.id == update.id }
+                    }
+                }
+                summary.manualUpdates = updates.filter { $0.app.homebrewToken == nil }
+            }
             if !cleanup.selection.isEmpty {
+                runningStep = "Removing junk…"
                 await cleanup.runClean()
-            } else {
-                cleanup.markNothingToClean(simulated: app.dryRun)
+                summary.cleanup = cleanup.report
             }
             phase = .done
         }
     }
 
+    /// Opens an app that updates itself (Sparkle) or its App Store page.
+    func openManualUpdate(_ update: AppUpdate) {
+        app.applications.update(update)
+    }
+
     func reset() {
         cleanup.reset()
         phase = .idle
+    }
+
+    /// Done: scan again so the score and cards show the Mac as it is now.
+    func finish() {
+        cleanup.reset()
+        scan()
     }
 
     var disabledProtections: [SecurityCheckResult] {

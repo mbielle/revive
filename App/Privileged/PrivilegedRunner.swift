@@ -12,6 +12,8 @@ final class PrivilegedRunner {
 
     private(set) var helperState: HelperState = .notInstalled
     private(set) var lastError: String?
+    /// The helper is registered but did not answer (for example after a signature change).
+    private(set) var helperUnreachable = false
 
     /// The launchd plist is embedded in Contents/Library/LaunchDaemons.
     static var isBundled: Bool {
@@ -69,8 +71,15 @@ final class PrivilegedRunner {
         if helperState == .enabled {
             var output = ""
             var failed: Int32 = 0
-            for command in commands {
-                guard let result = await runWithHelper(command) else { return await runWithPasswordPrompt(commands) }
+            for (index, command) in commands.enumerated() {
+                guard let result = await runWithHelper(command) else {
+                    // Only what the helper did not run goes through the password prompt.
+                    helperUnreachable = true
+                    lastError = String(localized: "The helper did not answer. Reinstall it from Settings.")
+                    let rest = await runWithPasswordPrompt(Array(commands[index...]))
+                    return PrivilegedResult(exitCode: rest.succeeded ? failed : rest.exitCode, output: output + rest.output)
+                }
+                helperUnreachable = false
                 output += result.output
                 if !result.succeeded { failed = result.exitCode }
             }

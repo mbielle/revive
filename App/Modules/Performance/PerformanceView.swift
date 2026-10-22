@@ -103,6 +103,10 @@ private struct TaskRow: View {
                 }
                 Text(task.detail.resolved).font(.system(size: 12)).foregroundStyle(.white.opacity(0.65))
                     .fixedSize(horizontal: false, vertical: true)
+                if case let .failed(reason) = state {
+                    Text(reason).font(.system(size: 11, weight: .medium)).foregroundStyle(Color(hex: 0xFFD43B))
+                        .lineLimit(2).fixedSize(horizontal: false, vertical: true)
+                }
             }
             Spacer()
             switch state {
@@ -126,18 +130,21 @@ struct HelperBanner: View {
 
     var body: some View {
         let runner = app.privileged
-        if runner.helperState != .enabled {
+        if runner.helperState != .enabled || runner.helperUnreachable {
             HStack(spacing: 12) {
                 Image(systemName: "key.fill").foregroundStyle(.white)
                 VStack(alignment: .leading, spacing: 2) {
                     Text(runner.helperState == .needsApproval ? "Allow Revive's helper in System Settings" : "Tasks with a lock ask for your password")
                         .font(.system(size: 13, weight: .semibold)).foregroundStyle(.white)
-                    Text("Install the helper once to run them without a password prompt.")
+                    Text(runner.lastError ?? String(localized: "Install the helper once to run them without a password prompt."))
                         .font(.system(size: 11)).foregroundStyle(.white.opacity(0.65))
                 }
                 Spacer()
-                PillButton(title: runner.helperState == .needsApproval ? "Open Settings" : "Install Helper", symbol: "lock.open.fill") {
-                    runner.installHelper()
+                PillButton(title: runner.helperState == .needsApproval ? "Open Settings" : runner.helperUnreachable ? "Reinstall Helper" : "Install Helper", symbol: "lock.open.fill") {
+                    Task {
+                        if runner.helperUnreachable { await runner.uninstallHelper() }
+                        runner.installHelper()
+                    }
                 }
             }
             .padding(14)
@@ -246,7 +253,7 @@ private struct BackgroundItemsScreen: View {
             .glassPanel(cornerRadius: 20)
             .overlay { if model.launchItems.isEmpty { EmptyState(symbol: "checkmark.circle.fill", message: "No background items.") } }
         } bottom: {
-            EmptyView()
+            if let report = model.lastReport { ReportBanner(report: report) }
         }
         .confirmationDialog("Remove \(confirming?.label ?? "")?", isPresented: .init(get: { confirming != nil }, set: { if !$0 { confirming = nil } })) {
             Button("Remove", role: .destructive) { if let item = confirming { model.remove(item) } }

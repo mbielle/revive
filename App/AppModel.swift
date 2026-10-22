@@ -170,16 +170,26 @@ final class AppModel {
         if UserDefaults.standard.bool(forKey: "assumeFullDiskAccess") { return }
         #endif
         let granted = SystemStatus.hasFullDiskAccess()
+        // One failed read is not enough to say access was taken away (a file being rewritten).
+        if !granted && hasFullDiskAccess {
+            accessMisses += 1
+            // Check again shortly; the watch keeps running until access comes back.
+            if accessMisses == 1 { watchFullDiskAccess() }
+            guard accessMisses >= 2 else { return }
+        }
+        accessMisses = 0
         if granted != hasFullDiskAccess {
             withAnimation(.spring(duration: 0.4)) { hasFullDiskAccess = granted }
         }
     }
 
+    @ObservationIgnored private var accessMisses = 0
+
     /// Checks every two seconds until access is granted, so the "Grant Full Disk Access" button
     /// disappears as soon as the switch is turned on in System Settings.
     private func watchFullDiskAccess() {
         Task { [weak self] in
-            while let self, !self.hasFullDiskAccess {
+            while let self, !self.hasFullDiskAccess || self.accessMisses > 0 {
                 try? await Task.sleep(for: .seconds(2))
                 self.refreshAccess()
             }

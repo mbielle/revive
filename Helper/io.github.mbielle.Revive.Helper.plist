@@ -14,6 +14,7 @@
 	<key>AssociatedBundleIdentifiers</key>
 	<array>
 		<string>io.github.mbielle.Revive</string>
+		<string>io.github.mbielle.Revive.dev</string>
 	</array>
 </dict>
 </plist>

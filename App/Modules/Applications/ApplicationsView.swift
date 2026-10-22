@@ -55,10 +55,7 @@ struct ApplicationsView: View {
         } footer: {
             HStack(spacing: 14) {
                 PillButton(title: "Scan Again", symbol: "arrow.counterclockwise") { model.scan() }
-                if let report = model.lastReport, report.removedCount > 0 {
-                    Text(report.wasSimulated ? "Simulated: \(formatBytes(report.freedBytes))" : "Moved \(formatBytes(report.freedBytes)) to the Trash")
-                        .font(.system(size: 12, weight: .medium)).foregroundStyle(.white.opacity(0.75))
-                }
+                if let report = model.lastReport { ReportBanner(report: report) }
             }
         }
     }
@@ -253,7 +250,7 @@ private struct UpdaterScreen: View {
                     ScrollView {
                         LazyVStack(spacing: 0) {
                             ForEach(model.updates) { update in
-                                UpdateRow(update: update, isUpgrading: model.upgrading.contains(update.id)) { model.update(update) }
+                                UpdateRow(update: update, isUpgrading: model.upgrading.contains(update.id), error: model.updateErrors[update.id]) { model.update(update) }
                             }
                         }
                         .padding(.vertical, 6)
@@ -272,6 +269,7 @@ private struct UpdaterScreen: View {
 private struct UpdateRow: View {
     let update: AppUpdate
     let isUpgrading: Bool
+    var error: String?
     let action: () -> Void
 
     var body: some View {
@@ -285,6 +283,12 @@ private struct UpdateRow: View {
                 }
                 Text("\(update.app.version) → \(update.newVersion)")
                     .font(.system(size: 12, design: .rounded)).foregroundStyle(.white.opacity(0.7))
+                if let error {
+                    Label(error, systemImage: "exclamationmark.triangle.fill")
+                        .font(.system(size: 11, weight: .medium)).foregroundStyle(Color(hex: 0xFFD43B))
+                        .lineLimit(1).truncationMode(.middle)
+                        .help(error)
+                }
             }
             Spacer()
             if isUpgrading {
@@ -294,7 +298,8 @@ private struct UpdateRow: View {
             }
         }
         .padding(.horizontal, 16)
-        .frame(height: 56)
+        .padding(.vertical, error == nil ? 0 : 6)
+        .frame(minHeight: 56)
     }
 
     private var actionTitle: LocalizedStringResource {

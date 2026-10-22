@@ -96,8 +96,12 @@ private struct MalwareScreen: View {
             }
         } bottom: {
             HStack {
-                Text("Suspicious items are not always malicious: check where they come from before removing them.")
-                    .font(.system(size: 11)).foregroundStyle(.white.opacity(0.55))
+                if let report = model.lastReport {
+                    ReportBanner(report: report)
+                } else {
+                    Text("Suspicious items are not always malicious: check where they come from before removing them.")
+                        .font(.system(size: 11)).foregroundStyle(.white.opacity(0.55))
+                }
                 Spacer()
                 ScanButton(title: "Remove", theme: theme, diameter: 84, pulses: false) { model.removeThreats() }
                     .disabled(model.selectedThreats.isEmpty || model.phase == .removing)
@@ -197,6 +201,8 @@ private struct PrivacyScreen: View {
             HStack {
                 if let message = model.message {
                     Label(message, systemImage: "info.circle.fill").font(.system(size: 12, weight: .medium)).foregroundStyle(.white.opacity(0.85))
+                } else if let report = model.lastReport {
+                    ReportBanner(report: report)
                 }
                 Spacer()
                 ScanButton(title: "Clean", theme: theme, diameter: 84, pulses: false) { model.cleanPrivacy() }
@@ -262,7 +268,7 @@ private struct ExtensionsScreen: View {
             .glassPanel(cornerRadius: 20)
             .overlay { if model.extensions.isEmpty { EmptyState(symbol: "puzzlepiece.extension", message: "No browser extensions found.") } }
         } bottom: {
-            EmptyView()
+            if let report = model.lastReport { ReportBanner(report: report) }
         }
         .confirmationDialog("Remove \(confirming?.name ?? "")?", isPresented: .init(get: { confirming != nil }, set: { if !$0 { confirming = nil } })) {
             Button("Remove", role: .destructive) { if let ext = confirming { model.remove(ext) } }

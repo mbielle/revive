@@ -51,8 +51,8 @@ targets:
     info:
       path: App/Info.plist
       properties:
-        CFBundleDisplayName: Revive
-        CFBundleName: Revive
+        CFBundleDisplayName: $(REVIVE_DISPLAY_NAME)
+        CFBundleName: $(REVIVE_DISPLAY_NAME)
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         CFBundleDevelopmentRegion: en
@@ -69,6 +69,7 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: io.github.mbielle.Revive
         PRODUCT_NAME: Revive
+        REVIVE_DISPLAY_NAME: Revive
         # scripts/make-dmg.sh swaps this for App/Revive-SelfSigned.entitlements on self-signed releases.
         REVIVE_ENTITLEMENTS: App/Revive.entitlements
         CODE_SIGN_ENTITLEMENTS: $(REVIVE_ENTITLEMENTS)
@@ -76,6 +77,11 @@ targets:
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         COMBINE_HIDPI_IMAGES: YES
       configs:
+        Debug:
+          # Development builds are a separate app for macOS: their Full Disk Access and other
+          # permissions never replace those of the installed Revive (signed differently).
+          PRODUCT_BUNDLE_IDENTIFIER: io.github.mbielle.Revive.dev
+          REVIVE_DISPLAY_NAME: Revive Dev
         Release:
           # Shipped builds must not let other processes attach a debugger.
           CODE_SIGN_INJECT_BASE_ENTITLEMENTS: NO

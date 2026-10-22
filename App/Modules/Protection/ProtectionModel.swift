@@ -37,6 +37,7 @@ final class ProtectionModel {
     /// Opens a section, scanning first if needed (used by Shortcuts).
     func open(_ section: Section) {
         self.section = section
+        lastReport = nil
         if phase == .idle { scan() }
     }
 
@@ -112,21 +113,36 @@ final class ProtectionModel {
         guard !chosen.isEmpty else { return }
         phase = .removing
         Task {
-            var items: [CleanupItem] = []
-            for threat in chosen {
-                let target = Self.enclosingApp(of: threat.url) ?? threat.url
-                items.append(CleanupItem(url: target, ruleID: "threat", size: FileSizes.allocatedSize(of: target).bytes))
-                items += threat.related.map { CleanupItem(url: $0, ruleID: "threat", size: 0) }
-                if !app.dryRun { await unload(threat) }
-            }
-            let report = await WorkspaceRemover.recycle(items, policy: .appRemoval, safetyGuard: app.safetyGuard, dryRun: app.dryRun)
+            let report = await remove(chosen)
             finish(report)
-            if !report.wasSimulated {
-                let failed = Set(report.failures.map(\.path))
-                threats.removeAll { threat in chosen.contains(threat) && !failed.contains(threat.url.path(percentEncoded: false)) }
-            }
             selectedThreats = []
         }
+    }
+
+    /// Threats of `list` that are still on disk.
+    func remaining(of list: [Threat]) -> [Threat] {
+        list.filter { FileManager.default.fileExists(atPath: (Self.enclosingApp(of: $0.url) ?? $0.url).path(percentEncoded: false)) }
+    }
+
+    /// Unloads and recycles threats; also used by Checkup. Threats that were removed leave the list.
+    func remove(_ chosen: [Threat]) async -> RemovalReport {
+        var items: [CleanupItem] = []
+        for threat in chosen {
+            let target = Self.enclosingApp(of: threat.url) ?? threat.url
+            items.append(CleanupItem(url: target, ruleID: "threat", size: FileSizes.allocatedSize(of: target).bytes))
+            items += threat.related.map { CleanupItem(url: $0, ruleID: "threat", size: 0) }
+            if !app.dryRun { await unload(threat) }
+        }
+        let report = await WorkspaceRemover.recycle(items, policy: .appRemoval, safetyGuard: app.safetyGuard, dryRun: app.dryRun)
+        if !report.wasSimulated {
+            let failed = Set(report.failures.map(\.path))
+            let removed = chosen.filter { threat in
+                let target = Self.enclosingApp(of: threat.url) ?? threat.url
+                return !failed.contains(target.path(percentEncoded: false))
+            }
+            threats.removeAll { removed.contains($0) }
+        }
+        return report
     }
 
     private func unload(_ threat: Threat) async {
@@ -174,7 +190,11 @@ final class ProtectionModel {
             let report = await WorkspaceRemover.recycle(items, policy: .userInitiated, safetyGuard: app.safetyGuard, dryRun: app.dryRun)
             finish(report)
             if !report.wasSimulated {
-                privacyItems.removeAll { ready.contains($0) }
+                // Items with a file that could not be removed stay listed.
+                let failed = Set(report.failures.map(\.path))
+                privacyItems.removeAll { item in
+                    ready.contains(item) && !item.files.contains { failed.contains($0.path(percentEncoded: false)) }
+                }
             }
             selectedPrivacy.subtract(ready.map(\.id))
             message = blocked.isEmpty ? nil : String(localized: "Quit \(Set(blocked).sorted().joined(separator: ", ")) to clean its data.")

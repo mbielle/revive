@@ -22,12 +22,12 @@ struct SmartCareView: View {
                     SmartCareResultsView(model: model)
                 }
             case .running:
-                WorkingView(module: module, title: "Taking care of your Mac…", progress: model.cleanup.progress.fraction,
-                            detail: model.cleanup.progress.currentPath, stat: formatBytes(model.cleanup.progress.bytesFound), onStop: nil)
+                let cleaning = model.cleanup.phase == .cleaning
+                WorkingView(module: module, title: model.runningStep, progress: cleaning ? model.cleanup.progress.fraction : nil,
+                            detail: cleaning ? model.cleanup.progress.currentPath : "",
+                            stat: cleaning ? formatBytes(model.cleanup.progress.bytesFound) : nil, onStop: nil)
             case .done:
-                if let report = model.cleanup.report {
-                    CompletionView(module: module, report: report) { model.reset() }
-                }
+                SmartCareSummaryView(model: model)
             }
         }
         .animation(.easeInOut(duration: 0.3), value: model.phase)
@@ -109,6 +109,10 @@ private struct SmartCareResultsView: View {
                     if let disk = model.disk {
                         Text("\(formatBytes(disk.available)) available on \(disk.name). Review any card, then click Run.").screenSubtitle()
                     }
+                    if let error = model.scanError {
+                        Label(error, systemImage: "exclamationmark.triangle.fill")
+                            .font(.system(size: 12, weight: .medium)).foregroundStyle(Color(hex: 0xFFD43B)).lineLimit(1)
+                    }
                 }
                 Spacer()
             }
@@ -132,7 +136,7 @@ private struct SmartCareResultsView: View {
             HStack(spacing: 28) {
                 PillButton(title: "Start Over", symbol: "arrow.counterclockwise") { model.reset() }
                 ScanButton(title: "Run", theme: module.theme) { model.run() }
-                    .disabled(model.cleanup.selection.isEmpty && !model.includeTuneUp)
+                    .disabled(!model.canRun)
                 PillButton(title: "Storage Map", symbol: "circle.hexagongrid.fill") { app.selection = .spaceLens }
             }
             .padding(.bottom, 28)
@@ -179,6 +183,12 @@ private struct SmartCareResultsView: View {
                 }
             }
             .padding(.top, 4)
+            if malware > 0 {
+                Toggle(isOn: $model.includeThreats) {
+                    Text("Move the threats to the Trash").font(.system(size: 11, weight: .medium)).foregroundStyle(.white.opacity(0.8))
+                }
+                .toggleStyle(.checkbox)
+            }
         } footer: {
             HStack {
                 if let fix = model.disabledProtections.first, let url = fix.check.settingsURL {
@@ -212,10 +222,103 @@ private struct SmartCareResultsView: View {
                      : model.updates.count == 1 ? "app update available" : "app updates available")
             Text(model.updates.prefix(3).map(\.app.name).joined(separator: ", "))
                 .font(.system(size: 11, weight: .medium)).foregroundStyle(.white.opacity(0.75)).lineLimit(1)
+            if !model.updates.isEmpty {
+                Toggle(isOn: $model.includeUpdates) {
+                    Text(model.automaticUpdates.isEmpty ? "Open the apps that update themselves" : "Install Homebrew updates, open the others")
+                        .font(.system(size: 11, weight: .medium)).foregroundStyle(.white.opacity(0.8)).lineLimit(1)
+                }
+                .toggleStyle(.checkbox)
+            }
         } footer: {
             PillButton(title: "Open Updater", symbol: "arrow.down.circle.fill") { app.selection = .applications; app.applications.openUpdater() }
                 .disabled(model.updates.isEmpty)
         }
+    }
+}
+
+/// What Run did, card by card.
+private struct SmartCareSummaryView: View {
+    let model: SmartCareModel
+    private let module = AppModule.smartCare
+    @State private var showFailures = false
+
+    var body: some View {
+        let summary = model.summary
+        VStack(spacing: 0) {
+            Spacer(minLength: 40)
+            HStack(spacing: 50) {
+                HeroIllustration(style: .disc, symbol: "checkmark", theme: module.theme, size: 280)
+                    .frame(maxWidth: .infinity)
+                VStack(alignment: .leading, spacing: 14) {
+                    Text(summary.simulated ? "Simulation complete" : "All done!").screenTitle()
+                    VStack(alignment: .leading, spacing: 10) {
+                        if let report = summary.cleanup {
+                            line("bubbles.and.sparkles.fill",
+                                 report.wasSimulated ? "\(formatBytes(report.freedBytes)) of junk would be removed" : "\(formatBytes(report.freedBytes)) of junk moved to the Trash",
+                                 failures: report.failures.count)
+                        } else {
+                            line("bubbles.and.sparkles.fill", "No junk was selected")
+                        }
+                        if !summary.tasks.isEmpty {
+                            let failed = summary.tasks.filter { $0.error != nil }
+                            line("bolt.fill", "\(summary.tasks.count - failed.count) of \(summary.tasks.count) maintenance tasks done",
+                                 detail: failed.map { "\($0.task.title.resolved): \($0.error ?? "")" }.joined(separator: "\n"))
+                        }
+                        if let report = summary.threats {
+                            line("checkmark.shield.fill", report.wasSimulated ? "Threats would be moved to the Trash" : "\(report.removedCount) threat files moved to the Trash",
+                                 failures: report.failures.count)
+                        }
+                        if !summary.updated.isEmpty || !summary.updateFailures.isEmpty {
+                            line("arrow.down.app.fill", "\(summary.updated.count) apps updated",
+                                 detail: summary.updateFailures.map { "\($0.name): \($0.error)" }.joined(separator: "\n"))
+                        }
+                    }
+                    if !summary.manualUpdates.isEmpty {
+                        Text("These apps update themselves:").font(.system(size: 13, weight: .semibold)).foregroundStyle(.white.opacity(0.8))
+                            .padding(.top, 4)
+                        HStack(spacing: 8) {
+                            ForEach(summary.manualUpdates.prefix(4)) { update in
+                                PillButton(title: "\(update.app.name)", symbol: "arrow.up.forward.app") { model.openManualUpdate(update) }
+                            }
+                        }
+                    }
+                    let failures = (summary.cleanup?.failures ?? []) + (summary.threats?.failures ?? [])
+                    if !failures.isEmpty {
+                        Button {
+                            showFailures.toggle()
+                        } label: {
+                            Label("\(failures.count) items could not be removed", systemImage: "exclamationmark.triangle.fill")
+                                .font(.system(size: 13, weight: .semibold))
+                                .foregroundStyle(.white.opacity(0.85))
+                        }
+                        .buttonStyle(.plain)
+                        .popover(isPresented: $showFailures) { FailureList(failures: failures) }
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .padding(.horizontal, 40)
+            Spacer(minLength: 20)
+            ScanButton(title: "Done", theme: module.theme, pulses: false) { model.finish() }
+                .padding(.bottom, 34)
+        }
+    }
+
+    private func line(_ symbol: String, _ text: LocalizedStringResource, failures: Int = 0, detail: String = "") -> some View {
+        let problem = failures > 0 || !detail.isEmpty
+        return HStack(alignment: .firstTextBaseline, spacing: 10) {
+            Image(systemName: problem ? "exclamationmark.triangle.fill" : symbol)
+                .foregroundStyle(problem ? Color(hex: 0xFFD43B) : .white)
+                .frame(width: 20)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(text).font(.system(size: 15, weight: .semibold)).foregroundStyle(.white)
+                if !detail.isEmpty {
+                    Text(detail).font(.system(size: 12)).foregroundStyle(.white.opacity(0.75))
+                        .lineLimit(4).fixedSize(horizontal: false, vertical: true)
+                }
+            }
+        }
+        .frame(maxWidth: 460, alignment: .leading)
     }
 }
 

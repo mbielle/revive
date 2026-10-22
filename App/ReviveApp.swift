@@ -11,6 +11,7 @@ struct ReviveApp: App {
                 .environment(app)
                 .frame(minWidth: 1040, minHeight: 680)
                 .onAppear {
+                    ApplicationMover.offerIfNeeded()
                     if !app.hasFullDiskAccess && !didShowAccessGuide {
                         app.showsAccessGuide = true
                         didShowAccessGuide = true
@@ -18,6 +19,7 @@ struct ReviveApp: App {
                 }
                 .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
                     app.refreshAccess()
+                    app.privileged.refresh()
                 }
         }
         .windowStyle(.hiddenTitleBar)

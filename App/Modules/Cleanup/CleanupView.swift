@@ -207,6 +207,32 @@ struct CompletionView: View {
     }
 }
 
+/// What the last removal did, with the items that failed one click away.
+struct ReportBanner: View {
+    let report: RemovalReport
+    @State private var showFailures = false
+
+    var body: some View {
+        HStack(spacing: 12) {
+            if report.removedCount > 0 || report.failures.isEmpty {
+                Text(report.wasSimulated ? "Simulated: \(formatBytes(report.freedBytes))" : "Moved \(formatBytes(report.freedBytes)) to the Trash")
+                    .font(.system(size: 12, weight: .medium)).foregroundStyle(.white.opacity(0.75))
+            }
+            if !report.failures.isEmpty {
+                Button {
+                    showFailures.toggle()
+                } label: {
+                    Label("\(report.failures.count) items could not be removed", systemImage: "exclamationmark.triangle.fill")
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundStyle(Color(hex: 0xFFD43B))
+                }
+                .buttonStyle(.plain)
+                .popover(isPresented: $showFailures) { FailureList(failures: report.failures) }
+            }
+        }
+    }
+}
+
 struct FailureList: View {
     let failures: [RemovalReport.Failure]
 

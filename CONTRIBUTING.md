@@ -26,6 +26,7 @@ open build/DerivedData/Build/Products/Debug/Revive.app --args -dryRun YES -modul
 - `-home <path>`: scans this folder instead of your home (make one with `swift scripts/make-demo-home.swift <path>`)
 - `-module <name>`: opens a module (`smartCare`, `cleanup`, `protection`, `performance`, `applications`, `myClutter`, `spaceLens`, `cloudCleanup`, `myTools`, `myActivity`)
 - `-autoScan YES`: starts its scan right away
+- `-autoRun YES`: in Checkup, clicks Run as soon as the scan is done
 - `-section <name>`: then opens a detail screen (e.g. `uninstaller`, `updater`, `malware`, `similar`, `maintenance`)
 - `-previewMenuBar YES`: shows the menu bar panel in a window
 - `-AppleLanguages "(fr)"`: runs the app in French

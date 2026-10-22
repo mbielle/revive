@@ -221,7 +221,7 @@ A cleaner touches your files, so Revive is careful at every step.
 ## Install
 
 1. Download **[the latest DMG](https://github.com/mbielle/revive/releases/latest)**, open it and drag **Revive** to **Applications**.
-2. **First launch:** Revive is not signed with an Apple Developer ID yet, so macOS blocks it the first time. Open it once, then go to **System Settings › Privacy & Security** and click **Open Anyway**. You only do this once.
+2. **First launch:** Revive is not signed with an Apple Developer ID yet, so macOS blocks it the first time. Open it once, then go to **System Settings › Privacy & Security** and click **Open Anyway**. Do it for the copy in Applications (Revive offers to move itself there if you open it from the disk image): macOS asks again for every new copy, but never after an update.
 3. Give Revive **Full Disk Access** when it asks: without it, macOS hides Mail, Safari, the Trash and app data from every app.
 
 After that, **Revive updates itself**: it checks for a new version at launch and every hour, and installs it in one click (Settings › Updates, or **Revive › Check for Updates…**). Updates are verified with the project's signing key, and macOS keeps Revive's permissions from one version to the next.

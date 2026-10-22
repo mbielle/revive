@@ -11,6 +11,7 @@ final class CloudModel {
     var showsDuplicates = false
     var selection: Set<String> = []
     private(set) var message: String?
+    private(set) var lastReport: RemovalReport?
 
     @ObservationIgnored unowned let app: AppModel
 
@@ -23,6 +24,8 @@ final class CloudModel {
         let home = app.safetyGuard.home
         Task {
             result = await Task.detached(priority: .userInitiated) { CloudScanner(home: home).scan() }.value
+            // Keep the open provider screen in sync with the new scan.
+            if let open = provider { provider = result.providers.first { $0.id == open.id } }
             selection = []
             phase = .ready
         }
@@ -54,6 +57,7 @@ final class CloudModel {
                 }
             }
             app.record(report, module: .cloudCleanup)
+            lastReport = report
             message = report.failures.isEmpty
                 ? String(localized: "\(formatBytes(report.freedBytes)) freed. The files are still in the cloud.")
                 : String(localized: "\(report.failures.count) files could not be freed by their cloud app.")
@@ -70,7 +74,11 @@ final class CloudModel {
         Task {
             let report = await WorkspaceRemover.recycle(chosen.map(\.asCleanupItem), policy: .userInitiated, safetyGuard: app.safetyGuard, dryRun: app.dryRun)
             app.record(report, module: .cloudCleanup)
-            if !report.wasSimulated { result.localDuplicates.removeAll { chosen.contains($0) } }
+            lastReport = report
+            if !report.wasSimulated {
+                let failed = Set(report.failures.map(\.path))
+                result.localDuplicates.removeAll { chosen.contains($0) && !failed.contains($0.url.path(percentEncoded: false)) }
+            }
             selection = []
             phase = .ready
         }
@@ -175,6 +183,10 @@ private struct ProviderScreen: View {
             .overlay { if provider.largestLocalFiles.isEmpty { EmptyState(symbol: "icloud.fill", message: "Everything is already online-only.") } }
         } bottom: {
             HStack {
+                if let message = model.message {
+                    Text(message).font(.system(size: 12)).foregroundStyle(.white.opacity(0.8))
+                }
+                if let report = model.lastReport, !report.failures.isEmpty { ReportBanner(report: report) }
                 Spacer()
                 ScanButton(title: "Free Up", theme: theme, diameter: 84, pulses: false) { model.removeLocalCopies(of: provider) }
                     .disabled(model.selection.isEmpty || model.phase == .working)
@@ -207,6 +219,7 @@ private struct DuplicatesScreen: View {
             .overlay { if model.result.localDuplicates.isEmpty { EmptyState(symbol: "checkmark.circle.fill", message: "No local duplicates.") } }
         } bottom: {
             HStack {
+                if let report = model.lastReport { ReportBanner(report: report) }
                 Spacer()
                 ScanButton(title: "Remove", theme: theme, diameter: 84, pulses: false) { model.removeDuplicates() }
                     .disabled(model.selection.isEmpty || model.phase == .working)

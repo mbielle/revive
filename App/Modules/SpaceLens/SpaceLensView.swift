@@ -244,7 +244,9 @@ private struct BubbleMap: View {
 
     var body: some View {
         GeometryReader { proxy in
-            let bubbles = BubbleLayout.layout(sizes: shown.map(\.size), in: proxy.size)
+            let base = BubbleLayout.layout(sizes: shown.map(\.size), in: proxy.size)
+            let hoveredIndex = shown.firstIndex { $0.id == hovered }
+            let bubbles = BubbleLayout.spread(base, hovered: hoveredIndex, in: proxy.size)
             ZStack(alignment: .topLeading) {
                 ForEach(bubbles, id: \.index) { bubble in
                     let child = shown[bubble.index]
@@ -255,12 +257,6 @@ private struct BubbleMap: View {
                         .scaleEffect(appeared ? 1 : 0.2)
                         .opacity(appeared ? (hovered == nil || isHovered ? 1 : 0.75) : 0)
                         .animation(.spring(duration: 0.55, bounce: 0.35).delay(appeared ? 0 : Double(bubble.index) * 0.025), value: appeared)
-                        .animation(.easeOut(duration: 0.2), value: hovered)
-                        .position(bubble.center)
-                        .zIndex(isHovered ? 10 : 0)
-                        .onHover { inside in
-                            if inside { hovered = child.id } else if hovered == child.id { hovered = nil }
-                        }
                         .onTapGesture {
                             if child.isDirectory && !child.children.isEmpty {
                                 model.open(child)
@@ -268,6 +264,22 @@ private struct BubbleMap: View {
                                 model.toggle(child)
                             }
                         }
+                        .position(bubble.center)
+                        .zIndex(isHovered ? 10 : 0)
+                }
+            }
+            .frame(width: proxy.size.width, height: proxy.size.height)
+            .animation(.spring(duration: 0.4, bounce: 0.25), value: hovered)
+            .contentShape(Rectangle())
+            // One hover tracker for the whole map: the bubble under the pointer is found by its circle.
+            .onContinuousHover { phase in
+                switch phase {
+                case .active(let point):
+                    let index = BubbleLayout.bubble(at: point, in: bubbles, current: hoveredIndex)
+                    let id = index.map { shown[$0].id }
+                    if id != hovered { hovered = id }
+                case .ended:
+                    hovered = nil
                 }
             }
         }
@@ -294,13 +306,8 @@ private struct BubbleView: View {
     /// Accent colors mixed into the module color so neighbors are easy to tell apart.
     private static let palette: [UInt32] = [0x4FD1FF, 0xFF7FD0, 0x6FF0C0, 0xFFC66B, 0xB18CFF, 0x7FA8FF]
 
-    /// Hovered bubbles grow enough to show their name, however small they are.
-    private var displayRadius: CGFloat {
-        isHovered ? min(max(radius * 1.12, 64), radius * 4) : radius
-    }
-
     var body: some View {
-        let r = displayRadius
+        let r = radius
         let tint = theme.glow.blend(Color(hex: Self.palette[colorIndex % Self.palette.count]), 0.45)
         ZStack {
             Circle()
@@ -345,7 +352,6 @@ private struct BubbleView: View {
         }
         .frame(width: r * 2, height: r * 2)
         .shadow(color: theme.dark.opacity(isHovered ? 0.7 : 0.45), radius: isHovered ? 22 : 8, y: isHovered ? 8 : 4)
-        .animation(.spring(duration: 0.35, bounce: 0.3), value: isHovered)
         .contentShape(Circle())
     }
 }

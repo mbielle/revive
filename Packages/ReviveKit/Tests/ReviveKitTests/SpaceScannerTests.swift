@@ -37,3 +37,37 @@ import Testing
         #expect(pruned.node(withID: big.path(percentEncoded: false)) == nil)
     }
 }
+
+@Suite struct BubbleLayoutTests {
+    let bounds = CGSize(width: 600, height: 500)
+    let sizes: [Int64] = [900, 400, 300, 200, 120, 80, 50, 30, 20, 10, 8, 5, 3, 2, 1]
+
+    func overlaps(_ bubbles: [BubbleLayout.Bubble], gap: CGFloat = 6) -> Bool {
+        for i in bubbles.indices { for j in bubbles.indices where j > i {
+            let a = bubbles[i], b = bubbles[j]
+            if hypot(a.center.x - b.center.x, a.center.y - b.center.y) < a.radius + b.radius + gap - 1.5 { return true }
+        } }
+        return false
+    }
+
+    @Test func hoveringASmallBubbleGrowsItAndPushesNeighbors() {
+        let base = BubbleLayout.layout(sizes: sizes, in: bounds)
+        #expect(!overlaps(base))
+        for hovered in [0, 3, 10, 14] {
+            let spread = BubbleLayout.spread(base, hovered: hovered, in: bounds)
+            #expect(spread[hovered].radius > base[hovered].radius)
+            #expect(!overlaps(spread), "hovered \(hovered)")
+            for b in spread {
+                #expect(b.center.x >= 0 && b.center.x <= bounds.width && b.center.y >= 0 && b.center.y <= bounds.height)
+            }
+        }
+    }
+
+    @Test func pointerFindsTheBubbleUnderIt() {
+        let base = BubbleLayout.layout(sizes: sizes, in: bounds)
+        for b in base {
+            #expect(BubbleLayout.bubble(at: b.center, in: base, current: nil) == b.index)
+        }
+        #expect(BubbleLayout.bubble(at: .zero, in: base, current: nil) == nil)
+    }
+}

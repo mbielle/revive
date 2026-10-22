@@ -44,10 +44,7 @@ struct ClutterView: View {
         } footer: {
             HStack(spacing: 14) {
                 PillButton(title: "Scan Again", symbol: "arrow.counterclockwise") { model.scan() }
-                if let report = model.lastReport, report.removedCount > 0 {
-                    Text(report.wasSimulated ? "Simulated: \(formatBytes(report.freedBytes))" : "Moved \(formatBytes(report.freedBytes)) to the Trash")
-                        .font(.system(size: 12, weight: .medium)).foregroundStyle(.white.opacity(0.75))
-                }
+                if let report = model.lastReport { ReportBanner(report: report) }
             }
         }
     }

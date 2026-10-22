@@ -49,7 +49,19 @@ public final class HelperService: NSObject, ReviveHelperProtocol, Sendable {
 
 /// Accepts connections from the Revive app only, and exports a `HelperService` to each.
 public final class HelperListenerDelegate: NSObject, NSXPCListenerDelegate, Sendable {
-    public static let clientIdentifier = "io.github.mbielle.Revive"
+    public static let defaultClientIdentifier = "io.github.mbielle.Revive"
+
+    /// Identifier of the app the helper ships in (`…/Revive.app/Contents/MacOS/ReviveHelper`):
+    /// development builds are `io.github.mbielle.Revive.dev`.
+    public static var clientIdentifier: String {
+        let app = Bundle.main.executableURL?.resolvingSymlinksInPath()
+            .deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
+        guard let app, app.pathExtension == "app",
+              let identifier = Bundle(url: app)?.bundleIdentifier, identifier.hasPrefix(defaultClientIdentifier) else {
+            return defaultClientIdentifier
+        }
+        return identifier
+    }
 
     private let requirement: String?
     private let makeService: @Sendable () -> HelperService

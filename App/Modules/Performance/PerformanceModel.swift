@@ -22,6 +22,7 @@ final class PerformanceModel {
     private(set) var loadingLoginItems = false
     private(set) var loginItemsError: String?
     private(set) var busyItems: Set<String> = []
+    private(set) var lastReport: RemovalReport?
 
     // Live usage
     private(set) var processes: [ProcessUsage] = []
@@ -131,6 +132,7 @@ final class PerformanceModel {
                 }
             }
             app.record(report, module: .performance)
+            lastReport = report
             await reloadLaunchItems()
             busyItems.remove(item.id)
         }
