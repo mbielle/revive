@@ -48,6 +48,9 @@ final class AppModel {
         exclusions = UserDefaults.standard.stringArray(forKey: Keys.exclusions) ?? []
         showsMenuBar = UserDefaults.standard.object(forKey: "showsMenuBar") as? Bool ?? true
         #if DEBUG
+        if UserDefaults.standard.bool(forKey: "helperSelfTest") {
+            Task { await Self.runHelperSelfTest() }
+        }
         // Development helpers: `--args -module cleanup -autoScan YES` opens a module and scans it.
         if let raw = UserDefaults.standard.string(forKey: "module"), let module = AppModule(rawValue: raw) {
             selection = module
@@ -72,6 +75,21 @@ final class AppModel {
     }
 
     #if DEBUG
+    /// `-helperSelfTest YES` talks to a helper loaded in the user's launchd domain (no root) and
+    /// logs the results: it exercises the real helper binary, launchd and the signature check.
+    static func runHelperSelfTest() async {
+        func call(_ command: PrivilegedCommand) async -> String {
+            let connection = NSXPCConnection(machServiceName: helperServiceName, options: [])
+            guard let result = await HelperClient.run(command, connection: connection) else { return "no connection" }
+            return "exit \(result.exitCode): \(result.output.trimmingCharacters(in: .whitespacesAndNewlines).prefix(120))"
+        }
+        NSLog("HELPER-SELFTEST flushDNS -> %@", await call(.flushDNS))
+        NSLog("HELPER-SELFTEST bootout com.apple.x -> %@", await call(.bootout(label: "com.apple.x")))
+        NSLog("HELPER-SELFTEST trash /System -> %@", await call(.moveToTrash(paths: ["/System/Library"], uid: getuid())))
+        NSLog("HELPER-SELFTEST bootout unknown -> %@", await call(.bootout(label: "io.github.mbielle.does-not-exist")))
+        NSLog("HELPER-SELFTEST done")
+    }
+
     /// `-section <name>` opens a detail screen once the module's scan is done.
     private func openDebugSection(_ name: String?, in module: AppModule) async {
         guard let name else { return }

@@ -114,3 +114,39 @@ import Testing
         #expect(output == #"[-removepreferredwirelessnetwork][en0][Bob's "net" $(id)]"#)
     }
 }
+
+/// Runs the generated password-prompt script through the real osascript, minus the
+/// administrator part (which needs a password). Opt-in: the success case moves a probe to the Trash.
+@Suite struct OsascriptExecutionTests {
+    func runWithoutAdmin(_ commands: [PrivilegedCommand]) throws -> (Int32, String) {
+        let script = PrivilegedExecution.appleScript(for: commands, prompt: "x")
+            .replacingOccurrences(of: #" with prompt "x" with administrator privileges"#, with: "")
+        let process = Process()
+        process.executableURL = URL(filePath: "/usr/bin/osascript")
+        process.arguments = ["-e", script]
+        let pipe = Pipe()
+        process.standardOutput = pipe
+        process.standardError = pipe
+        try process.run()
+        process.waitUntilExit()
+        return (process.terminationStatus, String(decoding: pipe.fileHandleForReading.readDataToEndOfFile(), as: UTF8.self))
+    }
+
+    @Test(.enabled(if: ProcessInfo.processInfo.environment["LUCENT_TRASH_TEST"] == "1"))
+    func executesAndReportsResults() throws {
+        let fixture = try Fixture()
+        defer { fixture.cleanUp() }
+        let probe = try fixture.file("LucentOsascriptProbe-\(UUID().uuidString.prefix(8)).txt", size: 100)
+
+        // Success: the file is moved to the user's Trash by the generated shell command.
+        let (ok, _) = try runWithoutAdmin([.moveToTrash(paths: [probe.path(percentEncoded: false)], uid: getuid())])
+        #expect(ok == 0)
+        #expect(!fixture.exists(probe.lastPathComponent))
+
+        // Failure: errors come back as a non-zero status with the tool's message.
+        let (failed, output) = try runWithoutAdmin([.bootout(label: "io.github.mbielle.does-not-exist")])
+        #expect(failed != 0)
+        #expect(output.contains("Boot-out failed") || output.contains("execution error"))
+        print("osascript probe trashed: \(probe.lastPathComponent)")
+    }
+}

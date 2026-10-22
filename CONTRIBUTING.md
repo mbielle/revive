@@ -35,11 +35,35 @@ Documents or Downloads. Use `-home` with the demo folder to test without those p
 
 ## Real removal tests
 
-Two opt-in tests move a tiny probe file to your real Trash to check the end-to-end path:
+Three opt-in tests move a tiny probe file to your real Trash to check the end-to-end path:
 
 ```bash
-cd Packages/LucentKit && LUCENT_TRASH_TEST=1 swift test --filter "RealTrash|RealWorkspace"
+cd Packages/LucentKit && LUCENT_TRASH_TEST=1 swift test --filter "RealTrash|RealWorkspace|Osascript"
 ```
+
+## Testing the privileged helper without root
+
+The real helper can run in your user launchd domain (no administrator rights) to check launchd,
+XPC and the code signature check with the Debug app:
+
+```bash
+APP="$PWD/build/DerivedData/Build/Products/Debug/Lucent.app"
+cat > /tmp/helper-selftest.plist <<PLIST
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+<key>Label</key><string>io.github.mbielle.Lucent.Helper.selftest</string>
+<key>Program</key><string>$APP/Contents/MacOS/LucentHelper</string>
+<key>MachServices</key><dict><key>io.github.mbielle.Lucent.Helper</key><true/></dict>
+</dict></plist>
+PLIST
+launchctl bootstrap gui/$(id -u) /tmp/helper-selftest.plist
+"$APP/Contents/MacOS/Lucent" -dryRun YES -helperSelfTest YES   # look for HELPER-SELFTEST lines
+launchctl bootout gui/$(id -u)/io.github.mbielle.Lucent.Helper.selftest
+```
+
+Commands that need root fail with "Operation not permitted"; dangerous ones are refused with exit -2.
+Installing the real daemon needs a build signed with a Developer ID (see `scripts/make-dmg.sh`).
 
 ## Cleanup rules
 
