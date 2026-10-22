@@ -69,8 +69,10 @@ final class SmartCareModel {
             guard !Task.isCancelled else { return }
 
             currentStep = .updates
+            let appRoots = app.appRoots
             updates = await Task.detached(priority: .userInitiated) {
                 var inventory = AppInventory()
+                inventory.roots = appRoots
                 inventory.measuresSizes = false
                 return await UpdateChecker().check(inventory.scan())
             }.value

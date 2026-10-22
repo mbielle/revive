@@ -43,9 +43,12 @@ final class ApplicationsModel {
         phase = .scanning
         Task {
             let safety = app.safetyGuard
+            let appRoots = app.appRoots
             let running = Set(app.runningApps().keys).union([Bundle.main.bundleIdentifier ?? ""])
             let (apps, orphans, installers) = await Task.detached(priority: .userInitiated) {
-                let apps = await AppInventory(home: safety.home).scan()
+                var inventory = AppInventory(home: safety.home)
+                inventory.roots = appRoots
+                let apps = await inventory.scan()
                 let finder = LeftoverFinder(safetyGuard: safety)
                 return (apps, finder.orphans(installed: apps, runningBundleIDs: running), finder.installers())
             }.value

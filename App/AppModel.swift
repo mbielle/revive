@@ -47,6 +47,10 @@ final class AppModel {
         dryRun = UserDefaults.standard.bool(forKey: Keys.dryRun)
         exclusions = UserDefaults.standard.stringArray(forKey: Keys.exclusions) ?? []
         showsMenuBar = UserDefaults.standard.object(forKey: "showsMenuBar") as? Bool ?? true
+        #if DEBUG
+        // `-assumeFullDiskAccess YES` hides the access prompts, for screenshots of a demo home.
+        if UserDefaults.standard.bool(forKey: "assumeFullDiskAccess") { hasFullDiskAccess = true }
+        #endif
         watchFullDiskAccess()
         #if DEBUG
         if UserDefaults.standard.bool(forKey: "helperSelfTest") {
@@ -136,6 +140,13 @@ final class AppModel {
         return FileManager.default.homeDirectoryForCurrentUser
     }()
 
+    /// Folders listed by the app inventory. A demo home (`-home`) only shows its own Applications folder.
+    var appRoots: [URL] {
+        home == FileManager.default.homeDirectoryForCurrentUser
+            ? AppInventory(home: home).roots
+            : [home.appending(path: "Applications")]
+    }
+
     var safetyGuard: SafetyGuard {
         SafetyGuard(home: home, userExclusions: exclusions.map { URL(filePath: $0) })
     }
@@ -154,6 +165,9 @@ final class AppModel {
     }
 
     func refreshAccess() {
+        #if DEBUG
+        if UserDefaults.standard.bool(forKey: "assumeFullDiskAccess") { return }
+        #endif
         let granted = SystemStatus.hasFullDiskAccess()
         if granted != hasFullDiskAccess {
             withAnimation(.spring(duration: 0.4)) { hasFullDiskAccess = granted }

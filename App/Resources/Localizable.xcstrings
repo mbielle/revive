@@ -379,6 +379,16 @@
         }
       }
     },
+    "All apps up to date": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toutes les apps sont à jour"
+          }
+        }
+      }
+    },
     "All done!": {
       "localizations": {
         "fr": {
@@ -3646,16 +3656,6 @@
         }
       }
     },
-    "apps up to date": {
-      "localizations": {
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "apps à jour"
-          }
-        }
-      }
-    },
     "built-in protections on, no malware": {
       "localizations": {
         "fr": {
@@ -3800,6 +3800,9 @@
       }
     },
     "↓ %@   ↑ %@": {
+      "shouldTranslate": false
+    },
+    "✓": {
       "shouldTranslate": false
     }
   },

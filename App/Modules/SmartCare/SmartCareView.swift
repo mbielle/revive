@@ -207,7 +207,8 @@ private struct SmartCareResultsView: View {
 
     private var updatesCard: some View {
         ResultCard(title: "Apps", symbol: "arrow.down.app.fill", theme: module.theme) {
-            BigValue(value: "\(model.updates.count)", caption: model.updates.isEmpty ? "apps up to date"
+            BigValue(value: model.updates.isEmpty ? "✓" : "\(model.updates.count)",
+                     caption: model.updates.isEmpty ? "All apps up to date"
                      : model.updates.count == 1 ? "app update available" : "app updates available")
             Text(model.updates.prefix(3).map(\.app.name).joined(separator: ", "))
                 .font(.system(size: 11, weight: .medium)).foregroundStyle(.white.opacity(0.75)).lineLimit(1)
