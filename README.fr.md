@@ -39,7 +39,11 @@ Revive garde votre Mac propre, sûr et rapide, avec une interface soignée et sa
 
 ## Installer
 
-Téléchargez le DMG dans [Releases](https://github.com/mbielle/revive/releases), puis glissez Revive dans Applications. Donnez ensuite à Revive l'**accès complet au disque** quand il le demande.
+1. Téléchargez le DMG dans [Releases](https://github.com/mbielle/revive/releases), puis glissez Revive dans Applications.
+2. **Premier lancement :** Revive n'est pas encore signé avec un Developer ID d'Apple, donc macOS le bloque la première fois. Ouvrez-le une fois, puis allez dans Réglages Système › Confidentialité et sécurité et cliquez sur **Ouvrir quand même** à côté du message concernant Revive. C'est à faire une seule fois.
+3. Donnez à Revive l'**accès complet au disque** quand il le demande.
+
+Tant que les versions ne sont pas signées, les tâches avec un cadenas demandent votre mot de passe administrateur.
 
 ## Compiler
 

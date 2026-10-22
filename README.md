@@ -62,7 +62,11 @@ A cleaner touches your files, so Revive is careful by design:
 
 ## Install
 
-Download the latest DMG from [Releases](https://github.com/mbielle/revive/releases), open it and drag Revive to Applications. Then give Revive **Full Disk Access** when it asks (System Settings › Privacy & Security): without it, macOS hides Mail, Safari, the Trash and app data.
+1. Download the latest DMG from [Releases](https://github.com/mbielle/revive/releases), open it and drag Revive to Applications.
+2. **First launch:** Revive is not signed with an Apple Developer ID yet, so macOS blocks it the first time. Open it once, then go to System Settings › Privacy & Security and click **Open Anyway** next to the message about Revive. You only do this once.
+3. Give Revive **Full Disk Access** when it asks (System Settings › Privacy & Security): without it, macOS hides Mail, Safari, the Trash and app data.
+
+Until releases are signed, tasks marked with a lock ask for your administrator password instead of using the helper.
 
 ## Build from source
 
