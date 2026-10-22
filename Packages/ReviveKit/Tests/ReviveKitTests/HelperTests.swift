@@ -150,3 +150,12 @@ import Testing
         print("osascript probe trashed: \(probe.lastPathComponent)")
     }
 }
+
+@Suite struct HelperRequirementTests {
+    @Test func selfSignedRequirementCompiles() {
+        let text = HelperListenerDelegate.requirement(rootCertificateHash: "9f3b40eec432388193c5caaa555b9387abbba490")
+        var requirement: SecRequirement?
+        #expect(SecRequirementCreateWithString(text as CFString, [], &requirement) == errSecSuccess)
+        #expect(text.contains("certificate root = H\"9f3b40eec432388193c5caaa555b9387abbba490\""))
+    }
+}

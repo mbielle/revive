@@ -24,6 +24,10 @@ settings:
 packages:
   ReviveKit:
     path: Packages/ReviveKit
+  # Self-updates (MIT, sparkle-project.org).
+  Sparkle:
+    url: https://github.com/sparkle-project/Sparkle
+    exactVersion: 2.10.0
 
 targets:
   Revive:
@@ -38,6 +42,7 @@ targets:
             subpath: Contents/Library/LaunchDaemons
     dependencies:
       - package: ReviveKit
+      - package: Sparkle
       - target: ReviveHelper
         embed: true
         codeSign: true
@@ -54,19 +59,26 @@ targets:
         CFBundleLocalizations: [en, fr]
         LSApplicationCategoryType: public.app-category.utilities
         LSMinimumSystemVersion: $(MACOSX_DEPLOYMENT_TARGET)
+        # Updates: feed listed in the repository, archives signed with the maintainer's EdDSA key.
+        SUFeedURL: https://raw.githubusercontent.com/mbielle/revive/main/appcast.xml
+        SUPublicEDKey: o3e4s4NPQuSE8GreMMZK1elPSf/IL9foTHZPLJ2K7i4=
+        SUEnableAutomaticChecks: true
+        SUScheduledCheckInterval: 3600
         NSHumanReadableCopyright: "Free and open source software, licensed under the GPL-3.0."
-    entitlements:
-      path: App/Revive.entitlements
-      properties:
-        # A cleaner must reach caches of every app: it cannot run in the App Sandbox.
-        com.apple.security.app-sandbox: false
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: io.github.mbielle.Revive
         PRODUCT_NAME: Revive
+        # scripts/make-dmg.sh swaps this for App/Revive-SelfSigned.entitlements on self-signed releases.
+        REVIVE_ENTITLEMENTS: App/Revive.entitlements
+        CODE_SIGN_ENTITLEMENTS: $(REVIVE_ENTITLEMENTS)
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         COMBINE_HIDPI_IMAGES: YES
+      configs:
+        Release:
+          # Shipped builds must not let other processes attach a debugger.
+          CODE_SIGN_INJECT_BASE_ENTITLEMENTS: NO
 
   ReviveHelper:
     type: tool

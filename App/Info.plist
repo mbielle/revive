@@ -31,5 +31,13 @@
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Free and open source software, licensed under the GPL-3.0.</string>
+	<key>SUEnableAutomaticChecks</key>
+	<true/>
+	<key>SUFeedURL</key>
+	<string>https://raw.githubusercontent.com/mbielle/revive/main/appcast.xml</string>
+	<key>SUPublicEDKey</key>
+	<string>o3e4s4NPQuSE8GreMMZK1elPSf/IL9foTHZPLJ2K7i4=</string>
+	<key>SUScheduledCheckInterval</key>
+	<integer>3600</integer>
 </dict>
 </plist>

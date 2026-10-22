@@ -34,6 +34,21 @@ struct SettingsView: View {
                         }
                     }
 
+                    section("Updates", symbol: "arrow.down.circle.fill") {
+                        row("Revive \(app.updater.currentVersion)", detail: lastCheckText) {
+                            PillButton(title: "Check Now", symbol: "arrow.clockwise") { app.updater.checkForUpdates() }
+                                .disabled(!app.updater.canCheckForUpdates)
+                        }
+                        Divider().overlay(.white.opacity(0.1))
+                        row("Check for updates automatically", detail: "Revive looks for a new version at launch and every hour.") {
+                            SettingsSwitch(isOn: .init(get: { app.updater.automaticallyChecks }, set: { app.updater.automaticallyChecks = $0 }), theme: module.theme)
+                        }
+                        Divider().overlay(.white.opacity(0.1))
+                        row("Download updates in the background", detail: "Updates install when you quit Revive, or when you accept them.") {
+                            SettingsSwitch(isOn: .init(get: { app.updater.automaticallyDownloads }, set: { app.updater.automaticallyDownloads = $0 }), theme: module.theme)
+                        }
+                    }
+
                     section("Automatic Scan", symbol: "clock.arrow.circlepath") {
                         row("Scan for junk automatically",
                             detail: "Runs while Revive is open and only notifies you. Nothing is removed without you.") {
@@ -104,6 +119,13 @@ struct SettingsView: View {
         }
         .padding(.horizontal, 44)
         .onAppear { app.privileged.refresh() }
+    }
+
+    private var lastCheckText: LocalizedStringResource {
+        if let date = app.updater.lastCheck {
+            return "Last checked \(date.formatted(.relative(presentation: .named)))."
+        }
+        return "Not checked yet."
     }
 
     private var helperTitle: LocalizedStringResource {

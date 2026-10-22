@@ -224,7 +224,9 @@ Un nettoyeur touche à vos fichiers : Revive est prudent à chaque étape.
 2. **Premier lancement :** Revive n’est pas encore signé avec un Developer ID d’Apple, donc macOS le bloque la première fois. Ouvrez-le une fois, puis allez dans **Réglages Système › Confidentialité et sécurité** et cliquez sur **Ouvrir quand même**. C’est à faire une seule fois.
 3. Donnez à Revive l’**accès complet au disque** quand il le demande : sans lui, macOS cache Mail, Safari, la Corbeille et les données des apps.
 
-Tant que les versions ne sont pas signées, les tâches avec un cadenas demandent votre mot de passe administrateur.
+Ensuite, **Revive se met à jour tout seul** : il cherche une nouvelle version au lancement puis toutes les heures, et l’installe en un clic (Réglages › Mises à jour, ou **Revive › Check for Updates…**). Les mises à jour sont vérifiées avec la clé de signature du projet, et macOS conserve les autorisations de Revive d’une version à l’autre.
+
+Tant que les versions ne sont pas signées avec un Developer ID d’Apple, les tâches avec un cadenas demandent votre mot de passe administrateur.
 
 **Configuration :** macOS 14 Sonoma ou plus récent, Apple silicon ou Intel.
 
@@ -239,6 +241,7 @@ Tant que les versions ne sont pas signées, les tâches avec un cadenas demanden
 | **Règles de nettoyage** | De simples fichiers JSON. Ajouter une règle ne demande aucun code Swift, et les tests vérifient chaque règle avec le garde de sécurité. |
 | **Photos similaires** | Empreintes Vision d’Apple, comparées entre photos voisines, sur l’appareil. |
 | **Tâches administrateur** | Un outil d’aide privilégié (daemon SMAppService, XPC) qui exécute une liste fermée de commandes. Sans lui, macOS demande le mot de passe. |
+| **Mises à jour** | [Sparkle](https://sparkle-project.org) 2.10, mises à jour signées EdDSA, appcast dans ce dépôt et publication en une commande (voir [RELEASING.md](RELEASING.md)). |
 | **Mesures** | `host_processor_info`, `vm_statistics64`, statistiques IOKit du GPU et sources d’alimentation. |
 
 ---

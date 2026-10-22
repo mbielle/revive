@@ -30,6 +30,7 @@ final class AppModel {
     @ObservationIgnored lazy var cloud = CloudModel(app: self)
     @ObservationIgnored lazy var tools = ToolsModel()
     let scheduler = AutoScanScheduler()
+    let updater = UpdaterModel()
 
     /// Shows the live monitor in the menu bar.
     var showsMenuBar: Bool {

@@ -6,6 +6,7 @@ Revive is licensed under the GPL-3.0.
 
 | Project | License | Where |
 |---|---|---|
+| [Sparkle](https://github.com/sparkle-project/Sparkle) 2.10.0 | MIT | Swift package dependency, for Revive's own updates |
 | [YARA](https://github.com/VirusTotal/yara) 4.5.4 by VirusTotal | BSD-3-Clause (see `Packages/ReviveKit/Sources/CYara/LICENSE`) | `Packages/ReviveKit/Sources/CYara`: libyara, used to read Apple's XProtect rules |
 
 ## Data and knowledge reused

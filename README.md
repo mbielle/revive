@@ -224,7 +224,9 @@ A cleaner touches your files, so Revive is careful at every step.
 2. **First launch:** Revive is not signed with an Apple Developer ID yet, so macOS blocks it the first time. Open it once, then go to **System Settings › Privacy & Security** and click **Open Anyway**. You only do this once.
 3. Give Revive **Full Disk Access** when it asks: without it, macOS hides Mail, Safari, the Trash and app data from every app.
 
-Until releases are signed, tasks marked with a lock ask for your administrator password instead of using the helper.
+After that, **Revive updates itself**: it checks for a new version at launch and every hour, and installs it in one click (Settings › Updates, or **Revive › Check for Updates…**). Updates are verified with the project's signing key, and macOS keeps Revive's permissions from one version to the next.
+
+Until releases are signed with an Apple Developer ID, tasks marked with a lock ask for your administrator password instead of using the helper.
 
 **Requirements:** macOS 14 Sonoma or later, Apple silicon or Intel.
 
@@ -239,6 +241,7 @@ Until releases are signed, tasks marked with a lock ask for your administrator p
 | **Junk rules** | Plain JSON files. Adding a rule needs no Swift code, and the test suite checks every rule against the safety guard. |
 | **Similar photos** | Apple Vision feature prints, compared between neighboring shots, on device. |
 | **Administrator tasks** | A privileged helper (SMAppService launch daemon, XPC) that runs a closed list of commands. Without it, macOS's own password prompt is used. |
+| **Self-updates** | [Sparkle](https://sparkle-project.org) 2.10 with EdDSA-signed updates, an appcast in this repository and one-command releases (see [RELEASING.md](RELEASING.md)). |
 | **Metrics** | `host_processor_info`, `vm_statistics64`, IOKit accelerator statistics and power sources. |
 
 ---

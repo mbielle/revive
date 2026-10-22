@@ -715,6 +715,36 @@
         }
       }
     },
+    "Check Now": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vérifier maintenant"
+          }
+        }
+      }
+    },
+    "Check for Updates…": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rechercher les mises à jour…"
+          }
+        }
+      }
+    },
+    "Check for updates automatically": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rechercher les mises à jour automatiquement"
+          }
+        }
+      }
+    },
     "Check your Mac for all kinds of threats and vulnerabilities.": {
       "localizations": {
         "fr": {
@@ -1071,6 +1101,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "OK"
+          }
+        }
+      }
+    },
+    "Download updates in the background": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Télécharger les mises à jour en arrière-plan"
           }
         }
       }
@@ -1651,6 +1691,16 @@
         }
       }
     },
+    "Last checked %@.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dernière vérification %@."
+          }
+        }
+      }
+    },
     "Last opened %@": {
       "localizations": {
         "fr": {
@@ -2183,6 +2233,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Plus tard"
+          }
+        }
+      }
+    },
+    "Not checked yet.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pas encore vérifié."
           }
         }
       }
@@ -2740,6 +2800,9 @@
     "Revive": {
       "shouldTranslate": false
     },
+    "Revive %@": {
+      "shouldTranslate": false
+    },
     "Revive checks each app's own update feed, the Mac App Store and Homebrew. Nothing else is sent.": {
       "localizations": {
         "fr": {
@@ -2756,6 +2819,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Revive regarde iCloud Drive et les dossiers Google Drive, OneDrive, Dropbox et Box du Finder."
+          }
+        }
+      }
+    },
+    "Revive looks for a new version at launch and every hour.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revive cherche une nouvelle version au lancement puis toutes les heures."
           }
         }
       }
@@ -3542,6 +3615,26 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mises à jour"
+          }
+        }
+      }
+    },
+    "Updates": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mises à jour"
+          }
+        }
+      }
+    },
+    "Updates install when you quit Revive, or when you accept them.": {
+      "localizations": {
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Les mises à jour s’installent quand vous quittez Revive, ou quand vous les acceptez."
           }
         }
       }

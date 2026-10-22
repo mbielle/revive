@@ -1,3 +1,4 @@
+import CryptoKit
 import Foundation
 import Security
 import SystemConfiguration
@@ -68,22 +69,43 @@ public final class HelperListenerDelegate: NSObject, NSXPCListenerDelegate, Send
         return true
     }
 
-    /// Requirement for the running helper: same team as the helper itself. Ad-hoc signed helpers
-    /// have no team; they only accept clients in debug builds (`allowsAdHoc`).
+    /// Requirement for the running helper: the client must be signed like the helper itself.
+    /// - Apple-issued certificate: same team.
+    /// - Self-signed release certificate: same root certificate.
+    /// - Ad-hoc (no certificate): only accepted in debug builds (`allowsAdHoc`).
     public static func requirement(allowsAdHoc: Bool) -> String? {
         if let team = ownTeamIdentifier() {
             return "anchor apple generic and identifier \"\(clientIdentifier)\" and certificate leaf[subject.OU] = \"\(team)\""
         }
+        if let root = ownRootCertificateHash() {
+            return requirement(rootCertificateHash: root)
+        }
         return allowsAdHoc ? "identifier \"\(clientIdentifier)\"" : nil
     }
 
-    static func ownTeamIdentifier() -> String? {
+    static func requirement(rootCertificateHash: String) -> String {
+        "identifier \"\(clientIdentifier)\" and certificate root = H\"\(rootCertificateHash)\""
+    }
+
+    /// SHA-1 of the root certificate this process is signed with, as codesign prints it.
+    static func ownRootCertificateHash() -> String? {
+        guard let info = ownSigningInformation(),
+              let root = (info[kSecCodeInfoCertificates as String] as? [SecCertificate])?.last else { return nil }
+        let data = SecCertificateCopyData(root) as Data
+        return Insecure.SHA1.hash(data: data).map { String(format: "%02x", $0) }.joined()
+    }
+
+    static func ownSigningInformation() -> [String: Any]? {
         var code: SecCode?
         guard SecCodeCopySelf([], &code) == errSecSuccess, let code else { return nil }
         var staticCode: SecStaticCode?
         guard SecCodeCopyStaticCode(code, [], &staticCode) == errSecSuccess, let staticCode else { return nil }
         var info: CFDictionary?
         SecCodeCopySigningInformation(staticCode, SecCSFlags(rawValue: kSecCSSigningInformation), &info)
-        return (info as? [String: Any])?[kSecCodeInfoTeamIdentifier as String] as? String
+        return info as? [String: Any]
+    }
+
+    static func ownTeamIdentifier() -> String? {
+        ownSigningInformation()?[kSecCodeInfoTeamIdentifier as String] as? String
     }
 }

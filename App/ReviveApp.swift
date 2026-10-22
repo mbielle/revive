@@ -25,6 +25,10 @@ struct ReviveApp: App {
         .defaultSize(width: 1160, height: 740)
         .commands {
             CommandGroup(replacing: .newItem) {}
+            CommandGroup(after: .appInfo) {
+                Button("Check for Updates…") { app.updater.checkForUpdates() }
+                    .disabled(!app.updater.canCheckForUpdates)
+            }
             CommandGroup(replacing: .appSettings) {
                 Button("Settings…") { app.selection = .settings }
                     .keyboardShortcut(",", modifiers: .command)
